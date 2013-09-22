@@ -154,7 +154,7 @@
   \begin{displaymath}
    \bar{x} = \frac{1}{n}\sum_{i=1}^n x_i
   \end{displaymath}
-\item The \emph{median} is the value such that $med(x)$ separates the higher half of the data from the lower half 
+\item The \emph{median} is the value such that $med(x)$ separates the higher half of the data from the lower half (if even number of samples take mean) 
 \item The \emph{mode} $mod(x)$ is the most common value  
 \end{itemize}
 \end{frame}
@@ -202,7 +202,19 @@
 \end{frame}
 
 \begin{frame}{Exercises}  
- 
+\begin{itemize} 
+ \item Consider a set of numbers $x_1, \ldots x_n$. Show the following statements are true. 
+\begin{itemize} 
+\item The solution to minimising the objective for $a$ is the mean 
+\begin{displaymath} 
+ \mbox{min} \quad  \frac{1}{n}\sum_{i=1}^n (x_i - a)^2
+\end{displaymath}
+\item The solution to minimising the objective for $a$ is the median 
+\begin{displaymath} 
+ \mbox{min} \quad  \frac{1}{n}\sum_{i=1}^n |x_i - a|
+\end{displaymath}
+\end{itemize}
+ \end{itemize}
 \end{frame}
 
 
