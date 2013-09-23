@@ -112,7 +112,7 @@
 \begin{frame}{Histograms of Continuous Variables I}  
  \begin{itemize} 
   \item First partition input space into a series of \emph{bins} $I_0, I_1, \ldots, I_k$ 
-  \item Then count the number of elements in each bin: $n_j = \sum_{x_i} x_i \in I_j$
+  \item Then count the number of elements in each bin: $n_j = \sum_{x_i} \mathcal{I}\{x_i \in I_j\}$
   \item Can normalise to compute a density : 
   \begin{displaymath} 
     h(y) = \frac{n_j}{n |I_j|} \quad \forall y \in I_j
@@ -136,7 +136,7 @@
  \item Another representation of the distribution of values 
 \item The cumulative distribution function is the proportion of values less than $x$
 \begin{displaymath}
- F(x) = \frac{1}{n}\sum_{i=1}^n I(x_i \leq x)
+ F(x) = \frac{1}{n}\sum_{i=1}^n \mathcal{I}(x_i \leq x)
 \end{displaymath}
 \item The definition is the same for discrete and continuous variables 
 \end{itemize}
