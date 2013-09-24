@@ -193,7 +193,7 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Interquartile range} 
+\begin{frame}{Interquartile Range} 
  \begin{itemize} 
   \item Let $Q1$ be the median value less than $med(x)$ 
   \item Let $Q3$ be the median value greater than $med(x)$
@@ -215,6 +215,146 @@
 \end{displaymath}
 \end{itemize}
  \end{itemize}
+\end{frame}
+
+\begin{frame}{Order Statistics}  
+\begin{itemize} 
+ \item Often interesting in min/max values 
+ \begin{displaymath} 
+  x_{(1)} = \min_{1 \leq i \leq n} x_i, \quad x_{(n)} = \max_{1 \leq i \leq n} x_i
+ \end{displaymath}
+\item In general, the $k$th smallest value is $x_{(k)}$ 
+\item In other words, let $(i_1, \ldots, i_n)$ be an ordering of indices from $\{1, \ldots, n\}$ 
+\item The $k$th \emph{order statistic} is $x_{(k)} = x_{i_k}$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example}  
+\begin{itemize} 
+ \item Recap of tossing a die 
+\end{itemize}
+
+\begin{table}
+  \begin{tabular}{l | l l l l l l }
+\hline 
+  Outcome & 1 & 2 & 3 & 4 & 5 & 6 \\ 
+  Frequency & 3 & 1 & 4 & 5 & 5 & 2 \\
+\hline 
+  \end{tabular} 
+\end{table}
+\begin{itemize} 
+ \item $x_{(6)} = 3$ and $x_{(1)} = 1$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Quantiles} 
+\begin{itemize} 
+ \item For some value $\alpha \in (0, 1)$ we call the \emph{order quantile} $q_\alpha^x$ with $x_{(m)}$ and $m = [\alpha m]$, where $[\cdot]$ means round
+ \item Follows that $Q_1 = q_{0.25}^x$, $med(x) = q_{0.5}^x$ and $Q_3 = q_{0.75}^x$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Boxplots I} 
+\begin{itemize} 
+ \item A visual representation of key measures in a set of numbers $(A, Q1, med(x), Q3, B)$ 
+ \item Items outside $A, B$ are considered outliers 
+ \item $Q1, med(x), Q3$ are the first quartile, median and third quartile 
+\end{itemize}
+  \begin{figure}[htp]
+\mbox{
+\includegraphics[width=0.5\linewidth]{BoxPlot.eps}
+}
+\end{figure} 
+\end{frame}
+
+\begin{frame}{Boxplots II} 
+\begin{itemize} 
+ \item $A = \{x_i : x_i \geq Q1 - 1.5\Delta \}$ and $B = \{x_i : x_i \leq Q3 + 1.5\Delta \}$ with $\Delta = Q3 - Q1$
+ \item For the normal distribution, the probability of a value outside of $[A, B]$ is $0.7\%$
+ \item Half the values are found in the box (between $Q1$ and $Q3$) 
+ \item Half the values are to the left of median (same for right)
+ \item If no outliers, all values are in $[A, B]$
+ \item A symmetric distribution has a symmetric box
+ \item Boxplots are useful for comparing two distributions 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise}  
+\begin{itemize} 
+ \item Polychlorinated biphenyls (PCB) are toxic organic compounds used in electronics and cooling systems. 
+ \item Two samples representing contamination in soil ($10^{-4}$g/kg)
+ \begin{itemize}
+ \item Rural: 3.5 1 1.6 12 8.1 5.3 23 8.2 1.8 9.8 1.5 9.7 9 15
+ \item Urban: 24 11 107 18 29 49 94 12 16 22 
+ \end{itemize}
+ \item Draw the boxplots for these two samples and comment on the results
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Covariance and Correlation}
+\begin{itemize} 
+ \item Consider two samples $x_1, \ldots, x_n$ and $y_1, \ldots, y_n$, then the \emph{covariance}
+ \begin{displaymath} 
+  s_{xy} = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y}) 
+ \end{displaymath}
+  where $\bar{x}$ and $\bar{y}$ are means 
+ \item The \emph{correlation coefficient} $\in [-1, +1]$ is 
+ \begin{displaymath}
+  \rho_{xy} = \frac{s_{xy}}{\sqrt{s_{xx}s_{xy}}}
+ \end{displaymath}
+  where $\sqrt{s_{xx}}$ is the standard deviation. 
+ \item We say correlation is zero if either sample has s.d. 0 
+ \item If $|\rho_{xy}| = 1$ then $x, y$ have an affine relationship $x_i = a y_i + b$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Scatter Plots} 
+\begin{itemize}
+ \item A \emph{scatter plot} represents the locations of two samples $x_1, \ldots, x_n$ and $y_1, \ldots, y_n$ in space as the coordinates $(x_1, y_1), \ldots, (x_n, y_n)$ 
+ \item Example: 
+\end{itemize}
+  \begin{figure}[htp]
+\mbox{
+\includegraphics[width=0.5\linewidth]{ScatterPlot.eps}
+}
+\end{figure} 
+\end{frame}
+
+\begin{frame}{Linear Regression} 
+\begin{itemize} 
+ \item Linear regression models a linear relationship between $x_1, \ldots, x_n$ and $y_1, \ldots, y_n$ using $y = ax + b$ 
+ \begin{displaymath} 
+  \min_{a, b} \sum_{i=1}^n (y_i  - a x_i - b)^2 
+ \end{displaymath}
+ is solved using $a = \frac{s_{xy}}{s_{xx}} \quad b = \bar{y} - a\bar{x}$
+ \item This is known as \emph{least sqaures regression}
+\item Linear regression of $X$ onto $Y$ does not in general coincide with $Y$ onto $X$ 
+ \end{itemize}
+\end{frame}
+
+\begin{frame}{QQ Plots} 
+\begin{itemize}
+ \item A Q–Q plot (Q stands for quantile) is a plot of two distributions according to the order quantiles $q_\alpha^x$ and $q_\alpha^y$
+ \item Two applications 
+ \begin{itemize}
+ \item Compare data within quantiles for a distribution to a theoretical one 
+ \item Compare two data samples 
+ \end{itemize}
+ \item If the gradient of the plot is approximately 1 and points align, the distribution are equal 
+ \item If points align, but the gradient is not 1, one distribution is a transformation of the other 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{QQ Plots Example}  
+\begin{itemize}
+ \item Draw 1000 points from $\mathcal{N}(0, 1)$ and $\mathcal{N}(0, 0.2)$ 
+\end{itemize}
+
+   \begin{figure}[htp]
+\mbox{
+\includegraphics[width=0.5\linewidth]{QQPlot.eps}
+}
+\end{figure} 
 \end{frame}
 
 
