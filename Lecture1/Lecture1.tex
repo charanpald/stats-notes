@@ -34,8 +34,9 @@
 \end{itemize}
 \item Overview
 \begin{itemize} 
-\item Descriptive Statistics - means, modes, histograms etc. 
-\item Multivariate statistics - PCA, graphical models 
+\item Descriptive statistics - means, modes, standard deviation, histograms etc. 
+\item Multivariate statistics - PCA, graphical models
+\item Parametric statistics - parameter estimation, confidence intervals, hypothesis testing    
 \item Multiple linear regression 
 \end{itemize}
 \end{itemize}
@@ -43,33 +44,35 @@
 
 \begin{frame}{Lecture Overview}
 \begin{itemize} 
- \item Motivation 
-\item What is statistics 
-\item Statistical measures - means, medians, 
-\item Graphical representations - histograms, QQPlots 
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Motivation} 
-\begin{itemize} 
- \item Statistics underpins much of science and engineering in domains including: 
-\begin{itemize} 
-\item Meteorology, take measures to make predictions about the weather. Vital to provide early warnings for tornadoes, extreme weather at sea, gauge influence of human activity on global climate 
-\item In drug design to measure the effectiveness of new drugs 
-\item Marketing to develop a strategy to sell a product or service 
-\end{itemize} 
+ \item What is statistics and motivation
+\item Statistical measures - means, medians, spread 
+\item Graphical representations of distributions - histograms, box plots 
+\item Paired observations  
 \end{itemize}
 \end{frame}
 
 \begin{frame}{What is Statistics?}  
  \begin{itemize} 
 \item Collection, study and interpretation of data 
+\item Originally ``science dealing with facts of a state'' from German \emph{Statistik}
 \item Explore latent aspects of the data 
 \item Statistics is the study of random variables  
  \end{itemize}
 \end{frame}
 
-\begin{frame}{Observed variables}
+\begin{frame}{Motivation} 
+\begin{itemize} 
+ \item Statistics underpins much of science and engineering, including: 
+\begin{itemize} 
+\item Meteorology, take measures to make predictions about the weather. Vital to provide early warnings for tornadoes, extreme weather at sea, gauge influence of human activity on global climate 
+\item In drug design to measure the effectiveness of new drugs 
+\item Epidemiology in order to understand and control an outbreak 
+\item etc. 
+\end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Observed Variables}
 \begin{itemize} 
  \item Imagine that we have an experiment and see $n$ variables $x_1, \ldots, x_n$ (i.e. experiment is repeated $n$ times)
 \begin{itemize} 
@@ -79,26 +82,27 @@
 \item Two types of variables: 
 \begin{itemize} 
  \item Discrete when $X$ is chosen from a finite set e.g. A die has 6 values $1-6$ 
-\item Continuous $X$ is infinite within a certain range e.g. all real numbers in the range $[0, 10]$
+\item Continuous $X$ is infinite within a certain range e.g. age of stars in years $[0, 13.7 \times 10^9]$
 \end{itemize}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Histogram of discrete variables I} 
+\begin{frame}{Histogram of Discrete Variables I} 
 \begin{itemize} 
- \item A histogram represents the distribution of values in a set of observations
+ \item A \emph{histogram} represents the distribution of values in a set of observations
 \item Can call it a function $h: \mathbb{R} \mapsto \mathbb{N}$ which is the frequency of each observation 
+\item For discrete variables:
 \begin{displaymath} 
  h(x) = \sum_{i=1}^n \mathcal{I}(x_i = x)
 \end{displaymath}
-\item Or, a normalised histogram
+\item Or, a \emph{normalised histogram}
 \begin{displaymath} 
   h(x) = \frac{1}{n}\sum_{i=1}^n \mathcal{I}(x_i = x)
 \end{displaymath}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Histogram of discrete variables II}
+\begin{frame}{Histogram of Discrete Variables II}
 \begin{itemize}
  \item E.g. roll a die 100 times 
 \end{itemize}
@@ -112,17 +116,20 @@
 \begin{frame}{Histograms of Continuous Variables I}  
  \begin{itemize} 
   \item First partition input space into a series of \emph{bins} $I_0, I_1, \ldots, I_k$ 
-  \item Then count the number of elements in each bin: $n_j = \sum_{x_i} \mathcal{I}\{x_i \in I_j\}$
-  \item Can normalise to compute a density : 
+  \begin{itemize} 
+  \item Count the number of elements in each bin: $n_j = \sum_{x_i} \mathcal{I}\{x_i \in I_j\}$
+  \item Plot in a bar graph $n_j$ for each $I_j$
+  \end{itemize} 
+  \item Alternatively, normalise to compute a density for each $I_j$: 
   \begin{displaymath} 
     h(y) = \frac{n_j}{n |I_j|} \quad \forall y \in I_j
   \end{displaymath}
  \end{itemize}
 \end{frame}
 
-\begin{frame}{Histograms of Continuous Variables II}  
+\begin{frame}{Histograms of Continuous Variables II} 
 \begin{itemize}
- \item E.g. the normal distribution sampled 100 times 
+ \item E.g. the hypothetical distribution of heights in m of adult population  
 \end{itemize}
 \begin{figure}[htp]
 \mbox{
@@ -159,9 +166,9 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Computing averages} 
+\begin{frame}{Computing Averages} 
  \begin{itemize} 
-  \item Example, tossing a die: 
+  \item Example, tossing a die 20 times: 
 \begin{table}
   \begin{tabular}{l | l l l l l l }
 \hline 
@@ -171,7 +178,7 @@
   \end{tabular} 
 \end{table}
   \item Mean is 3.7 
-  \item Median is 4 
+  \item Median is 4 (mean of 10th and 11th value)
   \item Mode is 4 or 5 
  \end{itemize}
 \end{frame}
@@ -249,7 +256,7 @@
 
 \begin{frame}{Quantiles} 
 \begin{itemize} 
- \item For some value $\alpha \in (0, 1)$ we call the \emph{order quantile} $q_\alpha^x$ with $x_{(m)}$ and $m = [\alpha m]$, where $[\cdot]$ means round
+ \item For some value $\alpha \in (0, 1)$ we call the \emph{order quantile} $q_\alpha^x$ in which $x_{(m)}$ and $m = \lceil \alpha m \rceil$, where $\lceil \cdot \rceil$ means ceiling
  \item Follows that $Q_1 = q_{0.25}^x$, $med(x) = q_{0.5}^x$ and $Q_3 = q_{0.75}^x$
 \end{itemize}
 \end{frame}
@@ -279,9 +286,26 @@
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Skewness}  
+\begin{itemize} 
+ \item The extent a distribution leans to one side of mean is \emph{skewness} 
+\begin{displaymath} 
+ \alpha_x = \frac{1}{ns^3_x} \sum_{i=1}^n (x_i - \bar{x})^3
+\end{displaymath}
+Positive skew if right tail is longer, negative if left tail is longer 
+\item Shape of peaks and tails is called \emph{kurtosis} (excess kurtosis):
+\begin{displaymath} 
+ \beta_x = \frac{1}{ns^4_x} \sum_{i=1}^n (x_i - \bar{x})^4 - 3
+\end{displaymath}
+High kurtosis distribution has sharper peak and fatter tails. Low kurtosis distribution ha more rounded peak with wider tails. 
+\end{itemize}
+ 
+\end{frame}
+
+
 \begin{frame}{Exercise}  
 \begin{itemize} 
- \item Polychlorinated biphenyls (PCB) are toxic organic compounds used in electronics and cooling systems. 
+ \item Polychlorinated biphenyls (PCBs) are toxic organic compounds used in electronics and cooling systems. 
  \item Two samples representing contamination in soil ($10^{-4}$g/kg)
  \begin{itemize}
  \item Rural: 3.5 1 1.6 12 8.1 5.3 23 8.2 1.8 9.8 1.5 9.7 9 15
@@ -293,14 +317,15 @@
 
 \begin{frame}{Covariance and Correlation}
 \begin{itemize} 
- \item Consider two samples $x_1, \ldots, x_n$ and $y_1, \ldots, y_n$, then the \emph{covariance}
+ \item Consider two samples $x_1, \ldots, x_n$ and $y_1, \ldots, y_n$. 
+  \item The \emph{covariance}
  \begin{displaymath} 
   s_{xy} = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y}) 
  \end{displaymath}
   where $\bar{x}$ and $\bar{y}$ are means 
  \item The \emph{correlation coefficient} $\in [-1, +1]$ is 
  \begin{displaymath}
-  \rho_{xy} = \frac{s_{xy}}{\sqrt{s_{xx}s_{xy}}}
+  \rho_{xy} = \frac{s_{xy}}{\sqrt{s_{xx}s_{yy}}}
  \end{displaymath}
   where $\sqrt{s_{xx}}$ is the standard deviation. 
  \item We say correlation is zero if either sample has s.d. 0 
@@ -327,7 +352,7 @@
   \min_{a, b} \sum_{i=1}^n (y_i  - a x_i - b)^2 
  \end{displaymath}
  is solved using $a = \frac{s_{xy}}{s_{xx}} \quad b = \bar{y} - a\bar{x}$
- \item This is known as \emph{least sqaures regression}
+ \item This is known as \emph{least squares regression}
 \item Linear regression of $X$ onto $Y$ does not in general coincide with $Y$ onto $X$ 
  \end{itemize}
 \end{frame}
@@ -348,6 +373,7 @@
 \begin{frame}{QQ Plots Example}  
 \begin{itemize}
  \item Draw 1000 points from $\mathcal{N}(0, 1)$ and $\mathcal{N}(0, 0.2)$ 
+\item Order points and plot $q_\alpha^x$ with $q_\alpha^y$
 \end{itemize}
 
    \begin{figure}[htp]
@@ -356,6 +382,19 @@
 }
 \end{figure} 
 \end{frame}
+
+\begin{frame}{Summary} 
+\begin{itemize} 
+ \item Discrete and continuous variables, histograms  
+ \item Cumulative distribution function 
+\item Averages - means, modes, medians 
+\item Divergence properties - variance, quartiles, box plots  
+\item Covariance, correlation of two variables
+\item Linear regression 
+\item Scatter, QQ plots to visualise paired observations 
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}{The End} 
 Thanks for listening!  
