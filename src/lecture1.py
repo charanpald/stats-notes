@@ -29,7 +29,10 @@ print(n, bins, patches)
 #Continuous histogram 
 outputFilename = outputDir + "ContinuousHist.eps" 
 
-X = numpy.random.randn(100)
+mean = 1.707
+sd = 0.10
+
+X = numpy.random.randn(100)*sd + mean
 plt.figure(1)
 n, bins, patches = plt.hist(X, bins=10)
 plt.ylabel("Frequency")
