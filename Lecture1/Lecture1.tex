@@ -45,7 +45,7 @@
 \begin{frame}{Lecture Overview}
 \begin{itemize} 
  \item What is statistics and motivation
-\item Statistical measures - means, medians, spread 
+\item Statistical measures - mean, median, spread 
 \item Graphical representations of distributions - histograms, box plots 
 \item Paired observations  
 \end{itemize}
@@ -82,7 +82,7 @@
 \item Two types of variables: 
 \begin{itemize} 
  \item Discrete when $X$ is chosen from a finite set e.g. A die has 6 values $1-6$ 
-\item Continuous $X$ is infinite within a certain range e.g. age of stars in years $[0, 13.7 \times 10^9]$
+\item Continuous $X$ is infinite within a certain range e.g. height of adults in metres $[1.5, 2.5]$
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -115,7 +115,7 @@
 
 \begin{frame}{Histograms of Continuous Variables I}  
  \begin{itemize} 
-  \item First partition input space into a series of \emph{bins} $I_0, I_1, \ldots, I_k$ 
+  \item First partition input space into a series of \emph{bins} $ I_1, \ldots, I_k$ 
   \begin{itemize} 
   \item Count the number of elements in each bin: $n_j = \sum_{x_i} \mathcal{I}\{x_i \in I_j\}$
   \item Plot in a bar graph $n_j$ for each $I_j$
@@ -205,6 +205,9 @@
   \item Let $Q1$ be the median value less than $med(x)$ 
   \item Let $Q3$ be the median value greater than $med(x)$
   \item The \emph{interquartile range} is $Q3 - Q1$ 
+  \begin{itemize}
+  \item Represents 50\% of date in midrange  
+  \end{itemize} 
  \end{itemize}
 \end{frame}
 
@@ -256,7 +259,7 @@
 
 \begin{frame}{Quantiles} 
 \begin{itemize} 
- \item For some value $\alpha \in (0, 1)$ we call the \emph{order quantile} $q_\alpha^x$ in which $x_{(m)}$ and $m = \lceil \alpha m \rceil$, where $\lceil \cdot \rceil$ means ceiling
+ \item For some value $\alpha \in (0, 1)$ we call the \emph{order quantile} $q_\alpha^x$ in which $x_{(m)}$ and $m = \lceil \alpha n \rceil$, where $\lceil \cdot \rceil$ means ceiling
  \item Follows that $Q_1 = q_{0.25}^x$, $med(x) = q_{0.5}^x$ and $Q_3 = q_{0.75}^x$
 \end{itemize}
 \end{frame}
@@ -276,7 +279,7 @@
 
 \begin{frame}{Boxplots II} 
 \begin{itemize} 
- \item $A = \{x_i : x_i \geq Q1 - 1.5\Delta \}$ and $B = \{x_i : x_i \leq Q3 + 1.5\Delta \}$ with $\Delta = Q3 - Q1$
+ \item $A = \min \{x_i : x_i \geq Q1 - 1.5\Delta \}$ and $B = \max\{x_i : x_i \leq Q3 + 1.5\Delta \}$ with $\Delta = Q3 - Q1$
  \item For the normal distribution, the probability of a value outside of $[A, B]$ is $0.7\%$
  \item Half the values are found in the box (between $Q1$ and $Q3$) 
  \item Half the values are to the left of median (same for right)
