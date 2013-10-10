@@ -9,13 +9,15 @@
 \usepackage{algorithmic} 
 \usepackage{algorithm} 
 \usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
 
 \usetheme{Singapore}
 
-\input{/home/charanpal/Documents/Postdoc/Documents/include/CsdMacros}
+\input{../include/CsdMacros}
 \graphicspath{{./Figures/}}
 
-\title{Statistics and the Analysis of Data\\ Lecture 2: The Study of Multivariate Data}
+\title{Statistics and the Analysis of Data\\ Lecture 2: Multivariate Data}
 \author{Charanpal Dhanjal \\ \texttt{charanpal@gmail.com}} 
 \institute{\'{E}cole des Ponts}
 \date{\today}
@@ -24,15 +26,202 @@
 
 \frame{\titlepage}
 
+\begin{frame}{Recap Part I}  
+\begin{itemize} 
+ \item Started with observations $n$ variables $x_1, \ldots, x_n$ 
+ \item Histograms 
+ \begin{itemize}
+   \item Discrete case: $h(x) = \sum_{i=1}^n \mathcal{I}(x_i = x)$
+ \item Continuous: \emph{bins} $ I_1, \ldots, I_k$, $n_j = \sum_{x_i} \mathcal{I}\{x_i \in I_j\}$
+ \end{itemize} 
+ \item Cumulative distribution function: $F(x) = \frac{1}{n}\sum_{i=1}^n \mathcal{I}(x_i \leq x)$
+ \item Averages - mean, mode, median 
+ \item Dispersion 
+ \begin{itemize}
+ \item $var(x) = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2$
+ \item Standard deviation, mean absolute deviation
+ \item Interquartile range
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Recap Part II}  
+ \begin{itemize} 
+  \item Order quantiles: $q_\alpha^x$ in which $x_{(m)}$ and $m = \lceil \alpha n \rceil$
+  \item Box plot: 
+  \begin{itemize} 
+  \item Bounded by $(A, Q1, med(x), Q3, B)$ 
+  \end{itemize}
+  \item Paired samples: $x_1, \ldots, x_n$ and $y_1, \ldots, y_n$. 
+   \begin{itemize}
+   \item Covariance, correlation 
+   \item Scatter plot 
+   \item Linear regression 
+   \item QQPlots: plot $q_\alpha^x$ and $q_\alpha^y$
+   \end{itemize}
+  \end{itemize}
+\end{frame}
+
 \begin{frame}{Overview} 
 \begin{itemize} 
- \item We have seen the analysis of one or two variables 
-\item Look at large number of variables 
-\item Principal Components Analysis (PCA) does this 
-\begin{itemize}
-  \item Look at linear relationships to understand structure 
-\end{itemize}
+ \item Looked at $\{x_1, \ldots, x_n\} \in \mathbb{R}$ and then paired variables $\{(x_1, y_1), \ldots, (x_n, y_n)\} \in \mathbb{R}^2$
+\item Natural extension: $\{(x_{11}, \ldots, x_{1d}) \ldots, (x_{n1}, \ldots, x_{nd})\} \in \mathbb{R}^d$
+\item Represent in matrix form 
+\begin{displaymath} 
+ \textbf{X} = \left[\begin{array}{c c c} x_{11} & \ldots & x_{1d} \\ 
+                     \vdots & \ddots & \vdots \\
+ x_{n1} & \ldots & x_{nd}  \end{array} \right] 
+\end{displaymath}
+\item How can we study data like this? (Hint: use PCA)
  \end{itemize}
+\end{frame}
+
+\begin{frame}{Introduction}
+\begin{itemize} 
+ \item Scatter plots are hard when $d > 3$ 
+ \item If \emph{features} (columns) of $\textbf{X}$, denoted $\textbf{X}_{(i)}$, are independent can easily study them 
+ \item In practice, dependencies (correlations) may exist
+  \begin{itemize}
+    \item Want to cut out those features
+    \end{itemize}
+    \item One solution: Principal Components Analysis (PCA)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Running Example: Pima Indian Diabetes} 
+\begin{itemize}
+ \item Features represent data about adult females of Pima Indian heritage
+ \begin{itemize}
+  \item Plasma glucose concentration, blood pressure, skin thickness, BMI, age 
+  \item 8 features in total 
+ \end{itemize}
+ \item Want to understand how these features predict diabetes 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Initial Analysis} 
+\begin{itemize} 
+ \item First, study correlations of pairs of variables
+\end{itemize}
+
+\begin{table}
+\centering
+\resizebox{\linewidth}{!} {% 
+\begin{tabular}{l | l l l l l l l l}
+ & $\textbf{X}_{(1)}$ & $\textbf{X}_{(2)}$ & $\textbf{X}_{(3)}$ & $\textbf{X}_{(4)}$ & $\textbf{X}_{(5)}$ & $\textbf{X}_{(6)}$ & $\textbf{X}_{(7)}$ & $\textbf{X}_{(8)}$ \\ 
+ \hline
+$\textbf{X}_{(1)}$ & 1.000 & 0.129 & 0.141 & -0.082 & -0.074 & 0.018 & -0.034 & 0.544\\
+$\textbf{X}_{(2)}$ & 0.129 & 1.000 & 0.153 & 0.057 & 0.331 & 0.221 & 0.137 & 0.264\\
+$\textbf{X}_{(3)}$ & 0.141 & 0.153 & 1.000 & 0.207 & 0.089 & 0.282 & 0.041 & 0.240\\
+$\textbf{X}_{(4)}$ & -0.082 & 0.057 & 0.207 & 1.000 & 0.437 & 0.393 & 0.184 & -0.114\\
+$\textbf{X}_{(5)}$ & -0.074 & 0.331 & 0.089 & 0.437 & 1.000 & 0.198 & 0.185 & -0.042\\
+$\textbf{X}_{(6)}$ & 0.018 & 0.221 & 0.282 & 0.393 & 0.198 & 1.000 & 0.141 & 0.036\\
+$\textbf{X}_{(7)}$ & -0.034 & 0.137 & 0.041 & 0.184 & 0.185 & 0.141 & 1.000 & 0.034\\
+$\textbf{X}_{(8)}$ & 0.544 & 0.264 & 0.240 & -0.114 & -0.042 & 0.036 & 0.034 & 1.000\\
+\end{tabular} }
+\end{table} 
+\begin{itemize} 
+ \item $\textbf{X}_{(1)}$ and $\textbf{X}_{(8)}$ are correlated (number of times pregnant, age)
+ \item $\textbf{X}_{(4)}$ and $\textbf{X}_{(5)}$ are correlated (triceps skin thickness, 2-hour serum insulin)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Principal Components Analysis (PCA)} 
+\begin{itemize} 
+ \item Could use other forms of analysis (e.g. scatter plots in 3D, box plots) 
+ \item Limited to 3 dimensions 
+ \item PCA can work with \emph{any} dimension $\geq 1$
+ \begin{itemize} 
+ \item The idea is to form a linear combination of columns of $\textbf{X}$ that are uncorrelated 
+ \item Call the output variables $\textbf{Z}_{(1)}, \ldots, \textbf{Z}_{(k)}$, $k \leq d$
+ \item In some sense the $k$ new features carry useful information 
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Some Notations}
+\begin{itemize} 
+ \item Observations are now column vectors in $\mathbb{R}^d$
+ \item Some properties 
+ \begin{itemize}
+ \item Inner product 
+ \begin{displaymath} 
+  \langle \uv, \vv \rangle = \uv^T\vv = \sum_{i=1}^d \uv_i \vv_i
+ \end{displaymath}
+ \item Norm 
+ \begin{displaymath} 
+  \|\uv\|^2 = \sum_{i=1}^d \uv_i^2 = \langle \uv, \uv \rangle
+ \end{displaymath}
+ \end{itemize} 
+ \item Identity matrix $\Imat$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Preprocessing} 
+\begin{itemize} 
+ \item PCA works best with centered data: 
+ \begin{displaymath} 
+  \xv \leftarrow \xv - \bar{\xv}, \quad  \bar{\xv} = \frac{1}{n}\sum_{i=1}^n \xv_i
+ \end{displaymath}
+\item Must also normalise the range of each feature to have unit variance 
+\begin{displaymath}
+ \xv \leftarrow \frac{\xv}{\sqrt{\var(\xv)}}, \quad \var(\xv) = \frac{1}{n}\sum_{i=1}^n \|\xv_i - \bar{\xv}\|^2
+\end{displaymath}
+\item Exercise: what is the variance of a set of centered observations? 
+\item From now on, assume observations are centered and normalised 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Total Variance} 
+\begin{itemize} 
+ \item Study the total variance of a set of observations (called \emph{inertia})
+ \item $I(\Xm) = \sum_{i=1}^d \|\Xm_{(i)}\|^2 = p$
+ \item Can segment $d$ dimensional space using projections onto an \emph{orthogonal matrix} $\Vm \in \mathbb{R}^{d \times k}$ 
+ \begin{itemize}
+  \item Orthogonal means $\Vm^T\Vm = \Imat$ i.e. columns of $\Vm$ are perpendicular to each other
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Subspace Projection}
+\begin{itemize} 
+ \item Partition of space using $\Vm$ and $\Imat - \Vm$
+ \begin{displaymath}
+  \sum_{i=1}^n \|\xv_{i}^T\Vm \|^2 + \sum_{i=1}^n \|\xv_{i}^T(\Imat - \Vm)\|^2 = I(\Xm)
+ \end{displaymath}
+\item Note maximising $\sum_{i=1}^n \|\xv_{i}^T\Vm \|^2 $ is the same as minimising $\sum_{i=1}^n \|\xv_{i}^T(\Imat - \Vm)\|^2$
+\item Exercise: Show the above is true.  
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Maximising Variance}
+\begin{itemize}
+ \item We want a $k$ dimensional projection that captures most variance such that $\Vm^T\Vm = \Imat$
+ \begin{displaymath}
+  \max \phi(\Vm) = \max \sum_{i=1}^n \|\xv_{i}^T\Vm \|^2
+ \end{displaymath}
+\item Exercise: show that $\phi(\Vm) = \tr(\Vm^T\Xm^T\Xm\Vm)$ where $\tr(\Am) = \sum_{i=1}^n \Am_{ii}$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Covariance Matrix}
+\begin{itemize} 
+ \item $\Xm^T\Xm$ is known as the \emph{covariance} matrix 
+ \item What are the diagonal elements of this matrix? 
+ \item Note that the covariance matrix is symmetric which means $\Am^T = \Am$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Back to Maximising Variance} 
+\begin{itemize} 
+ \item Can write $\phi(\Vm) = \tr(\Vm^T\Xm^T\Xm\Vm) = \sum_{i=1}^k \vv_i^T\Xm^T\Xm\vv_i$
+ \item Therefore can iterate
+ \begin{itemize}
+ \item Maximise first term, then remove it 
+ \end{itemize}
+\end{itemize}
+ 
 \end{frame}
 
 
