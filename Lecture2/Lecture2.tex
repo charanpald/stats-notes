@@ -195,7 +195,7 @@ $\textbf{X}_{(8)}$ & 0.544 & 0.264 & 0.240 & -0.114 & -0.042 & 0.036 & 0.034 & 1
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Maximising Variance}
+\begin{frame}{Maximising Variance I}
 \begin{itemize}
  \item We want a $k$ dimensional projection that captures most variance such that $\Vm^T\Vm = \Imat$
  \begin{displaymath}
@@ -213,16 +213,58 @@ $\textbf{X}_{(8)}$ & 0.544 & 0.264 & 0.240 & -0.114 & -0.042 & 0.036 & 0.034 & 1
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Back to Maximising Variance} 
+\begin{frame}{Maximising Variance II} 
 \begin{itemize} 
  \item Can write $\phi(\Vm) = \tr(\Vm^T\Xm^T\Xm\Vm) = \sum_{i=1}^k \vv_i^T\Xm^T\Xm\vv_i$
- \item Therefore can iterate
- \begin{itemize}
- \item Maximise first term, then remove it 
- \end{itemize}
+ \item Therefore can iterate:
+ \begin{enumerate}
+  \item Initialise $\hat{\Vm} = []$
+  \item For $j = 1, \ldots, k$
+  \begin{enumerate}
+  \item Solve $\vv_j = \argmax \; \vv^T\Xm^T\Xm\vv \quad \st \;  \vv \bot \hat{\Vm}, \|\vv \|  = 1$
+  \item Let $\hat{\Vm} \leftarrow [\hat{\Vm} \; \vv_{j}]$
+   \end{enumerate}
+\item Solution $\Vm = \hat{\Vm}$
+ \end{enumerate}
+\item How do we find the maximum of $\vv^T\Xm^T\Xm\vv$? 
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Maximising Variance III}  
+\begin{itemize} 
+ \item Can write $\Xm^T\Xm = \sum_{i=1}^d \lambda_i \uv_i \uv_i^T$, known as \emph{eigen-decomposition}
+  \begin{itemize} 
+  \item Eigenvectors are orthogonal and have unit norm and $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d$ 
+  \item We know eigenvalues $\lambda$ are real and non-negative 
+  \end{itemize} 
+\item Exercise: show that $\lambda$ are real and non-negative 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Maximising Variance IV}  
+\begin{itemize}
+\item Follows that $\vv^T\Xm^T\Xm\vv = \sum_{i=1}^d \lambda_i (\uv_i^T\vv)^2$
+\item Note $(\uv_i^T\vv)^2$ is 1 (its max value) when $\vv = \uv_i$
+\begin{itemize}
+\item Therefore $\max \; \vv^T\Xm^T\Xm\vv = \lambda_1$ and $\vv_1 = \uv_1$
+\end{itemize}
+\item To find $\max \; \vv^T\Xm^T\Xm\vv \quad \st \;  \vv \bot \vv_1, \ldots \vv_{j-1}, \|\vv \|  = 1$ we pick $\vv = \vv_{j} = \uv_{j}$
+\item The resulting projections $\Xm\vv_1, \ldots, \Xm\vv_k$ are called the \emph{Principal Components} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise}  
+\begin{itemize} 
+ \item Show that the principal components $\Xm\vv_1, \ldots, \Xm\vv_k$ are orthogonal i.e. $(\Xm\vv_i)^T\Xm\vv_j = 1$ if $i=j$ otherwise $0$ (implies they are uncorrelated)
+ \item Show also that the principal components are centered 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Back to the Dataset} 
  
 \end{frame}
+
 
 
 \end{document}
