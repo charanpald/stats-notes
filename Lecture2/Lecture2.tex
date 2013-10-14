@@ -66,11 +66,17 @@
 \begin{itemize} 
  \item Looked at $\{x_1, \ldots, x_n\} \in \mathbb{R}$ and then paired variables $\{(x_1, y_1), \ldots, (x_n, y_n)\} \in \mathbb{R}^2$
 \item Natural extension: $\{(x_{11}, \ldots, x_{1d}) \ldots, (x_{n1}, \ldots, x_{nd})\} \in \mathbb{R}^d$
+\item Examples:
+\begin{itemize}
+\item Predict car insurance using age, gender, education, work
+\item Face recognition using features extracted from images 
+\item Congressional voting prediction based on previous votes  
+\end{itemize} 
 \item Represent in matrix form 
 \begin{displaymath} 
  \textbf{X} = \left[\begin{array}{c c c} x_{11} & \ldots & x_{1d} \\ 
                      \vdots & \ddots & \vdots \\
- x_{n1} & \ldots & x_{nd}  \end{array} \right] 
+ x_{n1} & \ldots & x_{nd}  \end{array} \right]  = \left[\begin{array}{c} \xv_1^T \\ \vdots \\  \xv_n^T \end{array} \right]
 \end{displaymath}
 \item How can we study data like this? 
  \end{itemize}
@@ -80,6 +86,9 @@
 \begin{itemize} 
  \item Scatter plots are hard when $d > 3$ 
  \item If \emph{features} (columns) of $\textbf{X}$, denoted $\textbf{X}_{(i)}$, are independent can easily study them 
+\begin{itemize} 
+ \item Independence means $F_{XY}(x, y) = F(x)F(y)$
+\end{itemize}
  \item In practice, dependencies (correlations) may exist
   \begin{itemize}
     \item Want to cut out those features
@@ -93,7 +102,7 @@
  \item Features represent properties about genuine and forged banknote-like specimens
  \item Computed upon images of notes 
  \begin{itemize}
-  \item Variance of wavelet transformed features, skewness, kurtosis, entropy 
+  \item Variance of wavelet transformed features, skewness, kurtosis, entropy (uncertainty of random variable)
   \item 4 features in total 
   \item 1372 observations 
  \end{itemize}
@@ -130,7 +139,7 @@ $\textbf{X}_{(4)}$ & 0.277 & -0.526 & 0.319 & 1.000\\
  \item Limited to 3 dimensions 
  \item PCA can work with \emph{any} dimension $\geq 1$
  \begin{itemize} 
- \item The idea is to form a linear combination of columns of $\textbf{X}$ that are uncorrelated 
+ \item Idea is to form a linear combination of columns of $\textbf{X}$ that are uncorrelated (``hidden'' variables)
  \item Call the output variables $\textbf{Z}_{(1)}, \ldots, \textbf{Z}_{(k)}$, $k \leq d$
  \item In some sense the $k$ new features carry useful information 
  \end{itemize}
@@ -173,8 +182,7 @@ $\textbf{X}_{(4)}$ & 0.277 & -0.526 & 0.319 & 1.000\\
 
 \begin{frame}{Exercise}
 \begin{itemize} 
- \item Write down an expression for the variance of a set of centered observations. 
- \item Let $\xv_1, \ldots, \xv_n$ be a set of observations such that $\bar{\xv} \neq 0$ and denote $\zv_i = \xv_i - \bar{\xv}$. Show the relationship between the variance of $\xv$ and $\yv$. 
+ \item Let $\xv_1, \ldots, \xv_n$ be a set of observations such that $\bar{\xv} \neq 0$ and denote $\zv_i = \xv_i - \bar{\xv}$. Show the relationship between the variance of $\xv$ and $\zv$. 
 \end{itemize}
  
 \end{frame}
@@ -195,9 +203,9 @@ $\textbf{X}_{(4)}$ & 0.277 & -0.526 & 0.319 & 1.000\\
 \begin{itemize} 
  \item Partition of space using $\Vm$ and $\Imat - \Vm$
  \begin{displaymath}
-  \sum_{i=1}^n \|\xv_{i}^T\Vm \|^2 + \sum_{i=1}^n \|\xv_{i}^T(\Imat - \Vm)\|^2 = I(\Xm)
+  \sum_{i=1}^n \|\xv_{i}^T\Vm\Vm^T \|^2 + \sum_{i=1}^n \|\xv_{i}^T(\Imat - \Vm\Vm^T)\|^2 = I(\Xm)
  \end{displaymath}
-\item Note maximising $\sum_{i=1}^n \|\xv_{i}^T\Vm \|^2 $ is the same as minimising $\sum_{i=1}^n \|\xv_{i}^T(\Imat - \Vm)\|^2$ 
+\item Note maximising $\sum_{i=1}^n \|\xv_{i}^T\Vm\Vm^T \|^2 $ is the same as minimising $\sum_{i=1}^n \|\xv_{i}^T(\Imat - \Vm\Vm^T)\|^2$ 
 \end{itemize}
 \end{frame}
 
@@ -205,7 +213,7 @@ $\textbf{X}_{(4)}$ & 0.277 & -0.526 & 0.319 & 1.000\\
 \begin{itemize} 
  \item Show that the following statement is true
   \begin{displaymath}
-  \sum_{i=1}^n \|\xv_{i}^T\Vm \|^2 + \sum_{i=1}^n \|\xv_{i}^T(\Imat - \Vm)\|^2 = I(\Xm)
+  \sum_{i=1}^n \|\xv_{i}^T\Vm\Vm^T \|^2 + \sum_{i=1}^n \|\xv_{i}^T(\Imat - \Vm\Vm^T)\|^2 = I(\Xm)
  \end{displaymath}
 \end{itemize}
 \end{frame}
@@ -217,11 +225,10 @@ $\textbf{X}_{(4)}$ & 0.277 & -0.526 & 0.319 & 1.000\\
  \begin{displaymath}
   \max \phi(\Vm) = \max \sum_{i=1}^n \|\xv_{i}^T\Vm \|^2
  \end{displaymath}
-
 \end{itemize}
 \end{frame}
 
-\begin{frame} 
+\begin{frame}{Exercise}  
 \begin{itemize}
  \item Show that 
  \begin{displaymath} 
@@ -264,6 +271,7 @@ $\textbf{X}_{(4)}$ & 0.277 & -0.526 & 0.319 & 1.000\\
   \begin{itemize} 
   \item Eigenvectors are orthogonal and have unit norm and $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d$ 
   \item We know eigenvalues $\lambda$ are real and non-negative 
+  \item The sum of the eigenvalues is the total inertia 
   \end{itemize} 
 \end{itemize}
 \end{frame}
@@ -344,11 +352,11 @@ $\textbf{X}_{(4)}$ & 0.277 & -0.526 & 0.319 & 1.000\\
 \begin{itemize} 
  \item Give a particular observation $\xv$ what is the \emph{approximation error} when using $k$ PCs?
  \begin{displaymath} 
-  \epsilon(\xv, \Vm) = \|\xv - \Vm^T\Vm^T\xv\|^2
+  \epsilon(\xv, \Vm) = \|\xv - \Vm\Vm^T\xv\|^2
  \end{displaymath}
 \item Answer:
 \begin{eqnarray*} 
-  \|\xv - \Vm^T\Vm^T\xv\|^2 &=& (\xv - \Vm\Vm^T\xv)^T (\xv - \Vm\Vm^T\xv) \\ 
+  \|\xv - \Vm\Vm^T\xv\|^2 &=& (\xv - \Vm\Vm^T\xv)^T (\xv - \Vm\Vm^T\xv) \\ 
    &=& \xv^T\xv - \xv^T\Vm\Vm^T\xv \\ 
    &=& \|\xv\|^2 - \|\Vm^T\xv\|^2
 \end{eqnarray*}
