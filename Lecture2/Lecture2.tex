@@ -72,7 +72,7 @@
                      \vdots & \ddots & \vdots \\
  x_{n1} & \ldots & x_{nd}  \end{array} \right] 
 \end{displaymath}
-\item How can we study data like this? (Hint: use PCA)
+\item How can we study data like this? 
  \end{itemize}
 \end{frame}
 
@@ -88,14 +88,16 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Running Example: Pima Indian Diabetes} 
+\begin{frame}{Running Example: Banknote Authentication} 
 \begin{itemize}
- \item Features represent data about adult females of Pima Indian heritage
+ \item Features represent properties about genuine and forged banknote-like specimens
+ \item Computed upon images of notes 
  \begin{itemize}
-  \item Plasma glucose concentration, blood pressure, skin thickness, BMI, age 
-  \item 8 features in total 
+  \item Variance of wavelet transformed features, skewness, kurtosis, entropy 
+  \item 4 features in total 
+  \item 1372 observations 
  \end{itemize}
- \item Want to understand how these features predict diabetes 
+ \item Want to understand how these features predict forgeries 
 \end{itemize}
 \end{frame}
 
@@ -107,22 +109,18 @@
 \begin{table}
 \centering
 \resizebox{\linewidth}{!} {% 
-\begin{tabular}{l | l l l l l l l l}
- & $\textbf{X}_{(1)}$ & $\textbf{X}_{(2)}$ & $\textbf{X}_{(3)}$ & $\textbf{X}_{(4)}$ & $\textbf{X}_{(5)}$ & $\textbf{X}_{(6)}$ & $\textbf{X}_{(7)}$ & $\textbf{X}_{(8)}$ \\ 
+\begin{tabular}{l | l l l l}
+ & $\textbf{X}_{(1)}$ & $\textbf{X}_{(2)}$ & $\textbf{X}_{(3)}$ & $\textbf{X}_{(4)}$ \\ 
  \hline
-$\textbf{X}_{(1)}$ & 1.000 & 0.129 & 0.141 & -0.082 & -0.074 & 0.018 & -0.034 & 0.544\\
-$\textbf{X}_{(2)}$ & 0.129 & 1.000 & 0.153 & 0.057 & 0.331 & 0.221 & 0.137 & 0.264\\
-$\textbf{X}_{(3)}$ & 0.141 & 0.153 & 1.000 & 0.207 & 0.089 & 0.282 & 0.041 & 0.240\\
-$\textbf{X}_{(4)}$ & -0.082 & 0.057 & 0.207 & 1.000 & 0.437 & 0.393 & 0.184 & -0.114\\
-$\textbf{X}_{(5)}$ & -0.074 & 0.331 & 0.089 & 0.437 & 1.000 & 0.198 & 0.185 & -0.042\\
-$\textbf{X}_{(6)}$ & 0.018 & 0.221 & 0.282 & 0.393 & 0.198 & 1.000 & 0.141 & 0.036\\
-$\textbf{X}_{(7)}$ & -0.034 & 0.137 & 0.041 & 0.184 & 0.185 & 0.141 & 1.000 & 0.034\\
-$\textbf{X}_{(8)}$ & 0.544 & 0.264 & 0.240 & -0.114 & -0.042 & 0.036 & 0.034 & 1.000\\
+$\textbf{X}_{(1)}$ & 1.000 & 0.264 & -0.381 & 0.277\\
+$\textbf{X}_{(2)}$ & 0.264 & 1.000 & -0.787 & -0.526\\
+$\textbf{X}_{(3)}$ & -0.381 & -0.787 & 1.000 & 0.319\\
+$\textbf{X}_{(4)}$ & 0.277 & -0.526 & 0.319 & 1.000\\
 \end{tabular} }
 \end{table} 
 \begin{itemize} 
- \item $\textbf{X}_{(1)}$ and $\textbf{X}_{(8)}$ are correlated (number of times pregnant, age)
- \item $\textbf{X}_{(4)}$ and $\textbf{X}_{(5)}$ are correlated (triceps skin thickness, 2-hour serum insulin)
+ \item $\textbf{X}_{(2)}$ and $\textbf{X}_{(3)}$ are correlated (skewness, kurtosis)
+ \item $\textbf{X}_{(2)}$ and $\textbf{X}_{(4)}$ are correlated (skewness, entropy)
 \end{itemize}
 \end{frame}
 
@@ -168,10 +166,19 @@ $\textbf{X}_{(8)}$ & 0.544 & 0.264 & 0.240 & -0.114 & -0.042 & 0.036 & 0.034 & 1
 \begin{displaymath}
  \xv \leftarrow \frac{\xv}{\sqrt{\var(\xv)}}, \quad \var(\xv) = \frac{1}{n}\sum_{i=1}^n \|\xv_i - \bar{\xv}\|^2
 \end{displaymath}
-\item Exercise: what is the variance of a set of centered observations? 
+
 \item From now on, assume observations are centered and normalised 
 \end{itemize}
 \end{frame}
+
+\begin{frame}{Exercise}
+\begin{itemize} 
+ \item Write down an expression for the variance of a set of centered observations. 
+ \item Let $\xv_1, \ldots, \xv_n$ be a set of observations such that $\bar{\xv} \neq 0$ and denote $\zv_i = \xv_i - \bar{\xv}$. Show the relationship between the variance of $\xv$ and $\yv$. 
+\end{itemize}
+ 
+\end{frame}
+
 
 \begin{frame}{Total Variance} 
 \begin{itemize} 
@@ -190,10 +197,19 @@ $\textbf{X}_{(8)}$ & 0.544 & 0.264 & 0.240 & -0.114 & -0.042 & 0.036 & 0.034 & 1
  \begin{displaymath}
   \sum_{i=1}^n \|\xv_{i}^T\Vm \|^2 + \sum_{i=1}^n \|\xv_{i}^T(\Imat - \Vm)\|^2 = I(\Xm)
  \end{displaymath}
-\item Note maximising $\sum_{i=1}^n \|\xv_{i}^T\Vm \|^2 $ is the same as minimising $\sum_{i=1}^n \|\xv_{i}^T(\Imat - \Vm)\|^2$
-\item Exercise: Show the above is true.  
+\item Note maximising $\sum_{i=1}^n \|\xv_{i}^T\Vm \|^2 $ is the same as minimising $\sum_{i=1}^n \|\xv_{i}^T(\Imat - \Vm)\|^2$ 
 \end{itemize}
 \end{frame}
+
+\begin{frame}{Exercise} 
+\begin{itemize} 
+ \item Show that the following statement is true
+  \begin{displaymath}
+  \sum_{i=1}^n \|\xv_{i}^T\Vm \|^2 + \sum_{i=1}^n \|\xv_{i}^T(\Imat - \Vm)\|^2 = I(\Xm)
+ \end{displaymath}
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}{Maximising Variance I}
 \begin{itemize}
@@ -201,9 +217,21 @@ $\textbf{X}_{(8)}$ & 0.544 & 0.264 & 0.240 & -0.114 & -0.042 & 0.036 & 0.034 & 1
  \begin{displaymath}
   \max \phi(\Vm) = \max \sum_{i=1}^n \|\xv_{i}^T\Vm \|^2
  \end{displaymath}
-\item Exercise: show that $\phi(\Vm) = \tr(\Vm^T\Xm^T\Xm\Vm)$ where $\tr(\Am) = \sum_{i=1}^n \Am_{ii}$
+
 \end{itemize}
 \end{frame}
+
+\begin{frame} 
+\begin{itemize}
+ \item Show that 
+ \begin{displaymath} 
+ \phi(\Vm) = \sum_{i=1}^n \|\xv_{i}^T\Vm \|^2 = \tr(\Vm^T\Xm^T\Xm\Vm) 
+ \end{displaymath}
+ where $\tr(\Am) = \sum_{i=1}^n \Am_{ii}$
+\end{itemize}
+
+\end{frame}
+
 
 \begin{frame}{Covariance Matrix}
 \begin{itemize} 
@@ -237,7 +265,12 @@ $\textbf{X}_{(8)}$ & 0.544 & 0.264 & 0.240 & -0.114 & -0.042 & 0.036 & 0.034 & 1
   \item Eigenvectors are orthogonal and have unit norm and $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d$ 
   \item We know eigenvalues $\lambda$ are real and non-negative 
   \end{itemize} 
-\item Exercise: show that $\lambda$ are real and non-negative 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise}
+\begin{itemize} 
+ \item Let $\Xm \in \mathbb{R}^{n \times d}$ and $\Cm = \Xm^T\Xm$. Show that the eigenvalues of $\Cm$ are real and nonnegative. 
 \end{itemize}
 \end{frame}
 
@@ -261,10 +294,76 @@ $\textbf{X}_{(8)}$ & 0.544 & 0.264 & 0.240 & -0.114 & -0.042 & 0.036 & 0.034 & 1
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Back to the Dataset} 
- 
+\begin{frame}{PCA on banknotes I} 
+\begin{itemize}
+ \item Compute first 3 principal components 
+\end{itemize}
+  \begin{figure}[htp]
+\mbox{
+\includegraphics[width=0.5\linewidth]{Z12.eps}
+}
+\end{figure} 
 \end{frame}
 
+\begin{frame}{PCA on banknotes II}
+  \begin{figure}[htp]
+\mbox{
+\includegraphics[width=0.5\linewidth]{Z13.eps}
+}
+\end{figure} 
+\end{frame}
 
+\begin{frame}{PCA on banknotes III} 
+  \begin{figure}[htp]
+\mbox{
+\includegraphics[width=0.5\linewidth]{Z23.eps}
+}
+\end{figure} 
+\begin{itemize}
+ \item Can discriminate on these features 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Interpretation} 
+\begin{itemize} 
+ \item First eigenvector is a linear combination of input features 
+ \begin{itemize}
+  \item Can assign ``importance'' to original features 
+  \item First eigenvector: $[-0.249 \quad -0.639 \quad 0.613 \quad 0.392]^T$
+ \end{itemize} 
+ \item Eigenvalue is variance covered
+ \begin{itemize}
+  \item We have $0.545,  0.323,  0.088$ covered by 1st 3 eigenvalues 
+  \item $~ 0.868$ by first 2 eigenvalues 
+  \end{itemize}
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{An Interesting Metric} 
+\begin{itemize} 
+ \item Give a particular observation $\xv$ what is the \emph{approximation error} when using $k$ PCs?
+ \begin{displaymath} 
+  \epsilon(\xv, \Vm) = \|\xv - \Vm^T\Vm^T\xv\|^2
+ \end{displaymath}
+\item Answer:
+\begin{eqnarray*} 
+  \|\xv - \Vm^T\Vm^T\xv\|^2 &=& (\xv - \Vm\Vm^T\xv)^T (\xv - \Vm\Vm^T\xv) \\ 
+   &=& \xv^T\xv - \xv^T\Vm\Vm^T\xv \\ 
+   &=& \|\xv\|^2 - \|\Vm^T\xv\|^2
+\end{eqnarray*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary} 
+\begin{itemize}
+ \item Multivariate data is common in practice 
+ \item PCA is a way to decorrelate and find useful features that are linear combinations of original features 
+ \begin{itemize}
+  \item Key idea is find features which maximise variance 
+ \end{itemize}
+ \item Resulting features can be used for visualisation or discrimination 
+\end{itemize}
+\end{frame}
 
 \end{document}
