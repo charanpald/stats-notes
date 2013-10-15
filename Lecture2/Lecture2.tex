@@ -100,7 +100,7 @@
 \begin{frame}{Running Example: Banknote Authentication} 
 \begin{itemize}
  \item Features represent properties about genuine and forged banknote-like specimens
- \item Computed upon images of notes 
+ \item Computed features upon images of notes 
  \begin{itemize}
   \item Variance of wavelet transformed features, skewness, kurtosis, entropy (uncertainty of random variable)
   \item 4 features in total 
@@ -191,7 +191,7 @@ $\textbf{X}_{(4)}$ & 0.277 & -0.526 & 0.319 & 1.000\\
 \begin{frame}{Total Variance} 
 \begin{itemize} 
  \item Study the total variance of a set of observations (called \emph{inertia})
- \item $I(\Xm) = \sum_{i=1}^d \|\Xm_{(i)}\|^2 = p$
+ \item $I(\Xm) = \sum_{i=1}^d \|\Xm_{(i)}\|^2 = d$
  \item Can segment $d$ dimensional space using projections onto an \emph{orthogonal matrix} $\Vm \in \mathbb{R}^{d \times k}$ 
  \begin{itemize}
   \item Orthogonal means $\Vm^T\Vm = \Imat$ i.e. columns of $\Vm$ are perpendicular to each other
@@ -242,7 +242,7 @@ $\textbf{X}_{(4)}$ & 0.277 & -0.526 & 0.319 & 1.000\\
 
 \begin{frame}{Covariance Matrix}
 \begin{itemize} 
- \item $\Xm^T\Xm$ is known as the \emph{covariance} matrix 
+ \item $\frac{1}{n}\Xm^T\Xm$ is known as the \emph{covariance} matrix 
  \item What are the diagonal elements of this matrix? 
  \item Note that the covariance matrix is symmetric which means $\Am^T = \Am$
 \end{itemize}
@@ -278,7 +278,7 @@ $\textbf{X}_{(4)}$ & 0.277 & -0.526 & 0.319 & 1.000\\
 
 \begin{frame}{Exercise}
 \begin{itemize} 
- \item Let $\Xm \in \mathbb{R}^{n \times d}$ and $\Cm = \Xm^T\Xm$. Show that the eigenvalues of $\Cm$ are real and nonnegative. 
+ \item Let $\Xm \in \mathbb{R}^{n \times d}$ and $\Cm = \frac{1}{n} \Xm^T\Xm$. Show that the eigenvalues of $\Cm$ are real and nonnegative. 
 \end{itemize}
 \end{frame}
 
@@ -342,8 +342,8 @@ $\textbf{X}_{(4)}$ & 0.277 & -0.526 & 0.319 & 1.000\\
  \end{itemize} 
  \item Eigenvalue is variance covered
  \begin{itemize}
-  \item We have $0.545,  0.323,  0.088$ covered by 1st 3 eigenvalues 
-  \item $~ 0.868$ by first 2 eigenvalues 
+  \item We have $2.18, 1.293, 0.351, 0.176$ are eigenvalues 
+  \item Approx proportion $0.868$ by first 2 eigenvalues 
   \end{itemize}
 \end{itemize} 
 \end{frame}

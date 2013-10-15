@@ -1,5 +1,6 @@
 
 import numpy 
+import numpy.linalg
 import matplotlib.pyplot as plt 
 from sklearn.decomposition import PCA 
 from sklearn import preprocessing 
@@ -88,6 +89,10 @@ print(Latex.array2DToRows(correlations))
 #Run PCA and find first directions 
 pca = PCA(n_components=3)
 newX = pca.fit_transform(X)
+
+s, V = numpy.linalg.eigh(1/float(n)*X.T.dot(X))
+s = numpy.sort(s)
+print(s)
 
 print(pca.explained_variance_ratio_) 
 print(pca.components_[0, :])
