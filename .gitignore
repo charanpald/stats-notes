@@ -1,4 +1,9 @@
+#Ignore all generated files
 *.pdf 
 *.dvi 
 *.toc
 *.aux
+*.data 
+*.ps 
+*.snm
+*.nav
