@@ -1,0 +1,97 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{pgf}
+\usepackage{listings}
+
+%opening
+\title{Statistics and the Analysis of Data\\ Lab Session 1: Working in the R Language}
+\author{Charanpal Dhanjal}
+%\institute{\'{E}cole des Ponts}
+
+\begin{document}
+
+\maketitle
+
+
+\section{About R}
+
+R is a programming language which is freely available from the site \url{http://www.r-project.org}. More specifically, R is an open source software package which is developed thanks to the voluntary contributions of authors around the world. The software is licensed under the General Public License (GPL). 
+
+The R system provides a number of statistical and graphical functions which are particularly suited towards the analysis of data. For installation files for Windows, download via the site \url{http://cran.us.r-project.org/bin/windows/base/}. 
+
+To get started with this lab session, implement the following steps: 
+\begin{enumerate}
+ \item Log into Windows 
+ \item Start R 
+ \item Try the commands listed below. Do not just copy-paste them into the R console, try to each of the commands. If you have any questions, please ask the teacher. 
+\end{enumerate}
+
+\section{The first steps in R} 
+
+
+\begin{itemize}
+ \item First try
+\begin{lstlisting}
+pi*sqrt(10)+exp(4)
+3:10
+seq(3,10)
+x = c(2,3,5,7,2,1)
+y = c(10,15,12)
+z = c(x,y)
+z^2
+x*x
+w=rep(x,3)
+w=rep(x, each=3)
+?rep # Help
+ls() # List of variables
+rm(x)
+x
+ls()
+\end{lstlisting}
+
+\item Getting help 
+\begin{lstlisting}
+ ?help
+help(rep)
+help(demo)
+demo(graphics)
+\end{lstlisting}
+
+
+\item Matrix manipulation 
+\begin{lstlisting}
+x = 1:12
+dim(x) = c(3,4)
+?dim
+x
+y = matrix(1:12, nrow=3, byrow=T)
+t(y)
+z = matrix(1:4, nrow=2, byrow=T)
+z^2
+z*z
+z%*%z
+\end{lstlisting}
+
+\item Graphics 
+\begin{lstlisting}
+x = runif(50, 0, 2)
+y = runif(50, 0, 2)
+plot(x, y, main="Title", xlab="x", ylab="y",col="darkred")
+abline(h=.6,v=.6)
+text(.6,.6, "A note")
+colors()
+\end{lstlisting} 
+
+\item Definition of functions 
+\begin{itemize} 
+\item Simple example 
+\begin{lstlisting}
+square = function(x) x^2
+square(3)
+square
+\end{lstlisting} 
+
+\item 
+\end{itemize}
+\end{document}
