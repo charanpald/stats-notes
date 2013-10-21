@@ -3,6 +3,7 @@
 \usepackage{url}
 \usepackage{pgf}
 \usepackage{listings}
+\usepackage[margin=1.5in]{geometry}
 
 %opening
 \title{Statistics and the Analysis of Data\\ Lab Session 1: Working in the R Language}
@@ -12,7 +13,6 @@
 \begin{document}
 
 \maketitle
-
 
 \section{About R}
 
@@ -25,11 +25,8 @@ For installation mirrors for Windows Linux and Mac OS X, download via the site \
  \item Try the commands listed below. Do not just copy-paste them into the R console, try to understand each of the commands. If you have any questions, please ask. 
 \end{enumerate}
 
-\section{The first steps in R} 
-
-
-\begin{itemize}
- \item First try
+\section{First Steps in R} 
+First try
 \begin{lstlisting}
 pi*sqrt(10)+exp(4)
 3:10
@@ -47,17 +44,16 @@ rm(x)
 x
 ls()
 \end{lstlisting}
-
-\item Getting help 
+\noindent
+Getting help 
 \begin{lstlisting}
 ?help
 help(rep)
 help(demo)
 demo(graphics)
 \end{lstlisting}
-
-
-\item Matrix manipulation 
+\noindent
+Matrix manipulation 
 \begin{lstlisting}
 x = 1:12
 dim(x) = c(3,4)
@@ -70,8 +66,8 @@ z^2
 z*z
 z%*%z
 \end{lstlisting}
-
-\item Graphics 
+\noindent
+Graphics 
 \begin{lstlisting}
 x = runif(50, 0, 2)
 y = runif(50, 0, 2)
@@ -80,17 +76,15 @@ abline(h=.6,v=.6)
 text(.6,.6, "A note")
 colors()
 \end{lstlisting} 
-
-\item Definition of functions 
-\begin{itemize} 
-\item Simple example 
+\noindent
+Definition of simple functions 
 \begin{lstlisting}
 square = function(x) x^2
 square(3)
 square
 \end{lstlisting} 
-
-\item More complex example 
+\noindent
+A more complex example 
 \begin{lstlisting}
 hist.norm=function(n, col)
 {
@@ -112,10 +106,7 @@ hist.norm(3200, col="blue")
 par(op)
 \end{lstlisting} 
 
-\end{itemize}
-\end{itemize}
-
-\section{Random Simulations}
+\section{Random Simulations}\label{sec:randDists}
 Computational modelling often uses the generation of pseudo-random numbers
 
 \begin{lstlisting}
@@ -130,7 +121,7 @@ sample(1:40, 5)
 sample(1:10, 10, replace=T)
 sample(c("fail", "success"), 10, replace=T, prob=c(0.7, 0.3))
 \end{lstlisting}
-
+\noindent
 Some other distributions include: \texttt{beta, binom, cauchy, chisq, exp, f, gamma, norm, pois, t, unif}. 
 
 \section{Descriptive Statistics}\label{sec:desc}
@@ -176,7 +167,7 @@ boxplot(x, col="orange",border="darkblue",lwd=2)
 \end{lstlisting}
 
 \noindent
-Boxplots in parallel 
+Boxplots on the same graphic 
 \begin{lstlisting}
 x = rnorm(100)
 y = (rnorm(400))^2-1
@@ -228,10 +219,10 @@ data()
 plot(WWWusage)
 \end{lstlisting}
 
-\section{Questions and exercises for the Report} 
+\section{Questions and Exercises for the Report} 
 
 \begin{enumerate} 
- \item In the definition of the function \texttt{hist.norm}, why do we use the value \texttt{1/(s*sqrt(2*pi))}?
+\item In the definition of the function \texttt{hist.norm}, why do we use the value \texttt{1/(s*sqrt(2*pi))}?
 \item Produce the descriptive statistics (mean, standard, deviation, median, min, max) for the following data: 
 \begin{lstlisting} 
 library(MASS)
@@ -243,9 +234,10 @@ One can use the command \texttt{summary} as well as the commands listed in the p
 \item Comment on the parallel boxplots given in Section  \ref{sec:desc}. Regarding the three series' of data: a) Which has the most dispersion? b) Which has the most number of outliers (abnormal values)? 
 \item The values in Table \ref{tab:loads} represent the maximum loads (in tonnes) supported by a cable which is made in a certain factory. 
 \begin{table}
-\begin{centering}
+\begin{center}
 \begin{tabular}{c c} 
- 10.1 & 12.2\\
+\hline
+10.1 & 12.2\\
 12.2 & 12.6\\
 9.3 & 11.5\\
 12.4 & 9.2\\
@@ -255,19 +247,23 @@ One can use the command \texttt{summary} as well as the commands listed in the p
 10.1 & 11.8 \\
 11.2 & 7.1\\
 11.3 & 10.5\\
+\hline
 \end{tabular}
-\end{centering}
+\end{center}
 \caption{Load weights (T)}\label{tab:loads}
 \end{table}
 \begin{itemize}
- \item  What is the approximate load that can be applied to approximately 3/4 of the cables? 
-\item Trace the boxplot of this data. Are they outliers? In this diagram, which can one see the values requested in the previous question? 
+\item What is the approximate load that can be applied to approximately 3/4 of the cables? 
+\item Trace the boxplot of this data. Are there outliers? In this diagram, which can one see the values requested in the previous question? 
 \item According to the boxplot, does the data seem symmetric? 
 \end{itemize}
-\item Generate a set of random observations i.i.d. $U_1 , \ldots , U_n$ and $V_1 ,\ldots , V_n$ according to a uniform distribution [0, 1] (take a sufficiently large $n$).
+\item Generate a set of random observations $U_1 , \ldots , U_n$ and $V_1 ,\ldots , V_n$ according to a uniform distribution [0, 1] (use \texttt{runif} and a sufficiently large $n$). Hint: consider the distributions given in Section \ref{sec:randDists}. 
 \begin{enumerate}
-\item Using graphical representations to help you, guess the distribution of the variables $T_i = -2 log U_i$ 
-\item Study empirically the distribution $X_i = -2 \log U_i \cos(2 \pi V_i ).$ In your opinion, what is this distribution? 
+\item Using graphical representations to help you, guess the distribution of the variables $T_i = -2 \log U_i$. 
+\item Study empirically the distribution $X_i = \sqrt{-2 \log U_i} \cos(2 \pi V_i ).$ In your opinion, what is this distribution? 
 \end{enumerate}
 \end{enumerate}
+
+Please submit the report in PDF format to \texttt{charanpal at gmail.com} before midnight CET on 29/10/13 using the subject heading ``Statistics and the Analysis of Data Lab 1''. 
+
 \end{document}
