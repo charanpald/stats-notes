@@ -17,7 +17,7 @@
 \input{../include/CsdMacros}
 \graphicspath{{./Figures/}}
 
-\title{Statistics and the Analysis of Data\\ A Short Primer on Linear Algebra}
+\title{Statistics and the Analysis of Data\\ A Barebones Primer on Linear Algebra}
 \author{Charanpal Dhanjal \\ \texttt{charanpal@gmail.com}} 
 \institute{\'{E}cole des Ponts}
 \date{15th October 2013}
@@ -29,6 +29,17 @@
 \begin{frame}{Introduction}
 \begin{itemize} 
  \item What is linear algebra? 
+ \begin{itemize}
+ \item Branch of maths concerning vector spaces and linear mapping in these spaces. 
+ \end{itemize} 
+ \item Applications: 
+ \begin{itemize}
+ \item Computer graphics - 3D rendering, image processing  
+ \item Web search - PageRank
+ \item Image compression 
+ \item Computational statistics 
+ \item ... and lots of others 
+ \end{itemize} 
 \end{itemize}
 
 \end{frame}
@@ -37,19 +48,117 @@
 \begin{frame}{Overview} 
 \begin{itemize}
  \item Vectors, matrices 
- \item Norms, inner products 
- \item Rank 
- \item Special matrices - projections, symmetric 
+ \item Norms, inner products, projections  
  \item Eigenvalues, eigenvectors 
 \end{itemize} 
 \end{frame}
 
-\begin{frame}{Vectors and Matrices}
+\begin{frame}{Vectors}
 \begin{itemize} 
- \item 
+ \item A \emph{vector} is a line segment representing a displacement, e.g. $\vv \in \mathbb{R}^d$ 
+ \item We will consider vectors as a column array 
+ \item The \emph{dot} or \emph{inner} product between two vectors is defined as $\langle \uv, \vv \rangle = \uv \cdot \vv = \uv^T\vv \sum_{i=1}^d \uv_i\vv_i$ (T means transpose)
+ \item Some properties of the inner products
+ \begin{itemize}
+ \item $\langle \uv, \vv \rangle = \langle \vv, \uv \rangle$ commutativity 
+ \item $\langle \uv, (\vv + \wv) \rangle = \langle \uv, \vv \rangle + \langle \uv, \wv \rangle$ distributivity 
+ \item $c \langle \uv, \vv \rangle = \langle c \uv, \vv \rangle$, $c$ is a scalar 
+ \item $ \langle \uv, \uv \rangle \geq 0$ and $ \langle \uv, \uv \rangle = 0$ iff $\uv = \textbf{0}$  
+ \end{itemize} 
 \end{itemize}
- 
 \end{frame}
+
+\begin{frame}{Vector Norm}  
+\begin{itemize} 
+ \item The \emph{Euclidean} or \emph{2-norm} of a vector is denoted $\|\uv\| =  \sqrt{\langle \uv, \uv \rangle} = \sqrt{\sum_{i=1}^d \uv_i^2}$
+ \item It obeys the following properties	
+ \begin{itemize}
+ \item  $\|\uv\| = 0$ iff $\uv = \textbf{0}$ 
+ \item $\|c\uv\| = |c|\|\uv\|$
+ \end{itemize}
+ \item The Cauchy-Swartz inequality
+  \begin{displaymath} 
+   |\langle \uv, \vv \rangle| \leq \|\uv\|\|\vv\|
+  \end{displaymath}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Vector Distances and Angles}  
+\begin{itemize} 
+ \item The \emph{distance} between two vectors is $d(\uv, \vv) = \|\uv - \vv\|$ 
+ \item Angle between vectors 
+ \begin{displaymath} 
+  \cos(\theta) = \frac{\langle \uv, \vv \rangle}{\|\uv\|\|\vv\|}
+ \end{displaymath}
+ \item Two vectors are \emph{orthogonal} if their dot product is zero 
+ \item A \emph{projection} of $\vv$ onto $\uv$ is given by $\frac{\langle \uv, \vv \rangle}{\langle \uv, \uv \rangle}\uv$   
+\end{itemize}
+\end{frame} 
+
+\begin{frame}{Matrices} 
+\begin{itemize}
+ \item A \emph{matrix} is a rectangular array of numbers or alternatively a column-wise concatenation of vectors 
+ \item When we say a matrix $\Am$ has size $m \times n$ this means $m$ rows and $n$ columns 
+ \item Matrix types 
+ \begin{itemize}
+ \item \emph{Square} when $m = n$ 
+ \item \emph{Symmetric} when $\Am^T = \Am$ (by transpose, we mean $\Am_{ij} = \Am_{ji}$ )
+ \item \emph{Diagonal} when $\Am_{ij} = 0, i \neq j$ 
+ \item \emph{Identity} is a diagonal matrix with $\Am_{ii} = 1, \forall i$ and written $\Imat$ 
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Matrix Multiplication} 
+\begin{itemize} 
+ \item Hadamard product: $(\Am \cdot \Bm)_{ij} = \Am_{ij} + \Bm_{ij}$ 
+ \item Dot product $(\Am\Bm)_{ij} = \sum_{k=1}^n \Am_{ik}\Bm_{kj}$
+ \item When we talk about matrix multiplication we usually mean the second case 
+ \item Properties 
+ \begin{itemize}
+ \item $(\Am\Bm)\Cm = \Am(\Bm\Cm)$ Associativity 
+ \item $\Am(\Bm + \Cm) = \Am\Bm + \Am\Cm$ Left distributivity 
+ \item $(\Am +\Bm) \Cm = \Am\Cm +\Bm\Cm$ Right distributivity 
+ \item $\Am\Imat = \Imat\Am = \Am$ Multiplicative identity 
+ \end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Matrix Transpose and Trace} 
+ \begin{itemize} 
+  \item Some properties of the transpose  
+  \begin{itemize}
+  \item $(\Am^T)^T = \Am$ 
+  \item $(\Am + \Bm)^T = \Am^T = \Bm^T$ 
+  \item $(\Am\Bm)^T = \Bm^T\Am^T$  
+  \end{itemize} 
+ \item The matrix \emph{trace} is the sum of the diagonal elements $\tr(\Am) = \sum_{i=1}^n \Am_{ii}$ 
+ \begin{itemize} 
+ \item Traces allow for cyclic permutations $\tr(\Am\Bm\Cm) = \tr(\Cm\Am\Bm) = \tr(\Bm\Cm\Am)$ 
+ \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise} 
+Show the following properties are true
+\begin{itemize}
+ \item $\Am(\Bm + \Cm) = \Am\Bm + \Am\Cm$ Left distributivity 
+ \item $(\Am +\Bm) \Cm = \Am\Cm +\Bm\Cm$ Right distributivity 
+ \item Cyclic permutation: $\tr(\Am\Bm\Cm) = \tr(\Cm\Am\Bm) = \tr(\Bm\Cm\Am)$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Eigenvalues and Eigenvectors}  
+\begin{itemize} 
+ \item Assume $\Am \in \mathbb{R}^{n \times n}$. A scalar $\lambda$ is an \emph{eigenvalue} of $\Am$ if there is a nonzero vector $\vv$ (known as a \emph{eigenvector} such that $\Am\vv = \lambda\vv$
+ \item In general we fix $\|\vv\| = 1$ 
+ \item We can see that vectors $\Am\vv$ and $\vv$ are parallel, so $\vv$ is a eigenvector if and only if $\Am$ transforms $\vv$ into a parallel vector  
+ \item If $\Am$ is symmetric we can write it as an \emph{eigen-decomposition} $\Am = \sum_{i=1}^n \lambda_i\vv_i\vv^T$ 
+ \item The trace is the sum of eigenvalues $\tr(\Am) = \sum_{i=1}^n \lambda_i$
+\end{itemize}
+\end{frame}
+
+
 
 
 \end{document} 
