@@ -41,9 +41,7 @@
  \item ... and lots of others 
  \end{itemize} 
 \end{itemize}
-
 \end{frame}
-
 
 \begin{frame}{Overview} 
 \begin{itemize}
@@ -55,18 +53,25 @@
 
 \begin{frame}{Vectors}
 \begin{itemize} 
- \item A \emph{vector} is a line segment representing a displacement, e.g. $\vv \in \mathbb{R}^d$ 
+ \item A \emph{vector} represents a displacement, e.g. $\vv \in \mathbb{R}^d$ 
  \item We will consider vectors as a column array 
  \item The \emph{dot} or \emph{inner} product between two vectors is defined as $\langle \uv, \vv \rangle = \uv \cdot \vv = \uv^T\vv \sum_{i=1}^d \uv_i\vv_i$ (T means transpose)
- \item Some properties of the inner products
+ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Inner Products}
+\begin{itemize}
+  \item Some properties of the inner products
  \begin{itemize}
  \item $\langle \uv, \vv \rangle = \langle \vv, \uv \rangle$ commutativity 
  \item $\langle \uv, (\vv + \wv) \rangle = \langle \uv, \vv \rangle + \langle \uv, \wv \rangle$ distributivity 
  \item $c \langle \uv, \vv \rangle = \langle c \uv, \vv \rangle$, $c$ is a scalar 
  \item $ \langle \uv, \uv \rangle \geq 0$ and $ \langle \uv, \uv \rangle = 0$ iff $\uv = \textbf{0}$  
- \end{itemize} 
+ \end{itemize}
 \end{itemize}
 \end{frame}
+
 
 \begin{frame}{Vector Norm}  
 \begin{itemize} 
@@ -109,20 +114,26 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Matrix Multiplication} 
+\begin{frame}{Matrix Multiplication I} 
 \begin{itemize} 
  \item Hadamard product: $(\Am \cdot \Bm)_{ij} = \Am_{ij} + \Bm_{ij}$ 
  \item Dot product $(\Am\Bm)_{ij} = \sum_{k=1}^n \Am_{ik}\Bm_{kj}$
  \item When we talk about matrix multiplication we usually mean the second case 
- \item Properties 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Matrix Multiplication II}
+\begin{itemize} 
+  \item Properties 
  \begin{itemize}
  \item $(\Am\Bm)\Cm = \Am(\Bm\Cm)$ Associativity 
  \item $\Am(\Bm + \Cm) = \Am\Bm + \Am\Cm$ Left distributivity 
  \item $(\Am +\Bm) \Cm = \Am\Cm +\Bm\Cm$ Right distributivity 
  \item $\Am\Imat = \Imat\Am = \Am$ Multiplicative identity 
  \end{itemize} 
-\end{itemize}
+ \end{itemize}
 \end{frame}
+
 
 \begin{frame}{Matrix Transpose and Trace} 
  \begin{itemize} 
@@ -150,7 +161,7 @@ Show the following properties are true
 
 \begin{frame}{Eigenvalues and Eigenvectors}  
 \begin{itemize} 
- \item Assume $\Am \in \mathbb{R}^{n \times n}$. A scalar $\lambda$ is an \emph{eigenvalue} of $\Am$ if there is a nonzero vector $\vv$ (known as a \emph{eigenvector} such that $\Am\vv = \lambda\vv$
+ \item Assume $\Am \in \mathbb{R}^{n \times n}$. A scalar $\lambda$ is an \emph{eigenvalue} of $\Am$ if there is a nonzero vector $\vv$ (known as a \emph{eigenvector}) such that $\Am\vv = \lambda\vv$
  \item In general we fix $\|\vv\| = 1$ 
  \item We can see that vectors $\Am\vv$ and $\vv$ are parallel, so $\vv$ is a eigenvector if and only if $\Am$ transforms $\vv$ into a parallel vector  
  \item If $\Am$ is symmetric we can write it as an \emph{eigen-decomposition} $\Am = \sum_{i=1}^n \lambda_i\vv_i\vv^T$ 
