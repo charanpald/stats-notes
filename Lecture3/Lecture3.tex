@@ -1,0 +1,102 @@
+\documentclass{beamer}
+
+\usepackage{beamerthemesplit}
+\usepackage[utf8x]{inputenc}
+\usepackage{pgf}
+\usepackage{default}
+\usepackage{url}
+\usepackage{subfigure}
+\usepackage{algorithmic} 
+\usepackage{algorithm} 
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\usetheme{Singapore}
+
+\input{../include/CsdMacros}
+\graphicspath{{./Figures/}}
+
+\title{Statistics and the Analysis of Data\\ Lecture 3: An Introduction to Probability Theory}
+\author{Charanpal Dhanjal \\ \texttt{charanpal@gmail.com}} 
+\institute{\'{E}cole des Ponts}
+\date{5th November 2013}
+
+\begin{document}
+
+\frame{\titlepage}
+
+
+\begin{frame}{Recap Part I}  
+\begin{itemize} 
+\item PCA is method to deal with multivariate data 
+\item Represent observations in matrix form 
+\begin{displaymath} 
+ \textbf{X} = \left[\begin{array}{c c c} x_{11} & \ldots & x_{1d} \\ 
+                     \vdots & \ddots & \vdots \\
+ x_{n1} & \ldots & x_{nd}  \end{array} \right]  = \left[\begin{array}{c} \xv_1^T \\ \vdots \\  \xv_n^T \end{array} \right]
+\end{displaymath}
+\item PCA forms a linear combination of columns of $\textbf{X}$ that are uncorrelated (``hidden'' variables)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Recap Part II}
+\begin{itemize} 
+ \item First we must centre and normalise data 
+\item We want a $k$ dimensional projection that captures most variance such that $\Vm^T\Vm = \Imat$
+ \begin{displaymath}
+  \max \phi(\Vm) = \max \sum_{i=1}^n \|\xv_{i}^T\Vm\Vm^T \|^2
+ \end{displaymath}
+ \item To solve this find the eigenvectors (denote by columns of $\Vm$) corresponding to largest eigenvalues of covariance matrix $\Cm = \frac{1}{n}\Xm^T\Xm$ 
+ \item New features are $\Zm = \Xm\Vm$, known as \emph{Principal Components}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Motivations}
+\begin{itemize} 
+ \item Probabilities are everywhere 
+ \begin{itemize}
+ \item Games
+ \item Passing genes from parent to child 
+ \item Medical trials
+ \item Behaviour of groups of people 
+ \end{itemize} 
+\item These events can be modelled 
+\item Applications: search engines, insurance, energy demand prediction etc. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is Probability?} 
+\begin{itemize}
+ \item A fair coin is governed probabilistically. Repeated tosses give unpredictable results. 
+ \item Some formalities 
+ \begin{itemize}
+ \item An \emph{experiment} gives us an observation of the random event
+ \item The \emph{sample space} $S$ is the set of all outcomes of an experiment e.g. $S = \{H, T\}$ for coin toss $S = \{1,2,3,4,5,6\}$ for a die  
+ \end{itemize} 
+ \item To find the probability of an event we repeat the same experiment approaching an infinite number of times 
+ \item Sometimes even large numbers of experiments are difficult e.g. effect of firearms ban on gun crime, effect of austerity/stimulus on recessions 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Definitions}
+\begin{itemize}
+ \item Let $A \subseteq S$ then the probability of $A$ occurring is denoted by $P(A) \in [0, 1]$
+ \item Some properties 
+ \begin{itemize}
+ \item $P(\emptyset) = 0$
+ \item $P(S) = 1$
+ \item $P(A^c) = 1 - P(A) \quad \forall A$  where $A^c = S \backslash A$
+ \item Let $A_1, A_2, \ldots, A_k$ be disjoint sets i.e. $A_i \cap A_j = \emptyset, i \neq j$, then 
+ \begin{displaymath} 
+  P\left(\bigcup_{i=1}^k A_i \right) = \sum_{i=1}^k P(A_i)
+ \end{displaymath}
+
+ \end{itemize} 
+\end{itemize}
+ 
+\end{frame}
+
+
+\end{document}
