@@ -74,6 +74,7 @@
  \begin{itemize}
  \item An \emph{experiment} gives us an observation of the random event
  \item The \emph{sample space} $S$ is the set of all outcomes of an experiment e.g. $S = \{H, T\}$ for coin toss $S = \{1,2,3,4,5,6\}$ for a die  
+ \item By \emph{event} we mean some $E \subseteq S$ 
  \end{itemize} 
  \item To find the probability of an event we repeat the same experiment approaching an infinite number of times 
  \item Sometimes even large numbers of experiments are difficult e.g. effect of firearms ban on gun crime, effect of austerity/stimulus on recessions 
@@ -92,10 +93,125 @@
  \begin{displaymath} 
   P\left(\bigcup_{i=1}^k A_i \right) = \sum_{i=1}^k P(A_i)
  \end{displaymath}
-
  \end{itemize} 
 \end{itemize}
- 
+\end{frame}
+
+\begin{frame}{An Example} 
+\begin{itemize} 
+ \item Imagine throwing a die with 6 faces, $S = \{1,2,3,4,5,6\}$
+\item Assuming die is fair $P(\{a\}) = 1/6$ for $a = 1, \ldots, 6$
+\item What is the probability of throwing a numbers less than or equal to 2? $P(\{1\}) = 1/6, P(\{2\}) = 1/6 \Rightarrow P(\{1, 2\}) = 1/3$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Some Notations}  
+\begin{itemize}
+ \item A \emph{complementary event} is given by $A^c = S \backslash A$ 
+\item A certain event is given by $S$ and an impossible one is $\emptyset$
+\item Union of events $A \cup B$ when either $A$ occurs or $B$ occurs
+\item The intersection of events $A \cap B$ occurs when $A$  and $B$ occur
+\item Two events are \emph{exclusive} when $A \cap B = \emptyset$ 
+\item \emph{Elementary events} contain a single element $A = \{a\}, a \in S$ 
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{Some Examples} 
+\begin{itemize} 
+ \item Consider again a die
+\begin{itemize}
+\item If $A$ is the set of even numbers then $A^c$ the set of odd ones
+\item The outcome of a throw is positive is a certain event 
+\item The outcome is greater than 6 is an impossible event 
+\item The union of odd and even numbers is a certain event 
+\item The intersection of even numbers and numbers divisible by 3 is the event ${6}$
+\end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}{Independence} 
+\begin{itemize}
+ \item Two events $A$ and $B$ are independent if 
+\begin{displaymath} 
+ P(A \cap B) = P(A)P(B)
+\end{displaymath}
+\item Consider two dice with events $A$ being the 1st is even, and $B$ being the 2nd is 1
+\begin{itemize}
+\item $P(A) = \sum_{i=1}^3 \sum_{j=1}^6 P(\{2i, j\}) = 18 \times \frac{1}{36} = \frac{1}{2}$
+\item $P(B) =  \sum_{i=1}^6 P(\{i, 1\}) = 6 \times \frac{1}{36} = \frac{1}{6}$
+\item $P(A \cap B) = \sum_{i=1}^3 P(\{2i, 1\}) = 3 \times \frac{1}{36}  = \frac{1}{12}$ 
+\item $\Rightarrow$ $A$, $B$ independent 
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Another Example}  
+ \begin{itemize}
+  \item We throw a die and let $A$ be the event that the outcome is even and $B$ that it is a multiple of 3
+\begin{itemize}
+\item $P(A) = \sum_{i=1}^3 P(\{2i\}) = 3 \times \frac{1}{6} = \frac{1}{2}$ 
+\item $P(B) = \sum_{i=1}^2 P(\{3i\}) = 2 \times \frac{1}{6} = \frac{1}{3}$ 
+\item $P(A \cap B) = P(\{6\}) = \frac{1}{6}$ 
+\item So these events are independent 
+ \end{itemize}
+ \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Exercise}
+\begin{itemize} 
+ \item In the previous example, are events still independent if $P(\{2\}) = 0$ and $P(\{6\}) = 1/3$? 
+ \item Consider a room of $n$ people. What is the smallest $n$ such that at least two have the same birthday with probability $> 0.5$? 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Conditional Probabilities}
+\begin{itemize} 
+ \item The probability of an event can change if another event occurs. e.g. the probability of having a hard disk failing increases if its age is greater than 5 years. 
+\item Let $A$ and $B$ be two events. Then the \emph{conditional probability} of $A$ given $B$ where $P(B) \neq 0$ is: 
+\begin{displaymath} 
+ P(A | B) = \frac{P(A \cap B)}{P(B)}
+\end{displaymath}
+\item Properties 
+\begin{itemize}
+\item $P(A | A) = 1$
+\item $P(A | B) = P(A)$ iff $A$ and $B$ are independent 
+\end{itemize}
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{Bayes' Law} 
+\begin{itemize}
+ \item We can write for a partition of the sample space $A_1, \ldots, A_n$: 
+\begin{displaymath}
+ P(B) = \sum_{i=1}^n P(B | A_i) P(A_i)
+\end{displaymath}
+\item Bayes' Law says for $P(B)>0$: 
+\begin{displaymath}
+ P(A | B) = \frac{P(B | A)P(A)}{P(B)}
+\end{displaymath}
+where $P(A)$ is the \emph{prior} (initial belief in $A$), $P(A|B)$ is the \emph{posterior} (belief in $A$ given $B$), and $P(B | A)$ is called \emph{likelihood} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise} 
+ \begin{itemize} 
+  \item At a petrol station, 35\% buy leaded petrol, 40\% buy unleaded and 25\% buy super-unleaded. The respective proportions who fill their tanks are 60\%, 30\%, 50\%. Calculate the following probabilities 
+\begin{itemize}
+\item  The next client will fill their tank and use unleaded petrol 
+\item The next client will fill their tank. 
+\item Assuming the client fills their tank, what is the probability they buy leaded petrol. 
+\end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+ \begin{itemize} 
+  \item Probabilities, events, sample space  
+  \item Conditional independence
+  \item Bayes' Law 
+ \end{itemize}
+
 \end{frame}
 
 
