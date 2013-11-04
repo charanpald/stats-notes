@@ -84,15 +84,15 @@ Best orthogonal $\Vm$ which maximises variance
 
 \begin{frame}{What is Probability?} 
 \begin{itemize}
- \item A fair coin is governed probabilistically. Repeated tosses give unpredictable results. 
- \item Some formalities 
+ \item Repeated tosses of a coin give unpredictable results. 
+ \item Some terminology 
  \begin{itemize}
  \item An \emph{experiment} gives us an observation of the random event
- \item The \emph{sample space} $S$ is the set of all outcomes of an experiment e.g. $S = \{H, T\}$ for coin toss $S = \{1,2,3,4,5,6\}$ for a die  
+ \item The \emph{sample space} $S$ is the set of all outcomes of an experiment e.g. $S = \{H, T\}$ for coin toss, $S = \{1,2,3,4,5,6\}$ for a die  
  \item By \emph{event} we mean some $E \subseteq S$ 
  \end{itemize} 
  \item To find the probability of an event we repeat the same experiment approaching an infinite number of times 
- \item Sometimes even large numbers of experiments are difficult e.g. effect of firearms ban on gun crime, effect of austerity/stimulus on recessions 
+ \item Sometimes even large numbers of experiments are difficult e.g. firearms ban on gun crime,  austerity/stimulus on recessions 
 \end{itemize}
 \end{frame}
 
@@ -103,7 +103,7 @@ Best orthogonal $\Vm$ which maximises variance
  \begin{itemize}
  \item $P(\emptyset) = 0$
  \item $P(S) = 1$
- \item $P(A^c) = 1 - P(A) \quad \forall A$  where $A^c = S \backslash A$
+ \item $P(A^c) = 1 - P(A) \quad \forall A$,  where $A^c = S \backslash A$
  \item Let $A_1, A_2, \ldots, A_k$ be disjoint sets i.e. $A_i \cap A_j = \emptyset, i \neq j$, then 
  \begin{displaymath} 
   P\left(\bigcup_{i=1}^k A_i \right) = \sum_{i=1}^k P(A_i)
@@ -120,7 +120,7 @@ Best orthogonal $\Vm$ which maximises variance
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Some Notations}  
+\begin{frame}{More Definitions}  
 \begin{itemize}
  \item A \emph{complementary event} is given by $A^c = S \backslash A$ 
 \item A certain event is given by $S$ and an impossible one is $\emptyset$
@@ -131,7 +131,7 @@ Best orthogonal $\Vm$ which maximises variance
 \end{itemize} 
 \end{frame}
 
-\begin{frame}{Some Examples} 
+\begin{frame}{Examples} 
 \begin{itemize} 
  \item Consider again a die
 \begin{itemize}
@@ -177,6 +177,10 @@ Best orthogonal $\Vm$ which maximises variance
 \begin{itemize} 
  \item In the previous example, are events still independent if $P(\{2\}) = 0$ and $P(\{6\}) = 1/3$? 
  \item Consider a room of $n$ people. What is the smallest $n$ such that at least two have the same birthday with probability $> 0.5$? 
+ \begin{itemize} 
+ \item Assume there are no leap years, and birthdays fall on all days with equal probability  
+ \item Note: it is not required to find the correct $n$, but suggest an efficient computational way to find it. 
+ \end{itemize}
 \end{itemize}
 \end{frame}
 
