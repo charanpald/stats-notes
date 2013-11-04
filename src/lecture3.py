@@ -2,7 +2,7 @@
 import numpy 
 import numpy.linalg
 import matplotlib 
-matplotlib.use("GTK3Agg")
+matplotlib.use("Qt4Agg")
 import matplotlib.pyplot as plt 
 from sklearn.decomposition import PCA 
 from sklearn import preprocessing 
