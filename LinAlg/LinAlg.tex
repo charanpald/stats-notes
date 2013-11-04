@@ -116,7 +116,7 @@
 
 \begin{frame}{Matrix Multiplication I} 
 \begin{itemize} 
- \item Hadamard product: $(\Am \cdot \Bm)_{ij} = \Am_{ij} + \Bm_{ij}$ 
+ \item Hadamard product: $(\Am \cdot \Bm)_{ij} = \Am_{ij}\Bm_{ij}$ 
  \item Dot product $(\Am\Bm)_{ij} = \sum_{k=1}^n \Am_{ik}\Bm_{kj}$
  \item When we talk about matrix multiplication we usually mean the second case 
 \end{itemize}
@@ -143,7 +143,7 @@
   \item $(\Am + \Bm)^T = \Am^T = \Bm^T$ 
   \item $(\Am\Bm)^T = \Bm^T\Am^T$  
   \end{itemize} 
- \item The matrix \emph{trace} is the sum of the diagonal elements $\tr(\Am) = \sum_{i=1}^n \Am_{ii}$ 
+ \item The matrix \emph{trace} is the sum of the diagonal elements of a square matrix $\tr(\Am) = \sum_{i=1}^n \Am_{ii}$ 
  \begin{itemize} 
  \item Traces allow for cyclic permutations $\tr(\Am\Bm\Cm) = \tr(\Cm\Am\Bm) = \tr(\Bm\Cm\Am)$ 
  \end{itemize}
@@ -159,15 +159,28 @@ Show the following properties are true
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Eigenvalues and Eigenvectors}  
+\begin{frame}{Eigenvalues and Eigenvectors I}  
 \begin{itemize} 
- \item Assume $\Am \in \mathbb{R}^{n \times n}$. A scalar $\lambda$ is an \emph{eigenvalue} of $\Am$ if there is a nonzero vector $\vv$ (known as a \emph{eigenvector}) such that $\Am\vv = \lambda\vv$
+ \item Assume $\Am \in \mathbb{R}^{n \times n}$. A scalar $\lambda$ is an \emph{eigenvalue} of $\Am$ if there is a nonzero vector $\vv \in \mathbb{R}^n$  such that 
+\begin{displaymath}
+ \Am\vv = \lambda\vv
+\end{displaymath}
+\item $\vv$ is known as an \emph{eigenvector}
  \item In general we fix $\|\vv\| = 1$ 
  \item We can see that vectors $\Am\vv$ and $\vv$ are parallel, so $\vv$ is a eigenvector if and only if $\Am$ transforms $\vv$ into a parallel vector  
- \item If $\Am$ is symmetric we can write it as an \emph{eigen-decomposition} $\Am = \sum_{i=1}^n \lambda_i\vv_i\vv^T$ 
- \item The trace is the sum of eigenvalues $\tr(\Am) = \sum_{i=1}^n \lambda_i$
 \end{itemize}
 \end{frame}
+
+\begin{frame}{Eigenvalues and Eigenvectors II}
+\begin{itemize} 
+  \item If $\Am$ is symmetric we can write it as an \emph{eigen-decomposition} $\Am = \sum_{i=1}^n \lambda_i\vv_i\vv^T$ 
+\begin{itemize}
+\item Another way of writing this is  $\Am = \Vm\Lambdam\Vm^T$ where $\Vm = [\vv_1 \; \ldots \; \vv_n]$ and $\Lambdam_{ii} = \lambda_i$, $\Lambdam_{ij} = 0, i \neq j$  
+\end{itemize} 
+ \item For any square matrix the trace is the sum of eigenvalues $\tr(\Am) = \sum_{i=1}^n \lambda_i$
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}{What We Did Not Cover}  
 \begin{itemize} 
