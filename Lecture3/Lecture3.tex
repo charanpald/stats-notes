@@ -48,10 +48,25 @@
  \begin{displaymath}
   \max \phi(\Vm) = \max \sum_{i=1}^n \|\xv_{i}^T\Vm\Vm^T \|^2
  \end{displaymath}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Recap Part III} 
+Best orthogonal $\Vm$ which maximises variance 
+  \begin{figure}[htp]
+\mbox{
+\includegraphics[width=0.5\linewidth]{PCA.eps}
+}
+\end{figure} 
+\end{frame}
+
+\begin{frame}{Recap Part IV} 
+\begin{itemize} 
  \item To solve this find the eigenvectors (denote by columns of $\Vm$) corresponding to largest eigenvalues of covariance matrix $\Cm = \frac{1}{n}\Xm^T\Xm$ 
  \item New features are $\Zm = \Xm\Vm$, known as \emph{Principal Components}
 \end{itemize}
 \end{frame}
+
 
 \begin{frame}{Motivations}
 \begin{itemize} 
