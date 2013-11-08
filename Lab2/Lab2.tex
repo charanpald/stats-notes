@@ -1,0 +1,37 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{pgf}
+\usepackage{listings}
+\usepackage[margin=1.5in]{geometry}
+
+%opening
+\title{Statistics and the Analysis of Data\\ Lab Session 2: Multivariate Statistics}
+\author{Charanpal Dhanjal}
+%\institute{\'{E}cole des Ponts}
+
+\definecolor{light-gray}{gray}{0.95}
+
+\begin{document}
+\lstset{language=R, showspaces=false, showstringspaces=false, backgroundcolor=\color{light-gray}}  
+\date{22nd October 2013}
+\maketitle
+
+\section{Introduction} 
+
+In this lab session we are going to look at the study of a set of images: 40 works of Rembrandt and 44 works of Van Gogh. To study each image we will represent each one using a histogram of colours. What this means is that we will look at the frequencies (or probabilities) of the colours for all the pixels in each image. There are 255 intensities of red, green and blue for each pixel. Assuming that our histogram has $k$ bins then for each image we can represent the pixel using a vector of dimension $k$. Note that we can simply remove the last feature of this vector since is is simply:  1 - sum of the other features. For the 84 images in our dataset, we have computed the set of histograms for $k=8$ and $k=64$ and they are available as the files \texttt{painting8.dat} and \texttt{painting64.dat} at \url{http://imagine.enpc.fr/~dalalyan/StatNum.html}. 
+
+\section{Exercises} 
+
+Please follow these instructions to study the dataset of images: 
+
+\begin{enumerate} 
+ \item Download the files \texttt{painting8.dat} and \texttt{painting64.dat} to your working directory and load them for example using the following command 
+\begin{lstlisting} 
+ paintings8=data.frame(read.table("painting8.dat",sep=","))
+\end{lstlisting}
+\item What does the code \texttt{data.frame} and \texttt{sep=","} do? 
+\end{enumerate}
+
+
+\end{document}
