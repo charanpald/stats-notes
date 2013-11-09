@@ -14,24 +14,88 @@
 
 \begin{document}
 \lstset{language=R, showspaces=false, showstringspaces=false, backgroundcolor=\color{light-gray}}  
-\date{22nd October 2013}
+\date{12th November 2013}
 \maketitle
 
 \section{Introduction} 
 
-In this lab session we are going to look at the study of a set of images: 40 works of Rembrandt and 44 works of Van Gogh. To study each image we will represent each one using a histogram of colours. What this means is that we will look at the frequencies (or probabilities) of the colours for all the pixels in each image. There are 255 intensities of red, green and blue for each pixel. Assuming that our histogram has $k$ bins then for each image we can represent the pixel using a vector of dimension $k$. Note that we can simply remove the last feature of this vector since is is simply:  1 - sum of the other features. For the 84 images in our dataset, we have computed the set of histograms for $k=8$ and $k=64$ and they are available as the files \texttt{painting8.dat} and \texttt{painting64.dat} at \url{http://imagine.enpc.fr/~dalalyan/StatNum.html}. 
+In this lab session we are going to look at the study of a set of images: 40 works of Rembrandt and 44 works of Van Gogh. To study each image we will represent each one using a histogram of colours. What this means is that we will look at the frequencies (or probabilities) of the colours for all the pixels in each image. There are 255 intensities of red, green and blue for each pixel. Assuming that our histogram has $k$ bins then for each image we can represent the image using a vector of dimension $k$. Note that we can simply remove the last feature of this vector since is is simply:  1 - sum of the other features. For the 84 images in our dataset, we have computed the set of histograms for $k=8$ and $k=64$ and they are available as the files \texttt{painting8.dat} and \texttt{painting64.dat} at \url{http://imagine.enpc.fr/~dalalyan/StatNum.html}. 
 
 \section{Exercises} 
 
-Please follow these instructions to study the dataset of images: 
+Please follow these instructions to study the dataset of images. Hint: for the longer code blocks, type them into a text editor like \texttt{wordpad} and copy and paste into the R shell.  
 
 \begin{enumerate} 
  \item Download the files \texttt{painting8.dat} and \texttt{painting64.dat} to your working directory and load them for example using the following command 
 \begin{lstlisting} 
- paintings8=data.frame(read.table("painting8.dat",sep=","))
+paintings8=data.frame(read.table("painting8.dat",sep=","))
 \end{lstlisting}
-\item What does the code \texttt{data.frame} and \texttt{sep=","} do? 
+What does the code \texttt{data.frame} and \texttt{sep=","} do? 
+\item In the data files the first 40 rows correspond to Rembrandt and the last 44 correspond to Van Gogh. Take a look at the box plots using the following commands 
+\begin{lstlisting} 
+par(bg="cornsilk",lwd=2,col="darkblue",fg="darkblue");
+boxplot(paintings8);
+\end{lstlisting}
+Which of the variables has the most dispersion (i.e. largest value of $B - A$ in the boxplot), and which has the least? Note down the corresponding dispersions. 
+
+\item To visualise pairs of features we can use scatter plots 
+\begin{lstlisting}
+pairs(paintings8);
+pairs(paintings8,fg="darkblue",bg="orange",pch=21,cex=1.5);
+\end{lstlisting}
+In the previous line of code, what do the options \texttt{bg="orange"} and \texttt{cex=1.5} mean?
+\item Are there variables that are related by an affine function? Which ones? 
+\item Now, we will use PCA on the data using the following code: 
+\begin{lstlisting} 
+Z=prcomp(paintings8,retx=T,scale=F);
+z=Z$x;
+par(mfcol=c(1,2),bg="cornsilk",lwd=2,col="darkblue",
+  fg="darkblue")
+boxplot(z)
+plot(z[,1:2],col="darkblue",pch=21,cex=1.5,bg="orange");
+\end{lstlisting}
+The command that is pertinent here is \texttt{prcomp} which performs PCA. Take a look at the help page for this command. By using the command  \texttt{boxplot(z)} how can we see that the Principal Components (PCs) are in decreasing order of variance?
+\item Now we study the first two Principal Components 
+\begin{lstlisting} 
+plot(z[,1:2],type="n");
+points(z[1:40,1:2],col="darkblue",pch=21,cex=1.5,
+  bg="lightblue");
+points(z[41:84,1:2],col="darkred",pch=24,cex=1.5,
+  bg="orange");
+\end{lstlisting}
+Note the separation between the images by the two artists. Using a straight line to separate the artists what is the least number of mistakes we can make? 
+\item Now perform PCA using the dataset \texttt{painting64.dat} and observe the first two PCs. Is the separation better or worse? Give an explanation. 
+\item With the latter dataset run the following commands 
+\begin{lstlisting} 
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+par(bg="cornsilk")
+plot(z[,1:2],type="n")
+points(z[1:40,1:2],col="darkblue",pch=21,cex=1.5,
+  bg="lightblue")
+points(z[41:84,1:2],col="darkred",pch=24,cex=1.5,
+  bg="orange")
+text(z[1:40,1:2]-c(0.01,0.01),as.character(1:40),
+  font=2,col="darkblue")
+text(z[41:84,1:2]-c(0.01,0.01),as.character(1:44),
+  font=2,col="darkred")
+screeplot(PCC,xlab="Scree graph",main="")
+cc=cor(paintings64,z[,1:2])
+library(ade4)
+s.corcircle(cc, lab = names(paintings64))
+\end{lstlisting}
+You will need to install the \texttt{ade4} package using e.g. \texttt{install.packages("ade4")}.  Notice that the variable \texttt{PCC} does not exist, what is this variable? Hint: look at the help documentation for \texttt{screeplot}. What does \texttt{cc=cor(paintings64,z[,1:2])} do? What does the \texttt{screeplot} represent? 
+\item Recall the definition of inertia from the lectures. Write a function which takes a \texttt{data.frame} and outputs the inertial of the 2 first PCs. Hint: the value \texttt{Z\$sdev} produced by \texttt{prcomp} might help you. 
+\item What is the part of the total inertia explained by the first two PCs for \texttt{paintings64.dat}?  
 \end{enumerate}
+
+\section{Submission Instructions}
+
+Please submit the answers to the above questions in PDF format to \texttt{charanpal@gmail.com} before midnight CET on 19/11/13 using the subject heading ``Statistics and the Analysis of Data Lab 2''. Some requirements: 
+\begin{itemize} 
+ \item Please be concise, the questions can be answered in under 2 pages. Code and extra plots are generally not required, and points are awarded for clarity and concision. 
+ \item The assignment can be written in French or English. 
+ \item Reports can be done in pairs, but no more than 2 people.   
+\end{itemize}
 
 
 \end{document}
