@@ -19,7 +19,7 @@
 
 \section{Introduction} 
 
-In this lab session we are going to look at the study of a set of images: 40 works of Rembrandt and 44 works of Van Gogh. To study each image we will represent each one using a histogram of colours. What this means is that we will look at the frequencies (or probabilities) of the colours for all the pixels in each image. There are 255 intensities of red, green and blue for each pixel. Assuming that our histogram has $k$ bins then for each image we can represent the image using a vector of dimension $k$. Note that we can simply remove the last feature of this vector since is is simply:  1 - sum of the other features. For the 84 images in our dataset, we have computed the set of histograms for $k=8$ and $k=64$ and they are available as the files \texttt{painting8.dat} and \texttt{painting64.dat} at \url{http://imagine.enpc.fr/~dalalyan/StatNum.html}. 
+In this lab session we are going to study a set of images: 40 works of Rembrandt and 44 works of Van Gogh. To study each image we will represent each one using a histogram of colours. What this means is that we will look at the frequencies (or probabilities) of the colours for all the pixels in each image. There are 255 intensities of red, green and blue for each pixel. Assuming that our histogram has $k$ bins then we can represent each image using a vector of dimension $k$. Note that we can simply remove the last feature of this vector since it is:  1 - sum of the other features. For the 84 images in our dataset, we have computed the set of histograms for $k=8$ and $k=64$ and they are available as the files \texttt{painting8.dat} and \texttt{painting64.dat} at \url{http://imagine.enpc.fr/~dalalyan/StatNum.html}. 
 
 \section{Exercises} 
 
@@ -90,11 +90,11 @@ You will need to install the \texttt{ade4} package using e.g. \texttt{install.pa
 
 \section{Submission Instructions}
 
-Please submit the answers to the above questions in PDF format to \texttt{charanpal@gmail.com} before midnight CET on 19/11/13 using the subject heading ``Statistics and the Analysis of Data Lab 2''. Some requirements: 
+Please submit the answers to the above questions in PDF format to \texttt{charanpal@gmail.com} before midnight CET on 26/11/13 using the subject heading ``Statistics and the Analysis of Data Lab 2''. Some requirements: 
 \begin{itemize} 
- \item Please be concise, the questions can be answered in under 2 pages. Code and extra plots are generally not required, and points are awarded for clarity and concision. 
+ \item Please be concise, the questions can be answered in under 2 pages. Code and plots are generally not required unless explicitly asked for, and points are awarded for clarity and concision. 
  \item The assignment can be written in French or English. 
- \item Reports can be done in pairs, but no more than 2 people.   
+ \item Reports can be done in pairs or individually.    
 \end{itemize}
 
 
