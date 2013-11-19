@@ -93,12 +93,43 @@ for some interval $A$, where $p(x)$ is known as the \emph{probability density fu
 \end{itemize}
 \end{frame}
 
+
 \begin{frame}{The Binomial Distribution}  
 \begin{itemize} 
- \item Consider 
+ \item Consider a game in which you have to choose 3 numbers correctly from 49 
+\begin{itemize}
+\item The number of possible choices is $C^3_{49} = 18424$ where $C^k_n =\frac{n!}{k!(n-k)!}$
+\item Therefore the probability of winning $p = 1/18424$
 \end{itemize}
- 
+\item Assuming you play every day for a non-leap year what is the probability of winning 5 times? 
+\begin{itemize}
+\item $P(X = 5) = C^5_365 p^5 (1-p)^{365-5} = $
+\end{itemize}
+\end{itemize}
 \end{frame}
+
+
+\begin{frame}{The Binomial Distribution II} 
+\begin{itemize} 
+ \item The number of time one expects to win the game follows a Binomial distribution 
+\item More generally, the number of successes of independent observations of a Bernoulli random variable form a Binomial random variable 
+\begin{displaymath} 
+ P(X = k) = C^k_n p^k (1-p)^{n-k} \quad \forall k = 0, \ldots, n
+\end{displaymath}
+for a success probability $p$, number of observations $n$ and number of successes $k$ 
+\item This is written as $X \sim B(n, p)$ 
+\item In the case $n=1$ we get the Bernoulli disribution 
+\item $\sum_k P(X = k) = 1$  
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Geometric Distribution} 
+\begin{itemize} 
+ \item Consider now that we play the same game. What is the probability of first winning on the 10th day? 
+\end{itemize}
+
+\end{frame}
+
 
 
 \end{document}
