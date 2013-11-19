@@ -1,0 +1,104 @@
+\documentclass{beamer}
+
+\usepackage{beamerthemesplit}
+\usepackage[utf8x]{inputenc}
+\usepackage{pgf}
+\usepackage{default}
+\usepackage{url}
+\usepackage{subfigure}
+\usepackage{algorithmic} 
+\usepackage{algorithm} 
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\usetheme{Singapore}
+
+\input{../include/CsdMacros}
+\graphicspath{{./Figures/}}
+
+\title{Statistics and the Analysis of Data\\ Lecture 4: On Random Variables}
+\author{Charanpal Dhanjal \\ \texttt{charanpal@gmail.com}} 
+\institute{\'{E}cole des Ponts}
+\date{26th November 2013}
+
+\begin{document}
+
+\frame{\titlepage}
+
+
+\begin{frame}{Recap}  
+\begin{itemize} 
+\item Sample spaces, experiments, events 
+\item Independence of events   $P(A \cap B) = P(A)P(B)$
+\item Conditional probabilities  $P(A | B) = \frac{P(A \cap B)}{P(B)}$
+\item Bayes' Law 
+\begin{displaymath}
+ P(A | B) = \frac{P(B | A)P(A)}{P(B)}
+\end{displaymath}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Overview}
+\begin{itemize} 
+\item Random variables 
+\item Probability Distributions
+\begin{itemize}
+\item Binomial, Bernoulli, Geometric 
+\item Poisson, Uniform, Exponential 
+\item Gaussian  
+\end{itemize}  
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Probability Density} 
+\begin{itemize} 
+ \item A more general definition of a random variable is any function $f: \Omega \mapsto \mathbb{R}$ 
+\begin{itemize} 
+\item $f$ is discrete if it maps to a finite set of values $\{a_1, \ldots, a_m\}$
+\item $f$ is continuous if the following is true 
+\begin{displaymath} 
+P(\{\omega: f(\omega) \in A\}) = \int_{A} p(x) dx, 
+\end{displaymath}
+for some interval $A$, where $p(x)$ is known as the \emph{probability density function} 
+ \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}{Probability Distributions} 
+\begin{itemize}
+\item A \emph{probability distribution} defines a random variable 
+\item For a discrete variable we have $p_i = P(\{\omega: f(\omega) = a_i\})$
+\begin{itemize}
+\item In addition, $\sum_i p_i  = 1$
+\item Example: for a die $a_i = i$, $i=1,\ldots, 6$ and $p_i = 1/6$
+\end{itemize}
+\item For a continuous variable the distribution is defined using the density $p(x)$
+\begin{itemize}
+\item The probability across the compute range is 1: $P(\{\omega: f(\omega) \in \mathbb{R}\}) = \int_\mathbb{R} p(x) dx = 1$ 
+\end{itemize}
+\item From a probabilistic standpoint, two variables with the same distribution are identical 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Bernoulli Distribution}
+\begin{itemize}
+ \item A (potentially biased) coin lands on heads with $p$ and tails with probability $1-p$
+\item The outcome of the toss follows the \emph{Bernoulli Distribution} 
+\item Formally X is a Bernoulli random variable, written $X \sim B(p)$ if 
+\begin{itemize}
+\item It is 0 with probability $1-p$ 
+\item It is 1 with probability $p$ 
+\end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Binomial Distribution}  
+\begin{itemize} 
+ \item Consider 
+\end{itemize}
+ 
+\end{frame}
+
+
+\end{document}
