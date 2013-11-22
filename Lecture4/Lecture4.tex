@@ -51,35 +51,102 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Probability Density} 
+\begin{frame}{Random Variables} 
 \begin{itemize} 
- \item A more general definition of a random variable is any function $f: \Omega \mapsto \mathbb{R}$ 
+ \item A more general definition of a random variable is any function $X: \Omega \mapsto \mathbb{R}$ 
+ \item Another way of thinking about this is if we write $P(X=1, Y=2)$ this is the same as 
+ \begin{displaymath}
+  P(\{\omega \in \Omega: X(\omega) = 1, Y(\omega) = 2\}) 
+ \end{displaymath}
+ \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Continuous Random Variables} 
 \begin{itemize} 
-\item $f$ is discrete if it maps to a finite set of values $\{a_1, \ldots, a_m\}$
-\item $f$ is continuous if the following is true 
+ \item $X$ is continuous if the following is true 
 \begin{displaymath} 
-P(\{\omega: f(\omega) \in A\}) = \int_{A} p(x) dx, 
+P(\{\omega: X(\omega) \in A\}) = \int_{A} p(x) dx, 
 \end{displaymath}
 for some interval $A$, where $p(x)$ is known as the \emph{probability density function} 
- \end{itemize}
- \end{itemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Probability Distributions} 
 \begin{itemize}
 \item A \emph{probability distribution} defines a random variable 
-\item For a discrete variable we have $p_i = P(\{\omega: f(\omega) = a_i\})$
+\item For a discrete variable we have $p_i = P(\{\omega: X(\omega) = i\})$
 \begin{itemize}
 \item In addition, $\sum_i p_i  = 1$
-\item Example: for a die $a_i = i$, $i=1,\ldots, 6$ and $p_i = 1/6$
+\item E.g. for a die $a_i = i$, $i=1,\ldots, 6$ and $p_i = 1/6$
 \end{itemize}
-\item For a continuous variable the distribution is defined using the density $p(x)$
+\item For continuous variable distribution is defined using $p(x)$
 \begin{itemize}
-\item The probability across the compute range is 1: $P(\{\omega: f(\omega) \in \mathbb{R}\}) = \int_\mathbb{R} p(x) dx = 1$ 
+\item The probability across the complete range is 1: 
+\begin{displaymath}
+P(\{\omega: f(\omega) \in \mathbb{R}\}) = \int_\mathbb{R} p(x) dx = 1
+\end{displaymath} 
 \end{itemize}
 \item From a probabilistic standpoint, two variables with the same distribution are identical 
 \end{itemize}
 \end{frame}
+
+\begin{frame}{Independence}  
+\begin{itemize} 
+ \item Two variables $X$ and $Y$ are independent if 
+ \begin{displaymath} 
+  P(X \in A, Y \in B) = P(X \in A)P(Y \in B) \quad \forall A, B
+ \end{displaymath}
+\item For $n$ variables $X_1, X_2, \ldots, X_n$ independence is 
+ \begin{displaymath} 
+  P(X_1 \in A_1, \ldots, X_n \in A_n) = P(X_1 \in A_1) \cdots P(X_n \in A_n)
+ \end{displaymath}
+ for all $A_1, \ldots, A_n$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Expectation of Discrete Variable} 
+\begin{itemize} 
+ \item The \emph{expectation} is the analogue of the mean for probability distributions.
+ \item Let $X$ be a random variable with domain $\{a_1, a2, \ldots \}$ and $p_i = P(X = a_i)$ then the expectation is 
+ \begin{displaymath} 
+  \mathbb{E}[X] = \sum_{i=1}^\infty a_i p_i
+ \end{displaymath}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Expectation of Continuous Variable} 
+\begin{itemize} 
+ \item The expectation of a continuous variable $X$ with density $p(x)$ is (assuming the integral exists) 
+ \begin{displaymath} 
+  \mathbb{E}[X] = \int_{-\infty}^\infty x p(x) dx
+ \end{displaymath}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Variance and Standard Deviation} 
+\begin{itemize} 
+ \item If $X^2$ is integrable we say that $X$ is \emph{square integrable} and the variance is defined as follows 
+ \begin{displaymath} 
+ var(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2  
+ \end{displaymath}
+ \item The standard deviation is $\sqrt{var(X)}$
+ \item Note that expectation and variance depend only on the probability distribution 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Properties of Expectation} 
+\begin{itemize} 
+ \item Let $X$ and $Y$ be integrable random functions and $\lambda, \rho \in \mathbb{R}$ be constants
+ \begin{itemize}
+ \item Linearity: $\mathbb{E}[X + \lambda Y + \rho] = \mathbb{E}[X] +  \lambda \mathbb{E}[Y] + \rho$ 
+ \item Positivity: $P(X \geq 0) = 1$ implies $\mathbb{E}[X] \geq 0$ 
+ \item If $P(X \leq Y) = 1$ then $\mathbb{E}[X] \leq \mathbb{E}[Y]$
+ \end{itemize}
+\end{itemize}
+ 
+\end{frame}
+
 
 \begin{frame}{The Bernoulli Distribution}
 \begin{itemize}
@@ -138,7 +205,7 @@ for a success probability $p$, number of observations $n$ and number of successe
 \begin{frame}{Poisson Distribution}  
 \begin{itemize} 
  \item The \emph{Poisson Distribution} represents probabilities of events occurring within time interval given they occur at known average rate and independently of last.  
- \item E.g. We know that buses at a particular stop come every 4 minutes. A Poisson distribution can tell us the probability of a bus arriving within a 5 minute interval. 
+ \item E.g. We know that buses at a particular stop come every 10 minutes. A Poisson distribution can tell us the probability of a bus arriving within a 5 minute interval. 
  \item $k$ is the frequency of occurrence within the interval and $\theta > 0$ is the rate. 
  \begin{displaymath} 
   p_k = P(X = k) = \frac{\theta^k e^{-\theta}}{k!}
@@ -149,7 +216,7 @@ for a success probability $p$, number of observations $n$ and number of successe
 
 \begin{frame}{Bus Example}  
 \begin{itemize} 
- \item We know that buses at a particular stop come every 4 minutes. What is the probability of a bus arriving within a 5 minute interval?
+ \item We know that buses at a particular stop come at an average rate of once every 10 minutes. What is the probability of a bus arriving within a 5 minute interval assuming arrival events are independent?
  \item $\theta = 0.5$ and $k = 1$ 
  \item $P(X = k) = 0.303$ 
 \end{itemize}
@@ -167,9 +234,31 @@ for a success probability $p$, number of observations $n$ and number of successe
 \end{itemize}
 \end{frame}
 
-\begin{frame}{More Buses} 
+\begin{frame}{Exponential Distribution} 
+\begin{itemize} 
+ \item For the bus example what is probability that two buses arrive 20 minutes apart? 
+ \item We can model this type of event using the \emph{Exponential distribution} with notation $X \sim \mathcal{E}(\theta)$
+ \begin{displaymath}
+  p(x) = \frac{1}{\theta} \left\{ \begin{array}{l l} \exp^{-x/\theta} & x \geq 0 \\ 0 & x < 0 \end{array} \right. 
+ \end{displaymath}
+  where $\theta$ is a scale parameter. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exponential Distribution Properties}
+\begin{itemize} 
+ \item The exponential distribution is memoryless 
+ \begin{displaymath}
+  P(X > T + s | X > t) = P(X > s)
+ \end{displaymath}
+\item If $X \sim \mathcal{E}(\theta)$ then $X\theta \sim \mathcal{E}(1)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Normal Distribution}  
  
 \end{frame}
+
 
 
 \end{document}
