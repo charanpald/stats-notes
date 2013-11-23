@@ -1,0 +1,36 @@
+\begin{frame}{Uniform Distribution}  
+ \begin{itemize} 
+  \item We have already seem the discrete uniform distribution e.g. when rolling a fair die. 
+\item Taken to the limit, we have for an interval $[a, b]$ 
+\begin{displaymath} 
+ p(x) = \frac{1}{b-a}
+\end{displaymath}
+\item Denoted by $X \sim \mathcal{U}(a, b)$
+\item Note that  $X \sim \mathcal{U}(a, b)$ implies $\frac{X - a}{b - a} \sim \mathcal{U}(0, 1)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exponential Distribution} 
+\begin{itemize} 
+ \item For the bus example what is probability that two buses arrive 20 minutes apart? 
+ \item We can model this type of event using the \emph{Exponential distribution} with notation $X \sim \mathcal{E}(\theta)$
+ \begin{displaymath}
+  p(x) = \frac{1}{\theta} \left\{ \begin{array}{l l} \exp^{-x/\theta} & x \geq 0 \\ 0 & x < 0 \end{array} \right. 
+ \end{displaymath}
+  where $\theta$ is a scale parameter. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exponential Distribution Properties}
+\begin{itemize} 
+ \item The exponential distribution is memoryless 
+ \begin{displaymath}
+  P(X > T + s | X > t) = P(X > s)
+ \end{displaymath}
+\item If $X \sim \mathcal{E}(\theta)$ then $X\theta \sim \mathcal{E}(1)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Normal Distribution}  
+ 
+\end{frame}
