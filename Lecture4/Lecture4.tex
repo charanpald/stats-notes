@@ -17,7 +17,7 @@
 \input{../include/CsdMacros}
 \graphicspath{{./Figures/}}
 
-\title{Statistics and the Analysis of Data\\ Lecture 4: Common Probability Distributions}
+\title{Statistics and the Analysis of Data\\ Lecture 4: Probability Distributions Part I}
 \author{Charanpal Dhanjal \\ \texttt{charanpal@gmail.com}} 
 \institute{\'{E}cole des Ponts}
 \date{26th November 2013}
@@ -42,18 +42,22 @@
 \begin{frame}{Overview}
 \begin{itemize} 
 \item Random variables 
-\item Probability Distributions
+\item Probability distributions
+\item Expectations, variance 
+\item Common discrete distributions 
 \begin{itemize}
-\item Binomial, Bernoulli, Geometric 
-\item Poisson, Uniform, Exponential 
-\item Gaussian  
+\item Binomial, Bernoulli, Geometric, Poisson 
 \end{itemize}  
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Random Variables} 
+\begin{frame}{Discrete Random Variables} 
 \begin{itemize} 
- \item A more general definition of a random variable is any function $X: \Omega \mapsto \mathbb{R}$ 
+ \item More general definition of random variable is any function from sample space to real number $X: \Omega \mapsto \mathbb{R}$ 
+\item X is \emph{discrete} if it maps to a finite or countable number of values $X: \Omega \mapsto \{a_1, a_2, \ldots \}$. 
+\begin{itemize} 
+\item E.g. $X: \Omega \mapsto \{H, T\}$ for a coin toss 
+\end{itemize} 
  \item Another way of thinking about this is if we write $P(X=1, Y=2)$ this is the same as 
  \begin{displaymath}
   P(\{\omega \in \Omega: X(\omega) = 1, Y(\omega) = 2\}) 
@@ -68,7 +72,7 @@
 \begin{displaymath} 
 P(\{\omega: X(\omega) \in A\}) = \int_{A} p(x) dx, 
 \end{displaymath}
-for some interval $A$, where $p(x)$ is known as the \emph{probability density function} 
+for some interval $A$, where $p(x)$ is a nonnegative \emph{probability density function} 
 \end{itemize}
 \end{frame}
 
@@ -84,7 +88,7 @@ for some interval $A$, where $p(x)$ is known as the \emph{probability density fu
 \begin{itemize}
 \item The probability across the complete range is 1: 
 \begin{displaymath}
-P(\{\omega: f(\omega) \in \mathbb{R}\}) = \int_\mathbb{R} p(x) dx = 1
+P(\{\omega: X(\omega) \in \mathbb{R}\}) = \int_\mathbb{R} p(x) dx = 1
 \end{displaymath} 
 \end{itemize}
 \item From a probabilistic standpoint, two variables with the same distribution are identical 
@@ -108,7 +112,7 @@ P(\{\omega: f(\omega) \in \mathbb{R}\}) = \int_\mathbb{R} p(x) dx = 1
 \begin{frame}{Expectation of Discrete Variable} 
 \begin{itemize} 
  \item The \emph{expectation} is the analogue of the mean for probability distributions.
- \item Let $X$ be a random variable with domain $\{a_1, a2, \ldots \}$ and $p_i = P(X = a_i)$ then the expectation is 
+ \item Let $X$ be a random variable with domain $\{a_1, a_2, \ldots \}$ and $p_i = P(X = a_i)$ then the expectation is 
  \begin{displaymath} 
   \mathbb{E}[X] = \sum_{i=1}^\infty a_i p_i
  \end{displaymath}
@@ -128,9 +132,9 @@ P(\{\omega: f(\omega) \in \mathbb{R}\}) = \int_\mathbb{R} p(x) dx = 1
 \begin{itemize} 
  \item If $X^2$ is integrable we say that $X$ is \emph{square integrable} and the variance is defined as follows 
  \begin{displaymath} 
- var(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2  
+ \var(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2  
  \end{displaymath}
- \item The standard deviation is $\sqrt{var(X)}$
+ \item The standard deviation is $\sqrt{\var(X)}$
  \item Note that expectation and variance depend only on the probability distribution 
 \end{itemize}
 \end{frame}
@@ -142,21 +146,37 @@ P(\{\omega: f(\omega) \in \mathbb{R}\}) = \int_\mathbb{R} p(x) dx = 1
  \item Linearity: $\mathbb{E}[X + \lambda Y + \rho] = \mathbb{E}[X] +  \lambda \mathbb{E}[Y] + \rho$ 
  \item Positivity: $P(X \geq 0) = 1$ implies $\mathbb{E}[X] \geq 0$ 
  \item If $P(X \leq Y) = 1$ then $\mathbb{E}[X] \leq \mathbb{E}[Y]$
- \end{itemize}
-\end{itemize}
- 
+\item If $X$ is discrete and $f: \mathbb{R} \mapsto \mathbb{R}$ then $f(X)$ is integrable iff $\sum_i |f(a_i)| p_i < + \infty$ and $\mathbb{E}[f(X)] =  \sum_i f(a_i) p_i$ 
+\item IF $X$ is continuous $f: \mathbb{R} \mapsto \mathbb{R}$ then $f(X)$ is integrable iff $\int_\mathbb{R} |f(x)| p(x) dx < +\infty$ and $\mathbb{E}[f(X)] = \int_\mathbb{R} f(x)p(x) dx $ 
+\end{itemize} 
+\end{itemize} 
 \end{frame}
+
+\begin{frame}{Properties of Variance} 
+\begin{itemize} 
+ \item For all $X$ we have $\var(X) = \mathbb{E}[(X - \mathbb{E}[X])^2]$ 
+\item If $X_1, \ldots X_n$ are square integrable and independent then $\var[\sum_{i=1}^n X_i] = \sum_{i=1}^n \var(X_i)$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise}  
+\begin{itemize}
+ \item Prove from  $\var(X) = \mathbb{E}[(X - \mathbb{E}[X])^2]$ that $\var(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2$ 
+\end{itemize}
+\end{frame}
+
 
 
 \begin{frame}{The Bernoulli Distribution}
 \begin{itemize}
  \item A (potentially biased) coin lands on heads with $p$ and tails with probability $1-p$
 \item The outcome of the toss follows the \emph{Bernoulli Distribution} 
-\item Formally X is a Bernoulli random variable, written $X \sim B(p)$ if 
+\item Formally X is a Bernoulli random variable, written $X \sim \mathcal{B}(p)$ if 
 \begin{itemize}
 \item It is 0 with probability $1-p$ 
 \item It is 1 with probability $p$ 
 \end{itemize} 
+\item The expectation of a Bernoulli random variable is $p$ and the variance is $p(1-p)$
 \end{itemize}
 \end{frame}
 
@@ -174,15 +194,15 @@ P(\{\omega: f(\omega) \in \mathbb{R}\}) = \int_\mathbb{R} p(x) dx = 1
 
 \begin{frame}{The Binomial Distribution} 
 \begin{itemize} 
- \item The number of time one expects to win the game follows a \emph{Binomial distribution}  
-\item More generally, the number of successes of independent observations of a Bernoulli random variable form a Binomial random variable 
+ \item Number of times one expects to win the game follows a \emph{Binomial distribution}  
+\item Number of successes of independent observations of Bernoulli random variable form Binomial random variable 
 \begin{displaymath} 
  P(X = k) = C^k_n p^k (1-p)^{n-k} \quad \forall k = 0, \ldots, n
 \end{displaymath}
-for a success probability $p$, number of observations $n$ and number of successes $k$ 
-\item This is written as $X \sim B(n, p)$ 
-\item In the case $n=1$ we get the Bernoulli disribution 
+for success probability $p$, observations $n$ and successes $k$, written $X \sim \mathcal{B}(n, p)$ 
+\item In the case $n=1$ we get the Bernoulli distribution 
 \item $\sum_k P(X = k) = 1$  
+\item Expectation is $np$ and variance is $np(1-p)$
 \end{itemize}
 \end{frame}
 
@@ -196,21 +216,23 @@ for a success probability $p$, number of observations $n$ and number of successe
 \begin{itemize} 
  \item The \emph{Geometric distribution} represents the probability of a first success in a series of Bernoulli trials with success probability $p$ and failure probability $1-p$.  
  \begin{displaymath} 
- P(X = k) = p (1-p)^{k-1} \quad \forall k = 0, \ldots, n
+ P(X = k) = p (1-p)^{k-1} \quad  k = 0, \ldots, n
 \end{displaymath}
 \item We use the notation $X \sim \mathcal{G}(p)$
+\item Expectation is $1/p$ and variance is $(1-p)/p^2$
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Poisson Distribution}  
 \begin{itemize} 
- \item The \emph{Poisson Distribution} represents probabilities of events occurring within time interval given they occur at known average rate and independently of last.  
- \item E.g. We know that buses at a particular stop come every 10 minutes. A Poisson distribution can tell us the probability of a bus arriving within a 5 minute interval. 
- \item $k$ is the frequency of occurrence within the interval and $\theta > 0$ is the rate. 
+ \item \emph{Poisson distribution} represents probabilities of events occurring within time interval given they occur at known average rate and independently of last.  
+ \item E.g. We know that buses at a particular stop come every 10 minutes. A Poisson distribution can tell us probability of bus arriving within 5 minute interval. 
+ \item $k$ is the frequency of occurrence and $\theta > 0$ is the rate. 
  \begin{displaymath} 
   p_k = P(X = k) = \frac{\theta^k e^{-\theta}}{k!}
  \end{displaymath}
 \item We use the notation $X \sim \mathcal{P}(\theta)$
+\item Expectation is $\theta$ and variance is $\theta$ 
 \end{itemize}
 \end{frame}
 
@@ -222,43 +244,19 @@ for a success probability $p$, number of observations $n$ and number of successe
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Uniform Distribution}  
- \begin{itemize} 
-  \item We have already seem the discrete uniform distribution e.g. when rolling a fair die. 
-\item Taken to the limit, we have for an interval $[a, b]$ 
-\begin{displaymath} 
- p(x) = \frac{1}{b-a}
-\end{displaymath}
-\item Denoted by $X \sim \mathcal{U}(a, b)$
-\item Note that  $X \sim \mathcal{U}(a, b)$ implies $\frac{X - a}{b - a} \sim \mathcal{U}(0, 1)$
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Exponential Distribution} 
+\begin{frame}{Summary}  
 \begin{itemize} 
- \item For the bus example what is probability that two buses arrive 20 minutes apart? 
- \item We can model this type of event using the \emph{Exponential distribution} with notation $X \sim \mathcal{E}(\theta)$
- \begin{displaymath}
-  p(x) = \frac{1}{\theta} \left\{ \begin{array}{l l} \exp^{-x/\theta} & x \geq 0 \\ 0 & x < 0 \end{array} \right. 
- \end{displaymath}
-  where $\theta$ is a scale parameter. 
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Exponential Distribution Properties}
+ \item Formalised theoretical random variances 
+\item Expectation, variance and their properties 
+\item Discrete distributions 
 \begin{itemize} 
- \item The exponential distribution is memoryless 
- \begin{displaymath}
-  P(X > T + s | X > t) = P(X > s)
- \end{displaymath}
-\item If $X \sim \mathcal{E}(\theta)$ then $X\theta \sim \mathcal{E}(1)$
+\item Bernoulli - $p_k= p^k (1-p)^{1-k}$ for $k \in \{0, 1\}$
+\item Binomial - $p_k= C^k_n p^k (1-p)^{n-k}$ for $k \in \{0, 1, \ldots, n\}$
+\item Geometric - $p_k = p (1-p)^{k-1} $ for $k \in \{1, 2, \ldots\}$
+\item Poisson - $p_k =  \frac{\theta^k e^{-\theta}}{k!}$ for $k \in \{0, 1, \ldots\}$
 \end{itemize}
+\end{itemize} 
 \end{frame}
-
-\begin{frame}{Normal Distribution}  
- 
-\end{frame}
-
 
 
 \end{document}
