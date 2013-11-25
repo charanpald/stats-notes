@@ -43,7 +43,7 @@
 \begin{itemize} 
 \item Random variables 
 \item Probability distributions
-\item Expectations, variance 
+\item Expectation, variance 
 \item Common discrete distributions 
 \begin{itemize}
 \item Binomial, Bernoulli, Geometric, Poisson 
@@ -56,9 +56,9 @@
  \item More general definition of random variable is any function from sample space to real number $X: \Omega \mapsto \mathbb{R}$ 
 \item X is \emph{discrete} if it maps to a finite or countable number of values $X: \Omega \mapsto \{a_1, a_2, \ldots \}$. 
 \begin{itemize} 
-\item E.g. $X: \Omega \mapsto \{H, T\}$ for a coin toss 
+\item E.g. $X: \Omega \mapsto \{0, 1\}$ for a coin toss 
 \end{itemize} 
- \item Another way of thinking about this is if we write $P(X=1, Y=2)$ this is the same as 
+ \item Another way of thinking about this is if we write $P(X=1, Y=2)$, this is the same as 
  \begin{displaymath}
   P(\{\omega \in \Omega: X(\omega) = 1, Y(\omega) = 2\}) 
  \end{displaymath}
@@ -72,7 +72,7 @@
 \begin{displaymath} 
 P(\{\omega: X(\omega) \in A\}) = \int_{A} p(x) dx, 
 \end{displaymath}
-for some interval $A$, where $p(x)$ is a nonnegative \emph{probability density function} 
+for some interval $A$, where $p$ is a nonnegative \emph{probability density function} 
 \end{itemize}
 \end{frame}
 
@@ -162,6 +162,11 @@ P(\{\omega: X(\omega) \in \mathbb{R}\}) = \int_\mathbb{R} p(x) dx = 1
 \begin{frame}{Exercise}  
 \begin{itemize}
  \item Prove from  $\var(X) = \mathbb{E}[(X - \mathbb{E}[X])^2]$ that $\var(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2$ 
+ \item The maximal height rise of a river during the period of a year is modelled by a random variable $X$. If this height rise exceeds $6$m then flooding will occur. The variable $X$ is modelled using the following distribution 
+ \begin{displaymath} 
+  p(x) =  \left\{\begin{array}{l l} \frac{x}{3} \exp^{-x^2/6} & x \geq 0 \\ 0 & x < 0 \end{array} \right.  
+ \end{displaymath}
+ Calculate the probability that a flood occurs. 
 \end{itemize}
 \end{frame}
 
@@ -169,9 +174,9 @@ P(\{\omega: X(\omega) \in \mathbb{R}\}) = \int_\mathbb{R} p(x) dx = 1
 
 \begin{frame}{The Bernoulli Distribution}
 \begin{itemize}
- \item A (potentially biased) coin lands on heads with $p$ and tails with probability $1-p$
-\item The outcome of the toss follows the \emph{Bernoulli Distribution} 
-\item Formally X is a Bernoulli random variable, written $X \sim \mathcal{B}(p)$ if 
+ \item A (potentially biased) coin lands on heads with probability $p$ and tails with probability $1-p$
+\item The outcome follows the \emph{Bernoulli Distribution} 
+\item $X$ is a Bernoulli random variable, written $X \sim \mathcal{B}(p)$ if 
 \begin{itemize}
 \item It is 0 with probability $1-p$ 
 \item It is 1 with probability $p$ 
@@ -188,14 +193,14 @@ P(\{\omega: X(\omega) \in \mathbb{R}\}) = \int_\mathbb{R} p(x) dx = 1
 \item The ``correct'' numbers are chosen uniformly randomly 
 \end{itemize}
 \item Each ticket costs 1 Euro, and the prize money is 10,000 Euros. 
-\item If you keep on playing, can you make a profit? What return/loss is there on the ``investment''?
+\item If you keep on playing, can you make a profit? What expected return/loss is there on the ticket?
 \end{itemize}
 \end{frame}
 
 \begin{frame}{The Binomial Distribution} 
 \begin{itemize} 
- \item Number of times one expects to win the game follows a \emph{Binomial distribution}  
-\item Number of successes of independent observations of Bernoulli random variable form Binomial random variable 
+ \item Number of times one expects to win the previous game follows a \emph{Binomial distribution}  
+\item Number of successes of independent observations of Bernoulli random variable form \emph{Binomial random variable} 
 \begin{displaymath} 
  P(X = k) = C^k_n p^k (1-p)^{n-k} \quad \forall k = 0, \ldots, n
 \end{displaymath}
@@ -208,13 +213,14 @@ for success probability $p$, observations $n$ and successes $k$, written $X \sim
 
 \begin{frame}{Exercise} 
 \begin{itemize} 
- \item For the same game, what is the probability of first winning on the 10th day? 
+ \item For the same game, what is the probability of first winning on the 10th day assuming you play once a day? 
+ \item Show that the variance of a Bernoulli random variable is $p(1-p)$ 
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Geometric Distribution} 
 \begin{itemize} 
- \item The \emph{Geometric distribution} represents the probability of a first success in a series of Bernoulli trials with success probability $p$ and failure probability $1-p$.  
+ \item The \emph{Geometric distribution} represents the probability of a first success in a series of Bernoulli trials with success probability $p$ and failure probability $1-p$  
  \begin{displaymath} 
  P(X = k) = p (1-p)^{k-1} \quad  k = 0, \ldots, n
 \end{displaymath}
@@ -246,7 +252,7 @@ for success probability $p$, observations $n$ and successes $k$, written $X \sim
 
 \begin{frame}{Summary}  
 \begin{itemize} 
- \item Formalised theoretical random variances 
+ \item Formalised random variables 
 \item Expectation, variance and their properties 
 \item Discrete distributions 
 \begin{itemize} 
