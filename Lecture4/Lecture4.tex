@@ -128,17 +128,6 @@ P(\{\omega: X(\omega) \in \mathbb{R}\}) = \int_\mathbb{R} p(x) dx = 1
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Variance and Standard Deviation} 
-\begin{itemize} 
- \item If $X^2$ is integrable we say that $X$ is \emph{square integrable} and the variance is defined as follows 
- \begin{displaymath} 
- \var(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2  
- \end{displaymath}
- \item The standard deviation is $\sqrt{\var(X)}$
- \item Note that expectation and variance depend only on the probability distribution 
-\end{itemize}
-\end{frame}
-
 \begin{frame}{Properties of Expectation} 
 \begin{itemize} 
  \item Let $X$ and $Y$ be integrable random functions and $\lambda, \rho \in \mathbb{R}$ be constants
@@ -150,6 +139,17 @@ P(\{\omega: X(\omega) \in \mathbb{R}\}) = \int_\mathbb{R} p(x) dx = 1
 \item IF $X$ is continuous $f: \mathbb{R} \mapsto \mathbb{R}$ then $f(X)$ is integrable iff $\int_\mathbb{R} |f(x)| p(x) dx < +\infty$ and $\mathbb{E}[f(X)] = \int_\mathbb{R} f(x)p(x) dx $ 
 \end{itemize} 
 \end{itemize} 
+\end{frame}
+
+\begin{frame}{Variance and Standard Deviation} 
+\begin{itemize} 
+ \item If $X^2$ is integrable we say that $X$ is \emph{square integrable} and the variance is defined as follows 
+ \begin{displaymath} 
+ \var(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2  
+ \end{displaymath}
+ \item The standard deviation is $\sqrt{\var(X)}$
+ \item Note that expectation and variance depend only on the probability distribution 
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Properties of Variance} 
