@@ -1,12 +1,59 @@
+\documentclass{beamer}
+
+\usepackage{beamerthemesplit}
+\usepackage[utf8x]{inputenc}
+\usepackage{pgf}
+\usepackage{default}
+\usepackage{url}
+\usepackage{subfigure}
+\usepackage{algorithmic} 
+\usepackage{algorithm} 
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\usetheme{Singapore}
+
+\input{../include/CsdMacros}
+\graphicspath{{./Figures/}}
+
+\title{Statistics and the Analysis of Data\\ Lecture 4: Probability Distributions Part II}
+\author{Charanpal Dhanjal \\ \texttt{charanpal@gmail.com}} 
+\institute{\'{E}cole des Ponts}
+\date{3rd December 2013}
+
+\begin{document}
+
+\frame{\titlepage}
+
+
+\begin{frame}{Recap}  
+\begin{itemize} 
+\item Discrete and continuous random variables map sample space to real number 
+\item A probability distribution fully describes a random variable 
+\item Expectation, variance 
+\item Discrete distributions - Bernoulli, Binomial, Geometric, Poisson
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Outline} 
+\begin{itemize} 
+ \item Continuous distributions - uniform, exponential and Gaussian
+ \item Random vectors 
+ \item Convergence of random variables
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Uniform Distribution}  
  \begin{itemize} 
-  \item We have already seem the discrete uniform distribution e.g. when rolling a fair die. 
+\item We have already seem the discrete \emph{uniform distribution} e.g. when rolling a fair die. 
 \item Taken to the limit, we have for an interval $[a, b]$ 
 \begin{displaymath} 
  p(x) = \frac{1}{b-a}
 \end{displaymath}
 \item Denoted by $X \sim \mathcal{U}(a, b)$
 \item Note that  $X \sim \mathcal{U}(a, b)$ implies $\frac{X - a}{b - a} \sim \mathcal{U}(0, 1)$
+\item Expectation is $(a+b)/2$ and variance is $(b-a)^2/12$ 
 \end{itemize}
 \end{frame}
 
@@ -15,7 +62,7 @@
  \item For the bus example what is probability that two buses arrive 20 minutes apart? 
  \item We can model this type of event using the \emph{Exponential distribution} with notation $X \sim \mathcal{E}(\theta)$
  \begin{displaymath}
-  p(x) = \frac{1}{\theta} \left\{ \begin{array}{l l} \exp^{-x/\theta} & x \geq 0 \\ 0 & x < 0 \end{array} \right. 
+  p(x) = \left\{ \begin{array}{l l}\frac{1}{\theta}  \exp^{-x/\theta} & x \geq 0 \\ 0 & x < 0 \end{array} \right. 
  \end{displaymath}
   where $\theta$ is a scale parameter. 
 \end{itemize}
@@ -27,10 +74,52 @@
  \begin{displaymath}
   P(X > T + s | X > t) = P(X > s)
  \end{displaymath}
-\item If $X \sim \mathcal{E}(\theta)$ then $X\theta \sim \mathcal{E}(1)$
+\item If $X \sim \mathcal{E}(\theta)$ then $X/\theta \sim \mathcal{E}(1)$
+\item The expectation is $\theta$ and variance is $\theta^2$ 
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Normal Distribution}  
+\begin{itemize} 
+ \item The \emph{normal} or \emph{Gaussian distribution} is common in the real world e.g. test scores of students, heights of adults, speed of pedestrians 
+\item $X$ is normally distributed (denoted $\mathcal{N}(\mu, \sigma^2)$) if it has a probability density function 
+\begin{displaymath} 
+ p(x) = \frac{1}{2\pi\sigma^2}\exp^{-(x-\mu)^2/2\sigma^2} 
+\end{displaymath}
+where $\mu$ is the mean and $\sigma^2$ is the variance
+\item $\mathcal{N}(0, 1)$ is known as the \emph{standard normal distribution} and if $X \sim \mathcal{N}(\mu, \sigma^2)$ then $\frac{X-\mu}{\sigma}$ is standard 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Random Vectors}
+\begin{itemize} 
+ \item A \emph{random vector} is one composed of random variables $\xv = [\xv_1, \ldots, \xv_n]^T$ where $\xv_i$ are random 
+ \item Properties 
+ \begin{itemize}
+ \item If $\xv_i$ are discrete then $\xv$ is discrete 
+ \item We say that $\xv$ is continuous if there exists $p: \mathbb{R}^n \rightarrow [0, \infty)$ such that $P(\xv \in A) = \int_A p(\yv) d \yv $ for all $A$
+ \item If all $\xv_i$ are continuous then $\xv$ is not necessarily continuous
+ \item If all $\xv_i$ are continuous and independent then $\xv$ is continuous and $p(\xv_1, \ldots, \xv_n) = p_{\xv_1}(\xv_1) \cdots p_{\xv_n}(\xv_n)$ 
+ \end{itemize} 
+ \item The expectation of a vector is the expectation of its elements  $\mathbb{E}[\xv] = [\mathbb{E}[\xv_1], \ldots, \mathbb{E}[\xv_n]]^T$ 
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{Covariance}  
+\begin{itemize}
+ \item The covariance of two random variables $X$ and $Y$ is $\cov(X, Y) = \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y]$ 
+ \item Properties 
+ \begin{itemize}
+ \item $\cov(X, X) = \var(X)$ 
+ \item If $X, Y$ are independent $\cov(X, Y) = 0$ 
+ \item $\var(X + Y) = \var(X) + \var(Y) + 2\cov(X, Y)$ 
+ \end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Covariance Matrices} 
  
 \end{frame}
+
+
+\end{document}
