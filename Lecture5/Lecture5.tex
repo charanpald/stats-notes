@@ -118,8 +118,53 @@ where $\mu$ is the mean and $\sigma^2$ is the variance
 \end{frame}
 
 \begin{frame}{Covariance Matrices} 
+\begin{itemize} 
+ \item A covariance matrix $\Cm \in \mathbb{R}^{n \times n}$ models the covariances between all pairs of elements of $\xv$
+ \item In other words, $\Cm_{ij} = \cov(\xv_i, \xv_j)$
+ \item Properties 
+ \begin{itemize}
+ \item $\Cm$ is symmetric and positive semi-definite (its eigenvalues are nonnegative) 
+ \item If all $\xv_i$ are independent then $\Cm$ is diagonal 
+ \item The converse is in general false: if $\Cm$ is diagonal this does not always imply $\xv_i$s are independent 
+ \item We can write $\Cm = \mathbb{E}[\xv\xv^T] - \mathbb{E}[\xv]\mathbb{E}[\xv^T]$
+ \end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise}  
+\begin{itemize} 
+ \item Show that $\Cm$ is positive semi-definite 
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{The Multivariate Gaussian}  
+\begin{itemize} 
+ \item Let $\muv \in \mathbb{R}^n$ be a vector of means, and $\Cm$ be a positive definite covariance matrix. 
+ \item We can say that $\xv$ follows a multivariate Gaussian distribution, denoted $\mathcal{N}_n(\muv, C)$, if the density function is 
+ \begin{displaymath} 
+  p(\yv) = \frac{1}{\sqrt{(2\pi)^2 det(\Cm)}} e^{-\frac{1}{2}(\xv - \muv)^T\Cm^{-1}(\xv - \muv)}  
+ \end{displaymath}
+ \item Note that $\mathbb{E}[\xv] = \muv$ and $\var(\xv) = \Cm$  
+ \item If $\xv_1, \ldots, \xv_n$ are independent Gaussian variables then $\xv$ is Gaussian 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise}  
+\begin{itemize} 
+ \item Let $X_1 \sim \mathcal{N}(\mu_1, \sigma_1^2)$ and $X_2 \sim \mathcal{N}(\mu_2, \sigma_2^2)$ be two independent random variables 
+ \item Show that for all $a, b \in \mathbb{R}$ $Y = aX_1 + bX_2$ is Gaussian
+ \item What is the expectation and variance of $Y$? 
+\end{itemize}
  
 \end{frame}
 
+
+
+\begin{frame}{Summary}  
+\begin{itemize} 
+ \item Some continuous probability distributions - exponential, uniform, normal 
+ \item Random vectors, covariance matrices
+\end{itemize}
+\end{frame}
 
 \end{document}
