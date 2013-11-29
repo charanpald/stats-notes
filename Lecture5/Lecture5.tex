@@ -17,10 +17,10 @@
 \input{../include/CsdMacros}
 \graphicspath{{./Figures/}}
 
-\title{Statistics and the Analysis of Data\\ Lecture 4: Probability Distributions Part II}
+\title{Statistics and the Analysis of Data\\ Lecture 5: Probability Distributions Part II}
 \author{Charanpal Dhanjal \\ \texttt{charanpal@gmail.com}} 
 \institute{\'{E}cole des Ponts}
-\date{3rd December 2013}
+\date{10th December 2013}
 
 \begin{document}
 
@@ -46,8 +46,8 @@
 
 \begin{frame}{Uniform Distribution}  
  \begin{itemize} 
-\item We have already seem the discrete \emph{uniform distribution} e.g. when rolling a fair die. 
-\item Taken to the limit, we have for an interval $[a, b]$ 
+\item Have already seem the discrete \emph{uniform distribution} e.g. when rolling a fair die. 
+\item Taken to the limit, for an interval $[a, b]$ 
 \begin{displaymath} 
  p(x) = \frac{1}{b-a}
 \end{displaymath}
@@ -56,6 +56,8 @@
 \item Expectation is $(a+b)/2$ and variance is $(b-a)^2/12$ 
 \end{itemize}
 \end{frame}
+
+
 
 \begin{frame}{Exponential Distribution} 
 \begin{itemize} 
@@ -79,6 +81,17 @@
 \end{itemize}
 \end{frame}
 
+
+\begin{frame}{Exercise} 
+\begin{itemize} 
+ \item Show that the variance of the uniform distribution is $(b-a)^2/12$. 
+ \item Write down an expression for the cumulative distribution function with a uniform random variable.
+ \item Show that the exponential distribution is memoryless. 
+\end{itemize}
+\end{frame}
+
+
+
 \begin{frame}{Normal Distribution}  
 \begin{itemize} 
  \item The \emph{normal} or \emph{Gaussian distribution} is common in the real world e.g. test scores of students, heights of adults, speed of pedestrians 
@@ -90,6 +103,13 @@ where $\mu$ is the mean and $\sigma^2$ is the variance
 \item $\mathcal{N}(0, 1)$ is known as the \emph{standard normal distribution} and if $X \sim \mathcal{N}(\mu, \sigma^2)$ then $\frac{X-\mu}{\sigma}$ is standard 
 \end{itemize}
 \end{frame}
+
+\begin{frame}{Exercise} 
+\begin{itemize} 
+ \item A light bulb company has found to maximise profits they must design light bulbs to last approximately 1000 hours. Much longer than this and sales are lost as fewer replacement bulbs are required, and shorter lifetimes risk customer dissatisfaction and sales lost to competitors. Assume the life time of the bulbs is normally distributed with a standard deviation of 100. Let $y$ be the number of sales and $x$ be the lifetime of a bulb then these quantities are related by $y = 10000 - 5(x - 1000)$ when $x \geq 1000$ and $y = 10x$ when $x < 1000$. Compute the expected number of sales. 
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}{Random Vectors}
 \begin{itemize} 
@@ -155,7 +175,6 @@ where $\mu$ is the mean and $\sigma^2$ is the variance
  \item Show that for all $a, b \in \mathbb{R}$ $Y = aX_1 + bX_2$ is Gaussian
  \item What is the expectation and variance of $Y$? 
 \end{itemize}
- 
 \end{frame}
 
 
