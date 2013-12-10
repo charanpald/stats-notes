@@ -80,15 +80,15 @@
 \end{itemize}
 \end{frame}
 
-
 \begin{frame}{Exercise} 
 \begin{itemize} 
  \item Show that the variance of the uniform distribution is $(b-a)^2/12$. 
- \item Write down an expression for the cumulative distribution function of a uniform random variable.
+ \item Write down an expression for the cumulative distribution function of a uniform random variable. The cumulative distribution function is defined as 
+\begin{displaymath} 
+ P(X < \gamma) = \int_{-\infty}^\gamma p(x) dx 
+\end{displaymath}
 \end{itemize}
 \end{frame}
-
-
 
 \begin{frame}{Normal Distribution}  
 \begin{itemize} 
@@ -108,7 +108,7 @@ where $\mu$ is the mean and $\sigma^2$ is the variance
  \item Properties 
  \begin{itemize}
  \item If $\xv_i$ are discrete then $\xv$ is discrete 
- \item We say that $\xv$ is continuous if there exists $p: \mathbb{R}^n \rightarrow [0, \infty)$ such that $P(\xv \in A) = \int_A p(\yv) d \yv $ for all $A$
+ \item We say that $\xv$ is continuous if there exists $p: \mathbb{R}^n \rightarrow [0, \infty)$ such that $P(\xv \in A) = \int_A p(\xv) d \xv $ for all $A$
  \item If all $\xv_i$ are continuous then $\xv$ is not necessarily continuous
  \item If all $\xv_i$ are continuous and independent then $\xv$ is continuous and $p(\xv_1, \ldots, \xv_n) = p_{\xv_1}(\xv_1) \cdots p_{\xv_n}(\xv_n)$ 
  \end{itemize} 
