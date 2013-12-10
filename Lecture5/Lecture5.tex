@@ -39,13 +39,13 @@
 \begin{itemize} 
  \item Continuous distributions - uniform, exponential and Gaussian
  \item Random vectors 
- \item Convergence of random variables
+ \item Multivariate normal distribution 
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Uniform Distribution}  
  \begin{itemize} 
-\item Have already seem the discrete \emph{uniform distribution} e.g. when rolling a fair die. 
+\item Have already seen the discrete \emph{uniform distribution} e.g. when rolling a fair die. 
 \item Taken to the limit, for an interval $[a, b]$ 
 \begin{displaymath} 
  p(x) = \frac{1}{b-a}
@@ -61,7 +61,7 @@
 \begin{frame}{Exponential Distribution} 
 \begin{itemize} 
  \item Buses arrive at an average rate of once every 10 minutes. Assuming arrival events are independent what is probability that two buses arrive 20 minutes apart? 
- \item We can model this type of event using the \emph{exponential distribution} with notation $X \sim \mathcal{E}(\theta)$
+ \item We can model this type of event using the \emph{exponential distribution} (notation $X \sim \mathcal{E}(\theta)$)
  \begin{displaymath}
   p(x) = \left\{ \begin{array}{l l}\frac{1}{\theta}  \exp^{-x/\theta} & x \geq 0 \\ 0 & x < 0 \end{array} \right. 
  \end{displaymath}
@@ -73,7 +73,7 @@
 \begin{itemize} 
  \item The exponential distribution is memoryless 
  \begin{displaymath}
-  P(X > T + s | X > t) = P(X > s)
+  P(X > t + s | X > t) = P(X > s)
  \end{displaymath}
 \item If $X \sim \mathcal{E}(\theta)$ then $X/\theta \sim \mathcal{E}(1)$
 \item The expectation is $\theta$ and variance is $\theta^2$ 
@@ -84,7 +84,7 @@
 \begin{frame}{Exercise} 
 \begin{itemize} 
  \item Show that the variance of the uniform distribution is $(b-a)^2/12$. 
- \item Write down an expression for the cumulative distribution function with a uniform random variable.
+ \item Write down an expression for the cumulative distribution function of a uniform random variable.
 \end{itemize}
 \end{frame}
 
@@ -95,7 +95,7 @@
  \item The \emph{normal} or \emph{Gaussian distribution} is common in the real world e.g. test scores of students, heights of adults, speed of pedestrians 
 \item $X$ is normally distributed (denoted $\mathcal{N}(\mu, \sigma^2)$) if it has a probability density function 
 \begin{displaymath} 
- p(x) = \frac{1}{2\pi\sigma^2}\exp^{-(x-\mu)^2/2\sigma^2} 
+ p(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp^{-(x-\mu)^2/2\sigma^2} 
 \end{displaymath}
 where $\mu$ is the mean and $\sigma^2$ is the variance
 \item $\mathcal{N}(0, 1)$ is known as the \emph{standard normal distribution} and if $X \sim \mathcal{N}(\mu, \sigma^2)$ then $\frac{X-\mu}{\sigma}$ is standard 
@@ -137,7 +137,7 @@ where $\mu$ is the mean and $\sigma^2$ is the variance
  \begin{itemize}
  \item $\Cm$ is symmetric and positive semi-definite (its eigenvalues are nonnegative) 
  \item If all $\xv_i$ are independent then $\Cm$ is diagonal 
- \item The converse is in general false: if $\Cm$ is diagonal this does not always imply $\xv_i$s are independent 
+ \item The converse is in general false: if $\Cm$ is diagonal this does not always imply $\xv_i$'s are independent 
  \item We can write $\Cm = \mathbb{E}[\xv\xv^T] - \mathbb{E}[\xv]\mathbb{E}[\xv^T]$
  \end{itemize} 
 \end{itemize}
@@ -153,10 +153,11 @@ where $\mu$ is the mean and $\sigma^2$ is the variance
 \begin{frame}{The Multivariate Gaussian}  
 \begin{itemize} 
  \item Let $\muv \in \mathbb{R}^n$ be a vector of means, and $\Cm$ be a positive definite covariance matrix. 
- \item We can say that $\xv$ follows a multivariate Gaussian distribution, denoted $\mathcal{N}_n(\muv, C)$, if the density function is 
+ \item We can say that $\xv$ follows a multivariate Gaussian distribution, denoted $\mathcal{N}_n(\muv, C)$, if density function is 
  \begin{displaymath} 
-  p(\yv) = \frac{1}{\sqrt{(2\pi)^2 det(\Cm)}} e^{-\frac{1}{2}(\xv - \muv)^T\Cm^{-1}(\xv - \muv)}  
+  p(\xv) = \frac{1}{\sqrt{(2\pi)^n \det(\Cm)}} e^{-\frac{1}{2}(\xv - \muv)^T\Cm^{-1}(\xv - \muv)}  
  \end{displaymath}
+ $\det$ is the \emph{determinant} and tells us about the matrix of coefficients of a system of linear equations
  \item Note that $\mathbb{E}[\xv] = \muv$ and $\var(\xv) = \Cm$  
  \item If $\xv_1, \ldots, \xv_n$ are independent Gaussian variables then $\xv$ is Gaussian 
 \end{itemize}
