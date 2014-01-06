@@ -1,0 +1,136 @@
+\documentclass{beamer}
+
+\usepackage{beamerthemesplit}
+\usepackage[utf8x]{inputenc}
+\usepackage{pgf}
+\usepackage{default}
+\usepackage{url}
+\usepackage{subfigure}
+\usepackage{algorithmic} 
+\usepackage{algorithm} 
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{mathtools}
+
+\usetheme{Singapore}
+
+\input{../include/CsdMacros}
+\graphicspath{{./Figures/}}
+
+\title{Statistics and the Analysis of Data\\ Lecture 7: Parametric Estimation I}
+\author{Charanpal Dhanjal \\ \texttt{charanpal@gmail.com}} 
+\institute{\'{E}cole des Ponts}
+\date{7th January 2014}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Recap}  
+\begin{itemize} 
+\item Difference types of convergence - almost surely, mean, probability 
+\item Strong law of large numbers 
+\item Central Limit Theorem 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Outline}  
+\begin{itemize} 
+ \item Parametric estimation 
+ \item Bias, convergence
+ \item Maximum likelihood estimation
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Introduction}
+\begin{itemize}
+ \item Imagine we have some observations of a random variable with an unknown distribution. Assume we know a set of distributions that might generate the observations. 
+ \item How can we find the correct distribution? 
+ \item For example, if we know the variable is distributed using the Poisson distribution with rate $\theta$ 
+ \item This is the central aim of \emph{parametric estimation}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Parametric Estimation} 
+\begin{itemize} 
+ \item Three types of problem 
+ \begin{itemize} 
+ \item Estimate the unknown parameter 
+ \item Determine a region in which we know the parameter lies with a certain probability 
+ \item Given a set of values $\rho$ in which the parameter lies, decide from the observations if the parameter lies within $\rho$ 
+ \end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{An Example} 
+\begin{itemize}
+ \item Want to find the distribution governing the ATMO index in Paris which rates air quality from 1 (best) to 10 (worst). 
+ \item Look at the case in which this index passes 8, and sample $n$ days in order to get some measurements. 
+ \item The observations are denoted $X_1, \ldots, X_n$ and each case is 0 if the AMTO index is less than or equal to 8, otherwise 1. Assuming the random variable is Bernoulli one, we can write 
+\begin{displaymath}
+P(X = 0) = p^* \quad P(X = 1) = 1- p^*  
+\end{displaymath}
+for some $p^* \in (0, 1)$. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Statistical Models} 
+\begin{itemize} 
+ \item We have a set of observations $X_1, \ldots, X_n$
+ \item A \emph{statistical model} is a collection of distribution functions $\mathcal{P} = \{P_{n, \theta}, \theta \in \Theta\}$ where $\theta$ is a parameter and $n$ is the number of observations 
+ \begin{itemize} 
+  \item For example $\mathcal{P}$ could be a set of $n$ Gaussian distributions $\{\mathcal{N}(\mu_1, \sigma^2_1), \mathcal{N}(\mu_2, \sigma^2_2), \ldots, \mathcal{N}(\mu_n, \sigma^2_n)\}$ with $\mu_i \in \mathbb{R}$ and $\sigma_i > 0$ for all $i$  
+ \end{itemize}
+ \item In general it is impossible to infer the distribution given the observations without assuming a certain structure 
+ \item Here, we assume the observations are i.i.d. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Estimators} 
+\begin{itemize} 
+\item We can write $X_1, \ldots, X_n \sim_{i.i.d.} P_{\theta^*}$ to mean we draw all observations from a distribution $P$ with unknown parameter $\theta^* \in \Theta$
+\item We call $\theta^*$ the \emph{true value of the parameter}
+\item An \emph{estimator} is a function $\rho: \mathbb{R}^n \rightarrow \Theta$  
+\item We would like our estimated value $\bar{\theta}_n$ as close as possible to the real value $\theta^*$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Bias and Convergence}  
+\begin{itemize} 
+\item We can say that our estimated parameter is \emph{unbiased} if $\mathbb{E}[\rho(S_{\theta^*,n})] = \theta^*$ for all $\theta^* \in \Theta$ where $S_{\theta^*,n}$ is a sample of size $n$ drawn from $P_{\theta^*}$ 
+\item The estimator is \emph{consistent} or \emph{convergent} if 
+\begin{displaymath} 
+ \lim_{n \rightarrow \infty} P_{\theta^*}(|\bar{\theta}_n - \theta^*| > \epsilon) = 0), \quad \forall \epsilon > 0, \theta^* \in \Theta 
+\end{displaymath}
+\item In other words the estimated parameter $\bar{\theta}_n$ approaches the true value as $n$ increases 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Asymptotic Distribution} 
+\begin{itemize} 
+ \item We can say that our estimated parameter $\bar{\theta}_n$ is asymptotically distributed with $P_\theta^\infty$ with rate $n^{-\gamma}$ with $\gamma > 0$ if 
+ \begin{displaymath}
+  n^\gamma(\bar{\theta}_n - \theta^*) \xrightarrow[]{\mathcal{L}} P_\theta^\infty, \quad \forall  \theta^* \in \Theta, 
+ \end{displaymath}
+where $\xrightarrow[]{\mathcal{L}}$ means distribution convergence. 
+\item In the special case $P_\theta^\infty$ is Gaussian $\mathcal{N}(0, \sigma^2_{\theta^*})$ we say $\bar{\theta}_n$ is \emph{asymptotically Normal} with rate $n^{-\gamma}$ and variance $\sigma^2_{\theta^*}$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Maximum Likelihood Estimation} 
+\begin{itemize} 
+ \item One of the most commonly used methods for parameter estimation is \emph{maximum likelihood estimation} (MLE) 
+ \item First a couple of definitions 
+ \begin{displaymath}
+  
+ \end{displaymath}
+
+\end{itemize}
+ 
+\end{frame}
+
+
+
+
+\end{document}
