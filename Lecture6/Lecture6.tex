@@ -49,7 +49,11 @@
 
 \begin{frame}{Almost Sure Convergence}  
 \begin{itemize}
- \item Sequence of random variables $X_1, X_2, \ldots$ will \emph{converge almost surely} (i.e. with probability 1) towards $Y$ if there is an event $\Omega_0 \subset \Omega$ with $P(\Omega_0) = 1$ and $X_n(\omega) \rightarrow_{n \rightarrow \infty} Y$ for all $\omega \in \Omega_0$
+ \item Sequence of random variables $X_1, X_2, \ldots$ will \emph{converge almost surely} (i.e. with probability 1) towards $Y$ if there is an event $\Omega_0 \subset \Omega$ with $P(\Omega_0) = 1$ and 
+\begin{displaymath}
+X_n(\omega) \xrightarrow[n \rightarrow \infty]{} Y(\omega) 
+\end{displaymath}
+ for all $\omega \in \Omega_0$
 \end{itemize}
 \end{frame}
 
@@ -76,16 +80,27 @@
 
 \begin{frame}{Convergence in Probability}  
 \begin{itemize} 
- \item Let $Y$ be a continuous random variable and $X_1, X_2, \ldots$ be a sequence of random variables. Then $X_1, X_2, \ldots$ \emph{converges in probability} to $Y$ if $lim_{n \rightarrow \infty} P(|X_n - Y| > \epsilon) = 0$ for all $\epsilon > 0$ 
- \item Convergence almost surely and in mean implies convergence in probability. 
+ \item Let $Y$ be a continuous random variable and $X_1, X_2, \ldots$ be a sequence of random variables. Then $X_1, X_2, \ldots$ \emph{converges in probability} to $Y$ if 
+\begin{displaymath}
+\lim_{n \rightarrow \infty} P(|X_n - Y| > \epsilon) = 0
+\end{displaymath}
+for all $\epsilon > 0$
+ \item Convergence almost surely and in mean imply convergence in probability. 
 \end{itemize}
 \end{frame}
 
 \begin{frame}{An Example} 
 \begin{itemize}
- \item Consider a large jar full of water, and let $X$ be the mass of the water in Kg which is a random variable. 
- \item People are asked successively to estimate the mass of the water just by looking at it and let $X_n$ be the mean of the first $n$ responses. 
- \item Then the sequence $X_n$ will converge in probability to the random variable $X$ by the law of large numbers (described next). 
+ \item Consider a large jar full of water, and let $X$ be the mass of the water in Kg. Note $X$ is a random variable. 
+ \item People are asked successively to estimate the mass of the water just by looking at it and let $X_n$ be the mean of the first $n$ responses 
+ \item Then the sequence $X_n$ will converge in probability to the random variable $X$ (why?)  
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise} 
+\begin{itemize} 
+\item Let $X_1, X_2, \ldots X_n$  be a sequence of discrete random variables. Let the probability mass function of $X_i$ for all $i$ be given by $P(X_i = n) = \frac{1}{n}$ and $P(X_i = 0) = 1-\frac{1}{n}$. 
+\item Show whether the mean-square limit exists for the sequence $X_1, X_2, \ldots X_n$
 \end{itemize}
 \end{frame}
 
@@ -112,11 +127,9 @@ The expected value of rolling a fair die is 3.5. Let $X_n$ be the mean value aft
 \end{figure} 
 \end{frame}
 
-
-
 \begin{frame}{Central Limit Theorem} 
 \begin{itemize} 
- \item Let $X_1, \ldots, X_n$ be a set of $n$ independent and identically distributed variables with mean $\mu$ and nonzero variance $\sigma^2$. Let $Y = \sum_{i=1}^n X_i$, then 
+ \item Let $X_1, \ldots, X_n$ be a set of $n$ independent and identically distributed variables with mean $\mu$ and nonzero finite variance $\sigma^2$. Let $Y = \sum_{i=1}^n X_i$, then 
 \begin{displaymath}
  \mbox{lim}_{n \rightarrow \infty} P\left(\frac{Y - n\mu}{\sigma\sqrt{n}} \leq x\right) = \phi(x)
 \end{displaymath}
@@ -164,11 +177,12 @@ where $\phi$ is the cumulative distribution function for the standard normal dis
 
 \begin{frame}{Exercise}  
 \begin{itemize} 
- \item Let $X_1, X_2, \ldots X_n$ be a sequence of independent Bernoulli random variables with parameter $p = \frac{1}{2}$
- \item Use the central limit theorem to derive an approximate \emph{distribution} for the mean of the first $100$ terms of the sequence. 
+ \item Let $X_1, X_2, \ldots X_n$ be a sequence of independent Bernoulli random variables with parameter $p = \frac{1}{2}$. Use the central limit theorem to derive an approximate \emph{distribution} for the mean of the first $100$ items of the sequence. 
+  \item Let $Y$ be a binomial random variable with parameters $n=100$ and $p = \frac{1}{2}$. Using the Central Limit Theorem, show that a normal random variable X with mean $\mu =50$ and variance $\sigma^{2}=25$ can be used as an approximation of $Y$. 
 \end{itemize}
- 
 \end{frame}
+
+
 
 
 \begin{frame}{Summary} 
