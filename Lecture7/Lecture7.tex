@@ -18,7 +18,7 @@
 \input{../include/CsdMacros}
 \graphicspath{{./Figures/}}
 
-\title{Statistics and the Analysis of Data\\ Lecture 7: Parametric Estimation I}
+\title{Statistics and the Analysis of Data\\ Lecture 7: Parametric Estimation}
 \author{Charanpal Dhanjal \\ \texttt{charanpal@gmail.com}} 
 \institute{\'{E}cole des Ponts}
 \date{7th January 2014}
@@ -45,28 +45,28 @@
 
 \begin{frame}{Introduction}
 \begin{itemize}
- \item Imagine we have some observations of a random variable with an unknown distribution. Assume we know a set of distributions that might generate the observations. 
+ \item Have some observations of a random variable with an unknown distribution. Assume we can guess a set of distributions that might generate the observations. 
  \item How can we find the correct distribution? 
- \item For example, if we know the variable is distributed using the Poisson distribution with rate $\theta$ 
+ \item For example, if we assume the variable is distributed using the Poisson distribution with rate $\theta$ 
  \item This is the central aim of \emph{parametric estimation}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Parametric Estimation} 
+\begin{frame}{Some Problems} 
 \begin{itemize} 
- \item Three types of problem 
+ \item Three problems to consider 
  \begin{itemize} 
  \item Estimate the unknown parameter 
  \item Determine a region in which we know the parameter lies with a certain probability 
- \item Given a set of values $\rho$ in which the parameter lies, decide from the observations if the parameter lies within $\rho$ 
+ \item How does our estimation of the parameter improve as we gather more observations? 
  \end{itemize} 
 \end{itemize}
 \end{frame}
 
-\begin{frame}{An Example} 
+\begin{frame}{Example: Air Quality} 
 \begin{itemize}
  \item Want to find the distribution governing the ATMO index in Paris which rates air quality from 1 (best) to 10 (worst). 
- \item Look at the case in which this index passes 8, and sample $n$ days in order to get some measurements. 
+ \item Look when index passes 8, and sample $n$ days in order to get some measurements. 
  \item The observations are denoted $X_1, \ldots, X_n$ and each case is 0 if the AMTO index is less than or equal to 8, otherwise 1. Assuming the random variable is Bernoulli one, we can write 
 \begin{displaymath}
 P(X = 0) = p^* \quad P(X = 1) = 1- p^*  
@@ -75,62 +75,170 @@ for some $p^* \in (0, 1)$.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Statistical Models} 
+\begin{frame}{Example 2: Wind Power} 
 \begin{itemize} 
- \item We have a set of observations $X_1, \ldots, X_n$
- \item A \emph{statistical model} is a collection of distribution functions $\mathcal{P} = \{P_{n, \theta}, \theta \in \Theta\}$ where $\theta$ is a parameter and $n$ is the number of observations 
- \begin{itemize} 
-  \item For example $\mathcal{P}$ could be a set of $n$ Gaussian distributions $\{\mathcal{N}(\mu_1, \sigma^2_1), \mathcal{N}(\mu_2, \sigma^2_2), \ldots, \mathcal{N}(\mu_n, \sigma^2_n)\}$ with $\mu_i \in \mathbb{R}$ and $\sigma_i > 0$ for all $i$  
- \end{itemize}
- \item In general it is impossible to infer the distribution given the observations without assuming a certain structure 
- \item Here, we assume the observations are i.i.d. 
+ \item To determine if wind generator is appropriate: measure wind speed $v$ on a sample of days. What is the probability that $v \geq 10$Km/h?
+ \item The sample for $n$ days is denoted $v_1, v_2, \ldots, v_n$ and $v_i^2$ is modelled using an exponential distribution $\mathcal{E}(\theta)$ with parameter $\theta$: 
+  \begin{displaymath}
+  p(x) = \left\{ \begin{array}{l l}\frac{1}{\theta}  \exp^{-x/\theta} & x \geq 0 \\ 0 & x < 0 \end{array} \right. 
+ \end{displaymath}
+ \item Want to estimate the true value of $\theta$ from the data 
 \end{itemize}
 \end{frame}
 
+
+\begin{frame}{Statistical Models} 
+\begin{itemize} 
+ \item We have a set of observations $X_1, \ldots, X_n$
+ \item A \emph{statistical model} is tuple $(\mathcal{X}_n, \mathcal{P}_n)$ in which 
+ \begin{itemize} 
+ \item $\mathcal{X}_n$ is the state space 
+  \item $\mathcal{P}_n$ a collection of distribution functions $\mathcal{P}_n = \{P_{n, \theta}, \theta \in \Theta\}$ where $\theta$ is a parameter and $n$ is the number of observations 
+ \end{itemize}
+  \item For example $\mathcal{X}_n = \mathbb{R}^n$, $\mathcal{P}_n$ could be a set of $n$ Gaussian distributions $\{\mathcal{N}(\mu_1, \sigma^2_1), \mathcal{N}(\mu_2, \sigma^2_2), \ldots, \mathcal{N}(\mu_n, \sigma^2_n)\}$ with $\mu_i \in \mathbb{R}$ and $\sigma_i > 0$ for all $i$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Some Assumptions}
+\begin{itemize} 
+ \item We assume that the model represents the data 
+ \item In general it is impossible to infer the distribution given the observations without assuming a certain structure 
+ \item Assume the observations are i.i.d. which simplifies the distribution
+ \begin{displaymath} 
+  P_{n, \theta} = P_{\theta} \otimes \cdots \otimes  P_{\theta}  
+ \end{displaymath}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example Of Non-i.i.d. Data}
+\begin{itemize} 
+ \item Samples can also be independent but not identically distributed, e.g. 
+ \begin{displaymath} 
+  X_i = f\left(\frac{i}{n} - \theta  \right) + \epsilon_i, \quad i = 1,\ldots, n
+ \end{displaymath}
+ where $\epsilon_i \sim \mathcal{N}(0, 1)$, $f$ is a fixed function and 
+ \begin{displaymath} 
+  P_{n, \theta} = P_{\theta}^1 \otimes \cdots \otimes  P_{\theta}^n  
+ \end{displaymath}
+  and $P^i_\theta$ is the distribution $\mathcal{N}(f(i/n - \theta), 1)$ 
+\end{itemize}
+\end{frame}
+
+
 \begin{frame}{Estimators} 
 \begin{itemize} 
-\item We can write $X_1, \ldots, X_n \sim_{i.i.d.} P_{\theta^*}$ to mean we draw all observations from a distribution $P$ with unknown parameter $\theta^* \in \Theta$
-\item We call $\theta^*$ the \emph{true value of the parameter}
-\item An \emph{estimator} is a function $\rho: \mathbb{R}^n \rightarrow \Theta$  
-\item We would like our estimated value $\bar{\theta}_n$ as close as possible to the real value $\theta^*$
+\item Can write $X_1, \ldots, X_n \sim_{i.i.d.} P_{\theta^*}$ to mean we draw all observations from distribution $P$ with unknown $\theta^* \in \Theta$
+\item Denote $S_{\theta^*,n}$ a particular sample of size $n$ drawn from $P_{\theta^*}$ 
+\item We call $\theta^*$ the \emph{true value} of the parameter
+\item An \emph{estimator} is a function $\rho: \mathbb{R}^n \rightarrow \Theta$ and $\bar{\theta}_n = \rho(S_{\theta^*,n})$. In a slight abuse of notation we can also write $\bar{\theta}_n(S_{\theta^*,n})$
+\item Would like estimated value $\bar{\theta}_n$ as close as possible to $\theta^*$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Examples of Estimators}  
+\begin{itemize} 
+ \item Suppose that $\mathcal{P}$ is the normal distribution $\{\mathcal{N}(\theta, 1), \theta \in \mathbb{R}\}$  
+ \item The following are estimators of $\theta^*$ 
+ \begin{itemize}
+ \item $\bar{\theta}_n(S_{\theta^*,n}) = 1$
+ \item $\bar{\theta}_n(S_{\theta^*,n}) = X_1$
+ \item $\bar{\theta}_n(S_{\theta^*,n}) = \bar{X}$
+ \end{itemize} 
+ \item Which of these estimators are most appropriate? 
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Bias and Convergence}  
 \begin{itemize} 
-\item We can say that our estimated parameter is \emph{unbiased} if $\mathbb{E}[\rho(S_{\theta^*,n})] = \theta^*$ for all $\theta^* \in \Theta$ where $S_{\theta^*,n}$ is a sample of size $n$ drawn from $P_{\theta^*}$ 
+\item We can say that our estimated parameter is \emph{unbiased} if $\mathbb{E}[\rho(S_{\theta^*,n})] = \theta^*$ for all $\theta^* \in \Theta$
 \item The estimator is \emph{consistent} or \emph{convergent} if 
 \begin{displaymath} 
  \lim_{n \rightarrow \infty} P_{\theta^*}(|\bar{\theta}_n - \theta^*| > \epsilon) = 0), \quad \forall \epsilon > 0, \theta^* \in \Theta 
 \end{displaymath}
 \item In other words the estimated parameter $\bar{\theta}_n$ approaches the true value as $n$ increases 
+\item Estimators are random variables and can also consider other types of convergence from the previous lecture
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Asymptotic Distribution} 
 \begin{itemize} 
- \item We can say that our estimated parameter $\bar{\theta}_n$ is asymptotically distributed with $P_\theta^\infty$ with rate $n^{-\gamma}$ with $\gamma > 0$ if 
+ \item How fast does convergence occur? 
+ \item We can say that our estimated parameter $\bar{\theta}_n$ is asymptotically distributed with $P_{\theta^*}^\infty$ and rate $n^{-\gamma}$, $\gamma > 0$, if 
  \begin{displaymath}
-  n^\gamma(\bar{\theta}_n - \theta^*) \xrightarrow[]{\mathcal{L}} P_\theta^\infty, \quad \forall  \theta^* \in \Theta, 
+  n^\gamma(\bar{\theta}_n - \theta^*) \xrightarrow[]{\mathcal{L}} P_{\theta^*}^\infty, \quad \forall  \theta^* \in \Theta, 
  \end{displaymath}
 where $\xrightarrow[]{\mathcal{L}}$ means distribution convergence. 
-\item In the special case $P_\theta^\infty$ is Gaussian $\mathcal{N}(0, \sigma^2_{\theta^*})$ we say $\bar{\theta}_n$ is \emph{asymptotically Normal} with rate $n^{-\gamma}$ and variance $\sigma^2_{\theta^*}$ 
+\item In the special case $P_{\theta^*}^\infty$ is Gaussian $\mathcal{N}(0, \sigma^2_{\theta^*})$ we say $\bar{\theta}_n$ is \emph{asymptotically Normal} with rate $n^{-\gamma}$ and variance $\sigma^2_{\theta^*}$ 
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Maximum Likelihood Estimation} 
 \begin{itemize} 
- \item One of the most commonly used methods for parameter estimation is \emph{maximum likelihood estimation} (MLE) 
- \item First a couple of definitions 
+ \item One of the most commonly used methods for parameter estimation is \emph{Maximum Likelihood Estimation} (MLE) 
+ \item The idea is to solve 
  \begin{displaymath}
-  
+  \bar{\theta}^{MV} = \argmax_{\theta \in \Theta} \; p_n(\theta; X_1, \ldots, X_n) 
  \end{displaymath}
-
 \end{itemize}
- 
+\end{frame}
+
+\begin{frame}{Example} 
+\begin{itemize} 
+ \item For the air quality example we can use the distributions $\{\mathcal{B}(\theta), \theta \in (0, 1)\}$ 
+ \item For each $\theta$ we calculate $p_n(\theta; X_1, \ldots, X_n)$
+ \item Note that $\mathcal{X} \in \{0, 1\}$ and that $p(\theta, X) = \theta^X(1-\theta)^{1-X}$  
+ \item Follows that 
+ \begin{eqnarray*} 
+  p(\theta; X_1, \ldots, X_n) &=& \theta^{\sum_i X_i}(1-\theta)^{n-{\sum_i X_i}} \\ 
+  &=& \theta^{n \bar{X}}(1-\theta)^{n-{n \bar{X}}} 
+ \end{eqnarray*}
+ \item Then we maximise to get $\bar{\theta}^{MV} = \bar{X}$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example 2} 
+\begin{itemize} 
+ \item Recall for the wind example we model using the exponential distribution $\mathcal{E}(\theta)$ with parameter $\theta$: 
+  \begin{displaymath}
+  p(x) = \left\{ \begin{array}{l l}\frac{1}{\theta}  \exp^{-x/\theta} & x \geq 0 \\ 0 & x < 0 \end{array} \right. 
+ \end{displaymath}
+ \item Thus
+  \begin{eqnarray*} 
+  p(\theta; X_1, \ldots, X_n) &=& \frac{1}{\theta^n}  \exp^{-\sum_i X_i/\theta} \\ 
+  &=&  \exp^{-n\log(\theta) - n\bar{X}/\theta} \\ 
+ \end{eqnarray*}
+ \item Then we maximise to get $\bar{\theta}^{MV} = \bar{X}$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Properties of MLE}  
+\begin{itemize} 
+ \item Under certain regularity conditions on MLE we can guarantee
+ \begin{itemize} 
+ \item The consistency of $\bar{\theta}^{MV}$ 
+ \item The asymptotic convergence rate of $1/\sqrt{n}$ 
+ \end{itemize}
+ \item Note that MLE is in general biased 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise}  
+\begin{itemize} 
+ \item Show that the solution for the air quality example is given by $\bar{\theta}^{MV} = \bar{X}$ by maximising $p_n(\theta; X_1, \ldots, X_n)$. 
+ \begin{itemize}
+ \item Hint: take $\log p_n(\theta; X_1, \ldots, X_n)$ (why?). 
+ \end{itemize}
+ \item Prove $\bar{\theta}^{MV} = \bar{X}$ for the second example 
+\end{itemize}
 \end{frame}
 
 
-
+\begin{frame}{Summary}  
+\begin{itemize} 
+ \item Statistical model - $(\mathcal{X}_n, \mathcal{P}_n)$, i.i.d. assumption 
+ \item Estimators - bias and convergence 
+ \item Maximum Likelihood Estimation 
+\end{itemize} 
+\end{frame}
 
 \end{document}
