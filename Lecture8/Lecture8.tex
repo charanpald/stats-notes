@@ -123,6 +123,65 @@ From  Chebyshev we fix $\delta = k\sigma \Rightarrow \frac{1}{k^2} = \frac{\sigm
 where in the last step $ab \leq (a+b)^2/4$. To complete example fix $\alpha = 0.05$ and solve to get $\delta = \sqrt{5/n}$. 
 \end{frame}
 
+\begin{frame}{Cups Example I}  
+\begin{itemize} 
+ \item Vending machine dispenses coffee with amount denoted by normal random variable $X$.  
+ \item Assumed mean $\mu = 250$g and s.d. $\sigma = 2.5$g. 
+ \item To calibrate machine sample 25 cups with sample mean $\bar{X} = 250.2$
+ \item The \emph{standard error} (standard deviation of the error in the sample mean relative to the true mean) is defined as $\sigma_{\bar{X}} = \sigma/\sqrt{n} = 0.5$ 
+ \item What is the error in our estimate of the population mean? 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Cups Example II}  
+\begin{itemize} 
+ \item To get a standard normal variable we use $Z = \frac{\bar{X} - \mu}{\sigma_{\bar{X}}/\sqrt{n}}$ 
+ \item We know that $P(-1.96 < Z < 1.96) = 0.95$ 
+ \begin{itemize}
+ \item $P(-1.96 < \frac{\bar{X} - \mu}{\sigma_{\bar{X}}/\sqrt{n}} < 1.96) = 0.95$ 
+ \item $P(\bar{X} - 1.96 \sigma_{\bar{X}}/\sqrt{n}  < \mu < \bar{X} + 1.96 \sigma_{\bar{X}}/\sqrt{n}) = 0.95$ 
+\end{itemize}
+ \item Confidence interval: $\bar{X} \pm 1.96 \sigma_{\bar{X}}/\sqrt{n} = 250.2 \pm 0.98$ 
+ \begin{itemize} 
+ \item $\mu = 250$ within interval so no need for recalibration
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Confidence in a Normal Distribution}  
+\begin{itemize} 
+ \item How did we know $P(-1.96 < Z < 1.96) = 0.95$? 
+ \item We use a \emph{standard normal table} or \emph{Z table}
+ \begin{itemize}
+ \item Shows the cumulative distribution function for the standard normal distribution 
+ \end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Standard Normal Table}
+\begin{itemize} 
+ \item The elements in the table give the value of $q$ such that $\Phi(q) = 1 - z$ 
+ \begin{itemize}
+ \item $\Phi(q) = P(X \leq q)$ is the CDF for the standard normal distribution
+ \item Implies $P(X > q) = z$
+ \end{itemize} 
+ \item So to get a $0.95$ confidence, set  $z = 0.025 \Rightarrow q = 1.96$ 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Exercise} 
+\begin{itemize} 
+ \item For a particular class, the mean score in the exam is 80 with a standard deviation of 5. 
+ \begin{itemize}
+ \item What is the probability that a student scores an 82 or less? 
+ \item What is the minimum number of students required so that we expect at least one to score above 90? 
+ \item What is the probability that a student scores between 78 and 88?
+ \item What is the probability that an average of three scores is 82 or less?
+ \end{itemize} 
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Hypothesis Testing}  
 \begin{itemize} 
 \item Choice between $H_0: \theta^* \in \Theta_0$ and $H_1: \theta^* \in \Theta \setminus \Theta_0$
@@ -139,11 +198,101 @@ where in the last step $ab \leq (a+b)^2/4$. To complete example fix $\alpha = 0.
 
 \begin{frame}{The Critical Region} 
 \begin{itemize} 
- \item 
+ \item The \emph{critical} or \emph{regret region} is the subspace of $\mathbb{R}^n$ denoted $R_n$ which contains observations that support the null hypothesis.  
+ \begin{itemize}
+ \item We reject $H_0$ if $\{x_1, \ldots, x_n\} \in R_n$ 
+ \item We do not reject $H_0$ if $\{x_1, \ldots, x_n\} \notin R_n$ 
+ \end{itemize} 
 \end{itemize}
- 
 \end{frame}
 
+\begin{frame}{Error Types}  
+\begin{itemize} 
+ \item A \emph{Type I error} occurs when one rejects null hypothesis when true
+ \begin{itemize}
+ \item The risk of a type I error is $\alpha(R_n) = sup_{\theta^* \in \Theta_0} P(\{X_1, \ldots, X_n\} \in R_n)$
+ \end{itemize} 
+ \item A \emph{Type II error} occurs when one fails to reject false null hypothesis
+  \begin{itemize}
+ \item Risk of type II error is $\beta(R_n) = sup_{\theta^* \notin \Theta_0} P(\{X_1, \ldots, X_n\} \notin R_n)$
+ \end{itemize} 
+ \item Probability of not committing Type II error is the \emph{power} of test
+ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Test Quality}
+\begin{itemize} 
+ \item An ideal test has $\alpha(R_n) = \beta(R_n) = 0$
+ \item More realistically, fix $\alpha \in (0, 1)$, then a test of \emph{level} $\alpha$ has $\alpha(R_n) \leq \alpha$ 
+ \item One says $R_n$ has \emph{asymptotic level} $\alpha$ if $\lim_{n \rightarrow \infty} \alpha(R_n) \leq \alpha$
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{$p$-values} 
+\begin{itemize} 
+ \item Statistical tests $S_n$ can be written 
+ \begin{displaymath} 
+  R_{n, \alpha} = \{\{x_1, \ldots, x_n\}: S_n(x_1, \ldots, x_n) \geq C_\alpha\}
+ \end{displaymath}
+  where $C_\alpha \in \mathbb{R}$ is test criterion 
+ \item Consider $\sup_{\theta^* \in \Theta_0} P(\{X_1, \ldots, X_n\} \in R_{n, \alpha}) = \alpha$
+  \begin{itemize}
+  \item $R_{n, \alpha}$ increases as $\alpha$ increases 
+  \item There is a threshold $\alpha^*$ such that $R_{n, \alpha^*}$ contains the observations and $R_{n, \alpha}$ with $\alpha < \alpha^*$ do not 
+  \item This is the $p$-value of $R_{n, \alpha}$ 
+  \end{itemize} 
+ \item In other words, the $p$-value is smallest $\alpha^*$ for which $R_{n, \alpha^*}$ rejects null hypothesis  
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example: Binomial Distribution I}  
+\begin{itemize} 
+ \item Observations $X_1, \ldots, X_n \sim \mathcal{B}(\theta^*)$ 
+ \item Null hypothesis $H_0: \theta^* = \theta_0$ and alternative $H_1: \theta^* \neq \theta_0$ with $\theta_0 = 0.1$ 
+ \item To estimate $\theta^*$ we use $\bar{X} = \frac{1}{n}\sum_i X_i$ 
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{Example: Binomial Distribution II} 
+\begin{itemize} 
+\item Variance of Binomial distribution: $\var(X) = \theta^*(1- \theta)$
+\item Using central limit theorem 
+\begin{displaymath} 
+ \frac{\sqrt{n}(\bar{X} - \theta^*)}{\sqrt{\theta^*(1- \theta^*)}} \xrightarrow[n \rightarrow \infty]{\mathcal{L}} \mathcal{N}(0, 1)
+\end{displaymath}
+\item Therefore we define $T(\bar{X}, \theta) = \frac{\sqrt{n}(\bar{X} - \theta)}{\sqrt{\theta(1- \theta)}}$ and $R_n = \{\{X_1, \ldots, X_n\}: |T(\bar{X}, \theta_0)| > b\}$
+\item Normally we fix $\alpha$ and find $\lim_{n \rightarrow \infty} P(|T(\bar{X}, \theta_0)| > b) \leq \alpha$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example: Binomial Distribution III} 
+\begin{itemize} 
+ \item We know that $\lim_{n \rightarrow \infty} P(|T(\bar{X}, \theta_0)| > b) $ is the standard normal distribution
+ \begin{itemize}
+ \item Can find $b$ 
+ \end{itemize} 
+ \item Reject $H_0$ if 
+ \begin{displaymath} 
+ \frac{\sqrt{n}(\bar{X} - \theta)}{\sqrt{\theta(1- \theta)}} > b \Leftrightarrow |\bar{X} - 0.1| < \frac{0.3b}{\sqrt{n}} 
+ \end{displaymath}
+\item We do not reject $H_0$ if the above is not satisfied 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Summary}
+\begin{itemize} 
+ \item Confidence interval  $P(\theta^* \in \hat{\theta}) > 1 - \alpha \quad \forall \theta^* \in \Theta $
+ \begin{itemize}
+ \item Computing intervals for normally distributed variables 
+  \end{itemize}
+ \item Hypothesis testing - choose between null and alternative hypotheses 
+  \begin{itemize}
+ \item $p$-values 
+  \end{itemize}
+\end{itemize}
+\end{frame}
 
 
 \end{document}
