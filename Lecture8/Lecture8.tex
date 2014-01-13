@@ -18,10 +18,10 @@
 \input{../include/CsdMacros}
 \graphicspath{{./Figures/}}
 
-\title{Statistics and the Analysis of Data\\ Lecture 8: Parametric Estimation}
+\title{Statistics and the Analysis of Data\\ Lecture 8: Confidence Intervals and Hypothesis Testing}
 \author{Charanpal Dhanjal \\ \texttt{charanpal@gmail.com}} 
 \institute{\'{E}cole des Ponts}
-\date{7th January 2014}
+\date{14th January 2014}
 
 \begin{document}
 
@@ -29,11 +29,121 @@
 
 \begin{frame}{Recap}  
 \begin{itemize} 
-\item Difference types of convergence - almost surely, mean, probability 
-\item Strong law of large numbers 
-\item Central Limit Theorem 
+ \item Statistical model - $(\mathcal{X}_n, \mathcal{P}_n)$, i.i.d. assumption 
+ \item Estimators - bias and convergence 
+ \item Maximum Likelihood Estimation 
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{Overview}
+\begin{itemize} 
+ \item How far is estimated value from true value? 
+\item How do we test if hypothesis is correct? 
 \end{itemize}
 \end{frame}
+
+\begin{frame}{Confidence Interval} 
+\begin{itemize} 
+ \item Let $X_1, \ldots, X_n$ be a set of observations from distribution $P_{\theta^*}$ with $\theta^* \in \Theta$. Then a \emph{confidence interval} for a set  $\hat{\theta} \subset \Theta$, in which $\hat{\theta}$ is estimated from the observations, takes the form  
+\begin{displaymath} 
+ P(\theta^* \in \hat{\theta}) > 1 - \alpha \quad \forall \theta^* \in \Theta 
+\end{displaymath}
+ where $\alpha \in [0, 1]$ is the degree of uncertainty 
+\item Typically the range is $[\bar{\theta} - \delta, \bar{\theta} + \delta]$   
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Asymptotic Confidence}  
+\begin{itemize} 
+ \item In the case that $n \rightarrow \infty$ we have an \emph{asymptotic confidence interval} 
+\end{itemize}
+ \begin{displaymath} 
+ \lim_{n \rightarrow \infty} P(\theta^* \in \hat{\theta}) > 1 - \alpha \quad \forall \theta^* \in \Theta 
+\end{displaymath}
+\end{frame}
+
+\begin{frame}{An Example} 
+\begin{itemize}
+ \item We take a sample of 1000 adults from 60,000,000 adults in France and measure their heights in cm. The average height is 180cm with a standard deviation of 30cm. 
+\item The 95\% confidence interval ($\alpha = 0.05$) is $180 \pm 1.86$.  
+\item Steps: 
+\begin{itemize}
+\item Estimate mean 
+\item Fix $\alpha$ 
+\item Estimate interval of mean  
+\end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Asymmetric Range} 
+\begin{itemize} 
+ \item It might be that we have asymmetric range $[\bar{\theta} - \delta, \bar{\theta} + \delta']$
+ \item One then defines 
+\begin{displaymath} 
+ P(\bar{\theta} - \theta^* < -\delta  ) \leq \frac{\alpha}{2} \quad \mbox{and} \quad P(\bar{\theta} - \theta^* > \delta') \leq \frac{\alpha}{2}
+\end{displaymath}
+\end{itemize}
+\end{frame}
+ 
+\begin{frame}{A Reminder: Air Quality Example} 
+\begin{itemize}
+ \item Want to find the distribution governing the ATMO index in Paris which rates air quality from 1 (best) to 10 (worst). 
+ \item Look when index passes 8, and sample $n$ days in order to get some measurements. 
+ \item The observations are denoted $X_1, \ldots, X_n$ and each case is 0 if the AMTO index is less than or equal to 8, otherwise 1. Assuming the random variable is Bernoulli one, we can write 
+\begin{displaymath}
+P(X = 0) = p^* \quad P(X = 1) = 1- p^*  
+\end{displaymath}
+for some $p^* \in (0, 1)$. 
+\end{itemize}
+\end{frame}
+
+ \begin{frame}{The Question}  
+ \begin{itemize} 
+  \item We know that $\bar{\theta}^{ML} = \bar{X}$ 
+  \item What is the range of $\theta^*$ such that the probability of it falling outside the range is 0.05? 
+ \end{itemize}
+ \end{frame}
+
+\begin{frame}{A Useful Result} 
+Let $X$ be a random variable with finite expected value $\mu$ and finite non-zero variance $\sigma^2$. Then for any real number $k > 0$, 
+\begin{displaymath} 
+ P(|X - \mu| > k \sigma) \leq \frac{1}{k^2},
+\end{displaymath}
+known as \emph{Chebyshev's inequality}. 
+\end{frame}
+
+\begin{frame}{Air Quality Confidence Interval}  
+From  Chebyshev we fix $\delta = k\sigma \Rightarrow \frac{1}{k^2} = \frac{\sigma^2}{\delta^2}$ and 
+\begin{eqnarray*} 
+ P(|\bar{X} - \theta^*| > \delta) &\leq& \frac{\var(\bar{X})}{\delta^2} \\
+&=& \frac{\var(\sum_i X_i)}{n^2\delta^2} \\ 
+&=& \frac{\theta^*(1 - \theta^*)}{n\delta^2}  \\ 
+&=& \frac{1}{4n\delta^2}  
+\end{eqnarray*}
+where in the last step $ab \leq (a+b)^2/4$. To complete example fix $\alpha = 0.05$ and solve to get $\delta = \sqrt{5/n}$. 
+\end{frame}
+
+\begin{frame}{Hypothesis Testing}  
+\begin{itemize} 
+\item Choice between $H_0: \theta^* \in \Theta_0$ and $H_1: \theta^* \in \Theta \setminus \Theta_0$
+\item $H_0$ is the \emph{null hypothesis} and $H_1$ is the \emph{alternative hypothesis} 
+\item Can we reject null hypothesis? 
+\item Examples 
+\begin{itemize} 
+\item Is the defendant innocent or guilty? 
+\item Is homoeopathy more than just a placebo? 
+\item Do bumper stickers reflect car owner behaviour? 
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Critical Region} 
+\begin{itemize} 
+ \item 
+\end{itemize}
+ 
+\end{frame}
+
 
 
 \end{document}
