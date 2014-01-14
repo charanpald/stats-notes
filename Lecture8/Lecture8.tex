@@ -118,7 +118,7 @@ From  Chebyshev we fix $\delta = k\sigma \Rightarrow \frac{1}{k^2} = \frac{\sigm
  P(|\bar{X} - \theta^*| > \delta) &\leq& \frac{\var(\bar{X})}{\delta^2} \\
 &=& \frac{\var(\sum_i X_i)}{n^2\delta^2} \\ 
 &=& \frac{\theta^*(1 - \theta^*)}{n\delta^2}  \\ 
-&=& \frac{1}{4n\delta^2}  
+&\leq& \frac{1}{4n\delta^2}  
 \end{eqnarray*}
 where in the last step $ab \leq (a+b)^2/4$. To complete example fix $\alpha = 0.05$ and solve to get $\delta = \sqrt{5/n}$. 
 \end{frame}
@@ -167,13 +167,13 @@ for all $u \in \mathbb{R}$
 \begin{frame}{Machine Calibration Example II}  
 \begin{itemize} 
  \item \emph{Standard error} (standard deviation of error in sample mean relative to true mean) defined as $\sigma_{\bar{X}} = \sigma/\sqrt{n} = 0.5$ 
- \item To get a standard normal variable $Z = \frac{\bar{X} - \mu}{\sigma_{\bar{X}}/\sqrt{n}}$ 
+ \item To get a standard normal variable $Z = \frac{\bar{X} - \mu}{\sigma_{\bar{X}}}$ 
  \item We know that $P(-1.96 < Z < 1.96) = 0.95$ 
  \begin{itemize}
- \item $P(-1.96 < \frac{\bar{X} - \mu}{\sigma_{\bar{X}}/\sqrt{n}} < 1.96) = 0.95$ 
- \item $P(\bar{X} - 1.96 \sigma_{\bar{X}}/\sqrt{n}  < \mu < \bar{X} + 1.96 \sigma_{\bar{X}}/\sqrt{n}) = 0.95$ 
+ \item $P(-1.96 < \frac{\bar{X} - \mu}{\sigma_{\bar{X}}} < 1.96) = 0.95$ 
+ \item $P(\bar{X} - 1.96 \sigma_{\bar{X}}  < \mu < \bar{X} + 1.96 \sigma_{\bar{X}}) = 0.95$ 
 \end{itemize}
- \item Confidence interval: $\bar{X} \pm 1.96 \sigma_{\bar{X}}/\sqrt{n} = 250.2 \pm 0.98$ 
+ \item Confidence interval: $\bar{X} \pm 1.96 \sigma_{\bar{X}} = 250.2 \pm 0.98$ 
  \begin{itemize} 
  \item $\mu^* = 250$ within interval so no need for recalibration
  \end{itemize}
