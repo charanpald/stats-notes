@@ -18,7 +18,7 @@
 \input{../include/CsdMacros}
 \graphicspath{{./Figures/}}
 
-\title{Statistics and the Analysis of Data\\ Lecture 8: Confidence Intervals and Hypothesis Testing}
+\title{Statistics and the Analysis of Data\\ Lecture 8: Confidence Intervals}
 \author{Charanpal Dhanjal \\ \texttt{charanpal@gmail.com}} 
 \institute{\'{E}cole des Ponts}
 \date{14th January 2014}
@@ -37,14 +37,14 @@
 
 \begin{frame}{Overview}
 \begin{itemize} 
- \item How far is estimated value from true value? 
-\item How do we test if hypothesis is correct? 
+ \item Confidence intervals: how far is estimated value from true value? 
+\item Approximation with Normal distribution 
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Confidence Interval} 
 \begin{itemize} 
- \item Let $X_1, \ldots, X_n$ be a set of observations from distribution $P_{\theta^*}$ with $\theta^* \in \Theta$. Then a \emph{confidence interval} for a set  $\hat{\theta} \subset \Theta$, in which $\hat{\theta}$ is estimated from the observations, takes the form  
+ \item Let $X_1, \ldots, X_n$ be observations from distribution $P_{\theta^*}$ with $\theta^* \in \Theta$. Then a \emph{confidence interval} for a set  $\hat{\theta} \subset \Theta$, in which $\hat{\theta}$ is estimated from the observations, takes the form  
 \begin{displaymath} 
  P(\theta^* \in \hat{\theta}) > 1 - \alpha \quad \forall \theta^* \in \Theta 
 \end{displaymath}
@@ -55,7 +55,7 @@
 
 \begin{frame}{Asymptotic Confidence}  
 \begin{itemize} 
- \item In the case that $n \rightarrow \infty$ we have an \emph{asymptotic confidence interval} 
+ \item If $n \rightarrow \infty$ we have an \emph{asymptotic confidence interval} 
 \end{itemize}
  \begin{displaymath} 
  \lim_{n \rightarrow \infty} P(\theta^* \in \hat{\theta}) > 1 - \alpha \quad \forall \theta^* \in \Theta 
@@ -64,7 +64,7 @@
 
 \begin{frame}{An Example} 
 \begin{itemize}
- \item We take a sample of 1000 adults from 60,000,000 adults in France and measure their heights in cm. The average height is 180cm with a standard deviation of 30cm. 
+ \item We take sample of 1000 adults from 60,000,000 adults in France and measure heights in cm. Average height is 180cm with standard deviation 30cm. 
 \item The 95\% confidence interval ($\alpha = 0.05$) is $180 \pm 1.86$.  
 \item Steps: 
 \begin{itemize}
@@ -77,7 +77,7 @@
 
 \begin{frame}{Asymmetric Range} 
 \begin{itemize} 
- \item It might be that we have asymmetric range $[\bar{\theta} - \delta, \bar{\theta} + \delta']$
+ \item Might have asymmetric range $[\bar{\theta} - \delta, \bar{\theta} + \delta']$
  \item One then defines 
 \begin{displaymath} 
  P(\bar{\theta} - \theta^* < -\delta  ) \leq \frac{\alpha}{2} \quad \mbox{and} \quad P(\bar{\theta} - \theta^* > \delta') \leq \frac{\alpha}{2}
@@ -100,7 +100,7 @@ for some $p^* \in (0, 1)$.
  \begin{frame}{The Question}  
  \begin{itemize} 
   \item We know that $\bar{\theta}^{ML} = \bar{X}$ 
-  \item What is the range of $\theta^*$ such that the probability of it falling outside the range is 0.05? 
+  \item What is range of $\theta^*$ such that probability of falling outside range is 0.05? 
  \end{itemize}
  \end{frame}
 
@@ -123,19 +123,51 @@ From  Chebyshev we fix $\delta = k\sigma \Rightarrow \frac{1}{k^2} = \frac{\sigm
 where in the last step $ab \leq (a+b)^2/4$. To complete example fix $\alpha = 0.05$ and solve to get $\delta = \sqrt{5/n}$. 
 \end{frame}
 
-\begin{frame}{Cups Example I}  
+\begin{frame}{Slutsky's Lemma} 
+Let $X_n \xrightarrow[]{\mathcal{L}} X$ et $Y_n \xrightarrow[]{P} a$ for some constant $a$. Then 
 \begin{itemize} 
- \item Vending machine dispenses coffee with amount denoted by normal random variable $X$.  
- \item Assumed mean $\mu = 250$g and s.d. $\sigma = 2.5$g. 
- \item To calibrate machine sample 25 cups with sample mean $\bar{X} = 250.2$
- \item The \emph{standard error} (standard deviation of the error in the sample mean relative to the true mean) is defined as $\sigma_{\bar{X}} = \sigma/\sqrt{n} = 0.5$ 
+ \item $X_n + Y_n \xrightarrow[]{\mathcal{L}} X + a$
+ \item $Y_nX_n \xrightarrow[]{\mathcal{L}} aX$ 
+\end{itemize}
+where $X_n \xrightarrow[]{\mathcal{L}} X$ means convergence in law 
+\begin{displaymath} 
+\lim_{n\rightarrow\infty} F_{X_n}(u) = F_X(u)
+\end{displaymath}
+for all $u \in \mathbb{R}$
+\end{frame}
+
+
+\begin{frame}{Exercise}  
+\begin{itemize} 
+ \item Let $X_1, \ldots, X_n$ be a set of observations from the the exponential distribution $\mathcal{E}(\theta)$ with $\theta \in (0, \infty)$ 
+ \begin{itemize}
+ \item Show that $\frac{\sqrt{n}(\bar{X} - \theta^*) }{\bar{X}} \xrightarrow[n \rightarrow \infty]{\mathcal{L}} \mathcal{N}(0, 1)$ 
+ \item Show  that the asymptotic confidence interval for $\theta^*$ is 
+ \begin{displaymath} 
+  \left[\bar{X}\left(1 - \frac{q_{1-\alpha/2}}{\sqrt{n}}\right), \bar{X}\left(1 + \frac{q_{1-\alpha/2}}{\sqrt{n}}\right)  \right] 
+ \end{displaymath}
+  where $q_{1-\alpha/2}$ is the quantile for the Normal distribution of order $1-\alpha/2$ 
+ \end{itemize} 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Machine Calibration Example I}  
+\begin{itemize} 
+ \item Vending machine dispenses coffee with amount denoted by normal random variable $X$  
+ \begin{itemize} 
+  \item Assumed mean $\mu^* = 250$g and s.d. $\sigma = 2.5$g
+  \item Sample 25 cups with sample mean $\bar{X} = 250.2$
+ \end{itemize}
+ \item Do we need to recalibrate the machine? 
  \item What is the error in our estimate of the population mean? 
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Cups Example II}  
+\begin{frame}{Machine Calibration Example II}  
 \begin{itemize} 
- \item To get a standard normal variable we use $Z = \frac{\bar{X} - \mu}{\sigma_{\bar{X}}/\sqrt{n}}$ 
+ \item \emph{Standard error} (standard deviation of error in sample mean relative to true mean) defined as $\sigma_{\bar{X}} = \sigma/\sqrt{n} = 0.5$ 
+ \item To get a standard normal variable $Z = \frac{\bar{X} - \mu}{\sigma_{\bar{X}}/\sqrt{n}}$ 
  \item We know that $P(-1.96 < Z < 1.96) = 0.95$ 
  \begin{itemize}
  \item $P(-1.96 < \frac{\bar{X} - \mu}{\sigma_{\bar{X}}/\sqrt{n}} < 1.96) = 0.95$ 
@@ -143,7 +175,7 @@ where in the last step $ab \leq (a+b)^2/4$. To complete example fix $\alpha = 0.
 \end{itemize}
  \item Confidence interval: $\bar{X} \pm 1.96 \sigma_{\bar{X}}/\sqrt{n} = 250.2 \pm 0.98$ 
  \begin{itemize} 
- \item $\mu = 250$ within interval so no need for recalibration
+ \item $\mu^* = 250$ within interval so no need for recalibration
  \end{itemize}
 \end{itemize}
 \end{frame}
@@ -154,13 +186,14 @@ where in the last step $ab \leq (a+b)^2/4$. To complete example fix $\alpha = 0.
  \item We use a \emph{standard normal table} or \emph{Z table}
  \begin{itemize}
  \item Shows the cumulative distribution function for the standard normal distribution 
+ \item See handout 
  \end{itemize} 
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Standard Normal Table}
 \begin{itemize} 
- \item The elements in the table give the value of $q$ such that $\Phi(q) = 1 - z$ 
+ \item The elements in table give value of $q$ such that $\Phi(q) = 1 - z$ 
  \begin{itemize}
  \item $\Phi(q) = P(X \leq q)$ is the CDF for the standard normal distribution
  \item Implies $P(X > q) = z$
@@ -172,7 +205,7 @@ where in the last step $ab \leq (a+b)^2/4$. To complete example fix $\alpha = 0.
 
 \begin{frame}{Exercise} 
 \begin{itemize} 
- \item For a particular class, the mean score in the exam is 80 with a standard deviation of 5. 
+ \item For a particular class, the mean score in exam is 80 with standard deviation 5. 
  \begin{itemize}
  \item What is the probability that a student scores an 82 or less? 
  \item What is the minimum number of students required so that we expect at least one to score above 90? 
@@ -182,115 +215,14 @@ where in the last step $ab \leq (a+b)^2/4$. To complete example fix $\alpha = 0.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Hypothesis Testing}  
-\begin{itemize} 
-\item Choice between $H_0: \theta^* \in \Theta_0$ and $H_1: \theta^* \in \Theta \setminus \Theta_0$
-\item $H_0$ is the \emph{null hypothesis} and $H_1$ is the \emph{alternative hypothesis} 
-\item Can we reject null hypothesis? 
-\item Examples 
-\begin{itemize} 
-\item Is the defendant innocent or guilty? 
-\item Is homoeopathy more than just a placebo? 
-\item Do bumper stickers reflect car owner behaviour? 
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{The Critical Region} 
-\begin{itemize} 
- \item The \emph{critical} or \emph{regret region} is the subspace of $\mathbb{R}^n$ denoted $R_n$ which contains observations that support the null hypothesis.  
- \begin{itemize}
- \item We reject $H_0$ if $\{x_1, \ldots, x_n\} \in R_n$ 
- \item We do not reject $H_0$ if $\{x_1, \ldots, x_n\} \notin R_n$ 
- \end{itemize} 
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Error Types}  
-\begin{itemize} 
- \item A \emph{Type I error} occurs when one rejects null hypothesis when true
- \begin{itemize}
- \item The risk of a type I error is $\alpha(R_n) = sup_{\theta^* \in \Theta_0} P(\{X_1, \ldots, X_n\} \in R_n)$
- \end{itemize} 
- \item A \emph{Type II error} occurs when one fails to reject false null hypothesis
-  \begin{itemize}
- \item Risk of type II error is $\beta(R_n) = sup_{\theta^* \notin \Theta_0} P(\{X_1, \ldots, X_n\} \notin R_n)$
- \end{itemize} 
- \item Probability of not committing Type II error is the \emph{power} of test
- 
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Test Quality}
-\begin{itemize} 
- \item An ideal test has $\alpha(R_n) = \beta(R_n) = 0$
- \item More realistically, fix $\alpha \in (0, 1)$, then a test of \emph{level} $\alpha$ has $\alpha(R_n) \leq \alpha$ 
- \item One says $R_n$ has \emph{asymptotic level} $\alpha$ if $\lim_{n \rightarrow \infty} \alpha(R_n) \leq \alpha$
-\end{itemize} 
-\end{frame}
-
-\begin{frame}{$p$-values} 
-\begin{itemize} 
- \item Statistical tests $S_n$ can be written 
- \begin{displaymath} 
-  R_{n, \alpha} = \{\{x_1, \ldots, x_n\}: S_n(x_1, \ldots, x_n) \geq C_\alpha\}
- \end{displaymath}
-  where $C_\alpha \in \mathbb{R}$ is test criterion 
- \item Consider $\sup_{\theta^* \in \Theta_0} P(\{X_1, \ldots, X_n\} \in R_{n, \alpha}) = \alpha$
-  \begin{itemize}
-  \item $R_{n, \alpha}$ increases as $\alpha$ increases 
-  \item There is a threshold $\alpha^*$ such that $R_{n, \alpha^*}$ contains the observations and $R_{n, \alpha}$ with $\alpha < \alpha^*$ do not 
-  \item This is the $p$-value of $R_{n, \alpha}$ 
-  \end{itemize} 
- \item In other words, the $p$-value is smallest $\alpha^*$ for which $R_{n, \alpha^*}$ rejects null hypothesis  
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Example: Binomial Distribution I}  
-\begin{itemize} 
- \item Observations $X_1, \ldots, X_n \sim \mathcal{B}(\theta^*)$ 
- \item Null hypothesis $H_0: \theta^* = \theta_0$ and alternative $H_1: \theta^* \neq \theta_0$ with $\theta_0 = 0.1$ 
- \item To estimate $\theta^*$ we use $\bar{X} = \frac{1}{n}\sum_i X_i$ 
-\end{itemize} 
-\end{frame}
-
-\begin{frame}{Example: Binomial Distribution II} 
-\begin{itemize} 
-\item Variance of Binomial distribution: $\var(X) = \theta^*(1- \theta)$
-\item Using central limit theorem 
-\begin{displaymath} 
- \frac{\sqrt{n}(\bar{X} - \theta^*)}{\sqrt{\theta^*(1- \theta^*)}} \xrightarrow[n \rightarrow \infty]{\mathcal{L}} \mathcal{N}(0, 1)
-\end{displaymath}
-\item Therefore we define $T(\bar{X}, \theta) = \frac{\sqrt{n}(\bar{X} - \theta)}{\sqrt{\theta(1- \theta)}}$ and $R_n = \{\{X_1, \ldots, X_n\}: |T(\bar{X}, \theta_0)| > b\}$
-\item Normally we fix $\alpha$ and find $\lim_{n \rightarrow \infty} P(|T(\bar{X}, \theta_0)| > b) \leq \alpha$ 
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Example: Binomial Distribution III} 
-\begin{itemize} 
- \item We know that $\lim_{n \rightarrow \infty} P(|T(\bar{X}, \theta_0)| > b) $ is the standard normal distribution
- \begin{itemize}
- \item Can find $b$ 
- \end{itemize} 
- \item Reject $H_0$ if 
- \begin{displaymath} 
- \frac{\sqrt{n}(\bar{X} - \theta)}{\sqrt{\theta(1- \theta)}} > b \Leftrightarrow |\bar{X} - 0.1| < \frac{0.3b}{\sqrt{n}} 
- \end{displaymath}
-\item We do not reject $H_0$ if the above is not satisfied 
-\end{itemize}
-\end{frame}
 
 
 \begin{frame}{Summary}
 \begin{itemize} 
  \item Confidence interval  $P(\theta^* \in \hat{\theta}) > 1 - \alpha \quad \forall \theta^* \in \Theta $
- \begin{itemize}
+ \item Asymptotic confidence 
+ \item Confidence via normal approximation
  \item Computing intervals for normally distributed variables 
-  \end{itemize}
- \item Hypothesis testing - choose between null and alternative hypotheses 
-  \begin{itemize}
- \item $p$-values 
-  \end{itemize}
 \end{itemize}
 \end{frame}
 
