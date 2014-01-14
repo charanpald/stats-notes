@@ -1,0 +1,178 @@
+
+\documentclass{beamer}
+
+\usepackage{beamerthemesplit}
+\usepackage[utf8x]{inputenc}
+\usepackage{pgf}
+\usepackage{default}
+\usepackage{url}
+\usepackage{subfigure}
+\usepackage{algorithmic} 
+\usepackage{algorithm} 
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{mathtools}
+
+\usetheme{Singapore}
+
+\input{../include/CsdMacros}
+\graphicspath{{./Figures/}}
+
+\title{Statistics and the Analysis of Data\\ Lecture 8: Confidence Intervals}
+\author{Charanpal Dhanjal \\ \texttt{charanpal@gmail.com}} 
+\institute{\'{E}cole des Ponts}
+\date{14th January 2014}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Recap}  
+\begin{itemize} 
+ \item Statistical model - $(\mathcal{X}_n, \mathcal{P}_n)$, i.i.d. assumption 
+ \item Estimators - bias and convergence 
+ \item Maximum Likelihood Estimation 
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{Overview}
+\begin{itemize} 
+ \item Confidence intervals: how far is estimated value from true value? 
+\item Approximation with Normal distribution 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Hypothesis Testing}  
+\begin{itemize} 
+\item Choice between $H_0: \theta^* \in \Theta_0$ and $H_1: \theta^* \in \Theta \setminus \Theta_0$
+\item $H_0$ is \emph{null hypothesis} and $H_1$ is \emph{alternative hypothesis} 
+\item Can we reject null hypothesis? 
+\item Examples 
+\begin{itemize} 
+\item Is the defendant innocent or guilty? 
+\item Is homoeopathy more than just a placebo? 
+\item Do bumper stickers reflect car owner behaviour? 
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Critical Region} 
+\begin{itemize} 
+ \item The \emph{critical} or \emph{regret region} is subspace of $\mathbb{R}^n$ denoted $R_n$ which contains observations that support null hypothesis.  
+ \begin{itemize}
+ \item We reject $H_0$ if $\{x_1, \ldots, x_n\} \in R_n$ 
+ \item We do not reject $H_0$ if $\{x_1, \ldots, x_n\} \notin R_n$ 
+ \end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Error Types}  
+\begin{itemize} 
+ \item \emph{Type I error} occurs when one rejects true null hypothesis 
+ \begin{itemize}
+ \item \emph{Risk} of type I error is $\alpha(R_n) = sup_{\theta^* \in \Theta_0} P(\{X_1, \ldots, X_n\} \in R_n)$
+ \end{itemize} 
+ \item\emph{Type II error} occurs when one fails to reject false null hypothesis
+  \begin{itemize}
+ \item Risk of type II error is $\beta(R_n) = sup_{\theta^* \notin \Theta_0} P(\{X_1, \ldots, X_n\} \notin R_n)$
+ \end{itemize} 
+ \item Probability of not committing Type II error is the \emph{power} of test
+ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Test Quality}
+\begin{itemize} 
+ \item An ideal test has $\alpha(R_n) = \beta(R_n) = 0$
+ \item More realistically, fix $\alpha \in (0, 1)$, then a test of \emph{level} $\alpha$ has $\alpha(R_n) \leq \alpha$ 
+ \item One says $R_n$ has \emph{asymptotic level} $\alpha$ if $\lim_{n \rightarrow \infty} \alpha(R_n) \leq \alpha$
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{$p$-values} 
+\begin{itemize} 
+ \item Statistical tests $S_n$ can be written 
+ \begin{displaymath} 
+  R_{n, \alpha} = \{\{x_1, \ldots, x_n\}: S_n(x_1, \ldots, x_n) \geq C_\alpha\}
+ \end{displaymath}
+  where $C_\alpha \in \mathbb{R}$ is test criterion 
+ \item Consider $\sup_{\theta^* \in \Theta_0} P(\{X_1, \ldots, X_n\} \in R_{n, \alpha}) = \alpha$
+  \begin{itemize}
+  \item $R_{n, \alpha}$ increases as $\alpha$ increases 
+  \item There is a threshold $\alpha^*$ such that $R_{n, \alpha^*}$ contains the observations and $R_{n, \alpha}$ with $\alpha < \alpha^*$ do not 
+  \item This is the $p$-value of $R_{n, \alpha}$ 
+  \end{itemize} 
+ \item In other words, the $p$-value is smallest $\alpha^*$ for which $R_{n, \alpha^*}$ rejects null hypothesis  
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example: Binomial Distribution I}  
+\begin{itemize} 
+ \item Observations $X_1, \ldots, X_n \sim \mathcal{B}(\theta^*)$ 
+ \item Null hypothesis $H_0: \theta^* = \theta_0$ and alternative $H_1: \theta^* \neq \theta_0$ with $\theta_0 = 0.1$ 
+ \item To estimate $\theta^*$ we use $\bar{X} = \frac{1}{n}\sum_i X_i$ 
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{Example: Binomial Distribution II} 
+\begin{itemize} 
+\item Variance of Binomial distribution: $\var(X) = \theta^*(1- \theta)$
+\item Using central limit theorem 
+\begin{displaymath} 
+ \frac{\sqrt{n}(\bar{X} - \theta^*)}{\sqrt{\theta^*(1- \theta^*)}} \xrightarrow[n \rightarrow \infty]{\mathcal{L}} \mathcal{N}(0, 1)
+\end{displaymath}
+\item Therefore we define $T(\bar{X}, \theta) = \frac{\sqrt{n}(\bar{X} - \theta)}{\sqrt{\theta(1- \theta)}}$ and $R_n = \{\{X_1, \ldots, X_n\}: |T(\bar{X}, \theta_0)| > b\}$
+\item Normally we fix $\alpha$ and find $\lim_{n \rightarrow \infty} P(|T(\bar{X}, \theta_0)| > b) \leq \alpha$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example: Binomial Distribution III} 
+\begin{itemize} 
+ \item We know that $\lim_{n \rightarrow \infty} P(|T(\bar{X}, \theta_0)| > b) $ is the standard normal distribution
+ \begin{itemize}
+ \item Can find $b$ 
+ \end{itemize} 
+ \item Reject $H_0$ if 
+ \begin{displaymath} 
+ \frac{\sqrt{n}(\bar{X} - \theta)}{\sqrt{\theta(1- \theta)}} > b \Leftrightarrow |\bar{X} - 0.1| < \frac{0.3b}{\sqrt{n}} 
+ \end{displaymath}
+\item We do not reject $H_0$ if the above is not satisfied 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise I} 
+We have a set of observations $X_1, \ldots, X_n$ from distribution $P_{\theta^*}$ where $\theta^* \in \mathbb{R}$ and  $P_{\theta^*}$ has the density function 
+\begin{displaymath} 
+p(\theta^*, x) = \frac{1}{2} \exp^{-1|x - \theta^*|}, \quad \forall x \in \mathbb{R} 
+\end{displaymath}
+\begin{itemize} 
+ \item Show that the above is a density function and that the median of the sample is the MLE of $\theta^*$ 
+ \item Show that the empirical mean of the sample is consistent estimator and asymptotically Normal for $\theta^*$ 
+ \item Suppose that $n$ is large and $X_1, \ldots, X_n$ are iid of density $p$ whose median is $\theta^*$. Given the empirical median is written $\hat{Me}$ show that $2p(\theta^*)\sqrt{n}(\hat{Me} - \theta^*) \xrightarrow[n \rightarrow \infty]{\mathcal{L}} \mathcal{N}(0, 1)$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise II}  
+Let $X_1, \ldots, X_n$ be exponential random variables $\mathcal{E}(\theta^*)$ with $\theta^* > 0$. 
+\begin{itemize} 
+ \item Show that the 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{itemize} 
+ \item Confidence interval  $P(\theta^* \in \hat{\theta}) > 1 - \alpha \quad \forall \theta^* \in \Theta $
+ \begin{itemize}
+ \item Computing intervals for normally distributed variables 
+  \end{itemize}
+ \item Hypothesis testing - choose between null and alternative hypotheses 
+  \begin{itemize}
+ \item $p$-values 
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\end{document}
