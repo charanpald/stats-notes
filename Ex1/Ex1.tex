@@ -1,0 +1,74 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{pgf}
+\usepackage{listings}
+\usepackage{amsfonts,enumerate,amsmath,amssymb,enumitem,graphicx}
+\usepackage[margin=1.5in]{geometry}
+
+%opening
+\title{Statistics and the Analysis of Data\\ Exercise Sheet 1}
+\author{Charanpal Dhanjal}
+%\institute{\'{E}cole des Ponts}
+
+\definecolor{light-gray}{gray}{0.95}
+
+\begin{document}
+\lstset{language=R, showspaces=false, showstringspaces=false, backgroundcolor=\color{light-gray}}  
+\date{20th January 2014}
+\maketitle
+
+\section*{Exercise 1}
+
+Note that the standard normal table is provided via the ``polycopy'' and also the handout from the previous lecture. We will denote $\Phi(q)= \mathbb{P}(Z\le q)$ as the cumulative distribution function for a standard Gaussian random variable $Z$. 
+
+\begin{enumerate} 
+ 
+
+\item  Show that
+\begin{equation}\label{eq:quantile}
+\mathbb{P} (|Z|\le q) = 2 \mathbb{P} (Z\le q) -1.
+\end{equation}
+and then demonstrate
+\begin{eqnarray*}
+\mathbb{P}(|Z|\le q ) = 0.95 &\Leftrightarrow & \mathbb{P} ( Z\le q) = 0.975.\\
+\mathbb{P}(|Z|\le q ) = 0.99 &\Leftrightarrow & \mathbb{P} ( Z\le q) = 0.995.\\
+\end{eqnarray*}
+\end{enumerate}
+
+The compression force of a particular type of concrete is modelled using a Gaussian random variable witih mean $\mu$ and variance $\sigma^2$ in \emph{pounds per square inch} (psi). For questions 2 to 5, we assume the variance is known and equal to 1000. In a sample $(x_1,\cdots, x_n)$ of 12 measurements, we observe an empirical mean of 3250 psi. Recall that the mean $\frac 1n \sum_{i=1}^n x_i$ follows a Gaussian distribution with mean $\mu$ and variance $\frac{\sigma^2}n$ and $\frac{\sqrt{n}}{\sigma} \left( \frac 1n \sum_{i=1}^n x_i - \mu\right)$ follows the standard Gaussian distribution. 
+
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Give a confidence interval of level 0.95 for $\mu$. Justify your answer. 
+\item Give a confidence interval of level 0.99 for $\mu$. Compare the size of the this interval with the previous one. 
+\item If, using the same sample, we give a confidence interval with width 30 psi, what is the associated confidence level? 
+\item We wish to estimate $\mu$ with a confidence interval of 30 psi, and a confidence level of 0.95. What is the minimum sample size we require? 
+\end{enumerate}
+
+\section*{Exercise 2}
+
+Note that  
+$$\sum_{k=0}^\infty \frac{\lambda^k}{k!} = e^\lambda\qquad\textrm{et}\qquad \sum_{k=0}^\infty k^2 \frac{ \lambda^k}{k!}=e^{\lambda}(\lambda^2 + \lambda).
+$$ 
+Let $(X_1,\cdots, X_n)$ be a sample of Poisson random variables with parameter $\lambda^*$ unknown:
+$$
+\mathbb{P}(X_i=k) = e^{-\lambda^*} \frac{(\lambda^*)^k}{k!}\ ,\quad k\ge 0.
+$$
+\begin{enumerate}
+\item Show that $\mathbb{P}$ is a probability distribution and calculate $\mathbb{E}[X]$.
+\item Calculate the likelihood of the sample. 
+\item Deduce the estimator $\hat{\lambda}_n$ which is the maximum likelihood estimation of $\lambda^*$.
+\item Is this estimator unbiased? 
+\item Calculate the quadratic risk of the estimator:
+$$
+\mathbb{E}_{\lambda^*}\left[ \left| \hat \lambda_n -\lambda^*\right|^2\right].
+$$
+\item Is the estimator $\hat \lambda_n$  asymptotically normal?
+\end{enumerate}
+
+\section*{Submission}
+
+Please submit the answers to these exercises before midnight CET on 28/1/14 using the heading ``Statistics and the Analysis of Data Exercise Sheet 1''. Be sure to write your name at the top of your answer sheet. 
+
+\end{document}
