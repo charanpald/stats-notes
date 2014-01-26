@@ -19,10 +19,10 @@
 \input{../include/CsdMacros}
 \graphicspath{{./Figures/}}
 
-\title{Statistics and the Analysis of Data\\ Lecture 8: Confidence Intervals}
+\title{Statistics and the Analysis of Data\\ Lecture 9: Hypothesis Testing}
 \author{Charanpal Dhanjal \\ \texttt{charanpal@gmail.com}} 
 \institute{\'{E}cole des Ponts}
-\date{14th January 2014}
+\date{28th January 2014}
 
 \begin{document}
 
@@ -30,16 +30,18 @@
 
 \begin{frame}{Recap}  
 \begin{itemize} 
- \item Statistical model - $(\mathcal{X}_n, \mathcal{P}_n)$, i.i.d. assumption 
- \item Estimators - bias and convergence 
- \item Maximum Likelihood Estimation 
+ \item Confidence interval -  $P(\theta^* \in \hat{\theta}) > 1 - \alpha \quad \forall \theta^* \in \Theta $
+ \item Asymptotic Confidence
+ \item Confidence in a Normal Distribution
+\begin{itemize} 
+\item Z tables 
+\end{itemize}
 \end{itemize} 
 \end{frame}
 
 \begin{frame}{Overview}
 \begin{itemize} 
- \item Confidence intervals: how far is estimated value from true value? 
-\item Approximation with Normal distribution 
+ \item Given a set of data is inference $Z$ statistically significant?
 \end{itemize}
 \end{frame}
 
@@ -59,11 +61,24 @@
 
 \begin{frame}{Critical Region} 
 \begin{itemize} 
- \item The \emph{critical} or \emph{regret region} is subspace of $\mathbb{R}^n$ denoted $R_n$ which contains observations that support null hypothesis.  
+ \item The \emph{critical} or \emph{regret region} is subspace of $\mathbb{R}^n$ denoted $R_n$ which contains observations that support null hypothesis 
  \begin{itemize}
- \item We reject $H_0$ if $\{x_1, \ldots, x_n\} \in R_n$ 
- \item We do not reject $H_0$ if $\{x_1, \ldots, x_n\} \notin R_n$ 
+ \item Reject $H_0$ if $\{x_1, \ldots, x_n\} \in R_n$ 
+ \item Do not reject $H_0$ if $\{x_1, \ldots, x_n\} \notin R_n$ 
  \end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Test Sidedness} 
+\begin{itemize} 
+ \item If region of rejection is on one side of sampling distribution, called \emph{one-tailed test}. 
+\begin{itemize}
+\item E.g. null hypothesis is $\mu \leq  10$, rejection region is numbers greater than 10
+\end{itemize} 
+\item If region of rejection is on both sides of sampling distribution,  called \emph{two-tailed test}. 
+\begin{itemize}
+\item E.g. null hypothesis is $\mu = 10$, alternative hypothesis $\mu > 10$ or $\mu < 10$ 
+\end{itemize} 
 \end{itemize}
 \end{frame}
 
@@ -71,22 +86,31 @@
 \begin{itemize} 
  \item \emph{Type I error} occurs when one rejects true null hypothesis 
  \begin{itemize}
- \item \emph{Risk} of type I error is $\alpha(R_n) = sup_{\theta^* \in \Theta_0} P(\{X_1, \ldots, X_n\} \in R_n)$
+ \item \emph{Risk} of type I error 
+\begin{displaymath} 
+\alpha(R_n) = sup_{\theta^* \in \Theta_0} P(\{X_1, \ldots, X_n\} \in R_n) 
+\end{displaymath} 
  \end{itemize} 
  \item\emph{Type II error} occurs when one fails to reject false null hypothesis
   \begin{itemize}
- \item Risk of type II error is $\beta(R_n) = sup_{\theta^* \notin \Theta_0} P(\{X_1, \ldots, X_n\} \notin R_n)$
+ \item Risk of type II error 
+\begin{displaymath} 
+\beta(R_n) = sup_{\theta^* \notin \Theta_0} P(\{X_1, \ldots, X_n\} \notin R_n)                             
+\end{displaymath}
  \end{itemize} 
- \item Probability of not committing Type II error is the \emph{power} of test
+ \item Probability of not committing Type II error is  \emph{power} of test
  
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Test Quality}
 \begin{itemize} 
- \item An ideal test has $\alpha(R_n) = \beta(R_n) = 0$
- \item More realistically, fix $\alpha \in (0, 1)$, then a test of \emph{level} $\alpha$ has $\alpha(R_n) \leq \alpha$ 
- \item One says $R_n$ has \emph{asymptotic level} $\alpha$ if $\lim_{n \rightarrow \infty} \alpha(R_n) \leq \alpha$
+ \item Ideal test has $\alpha(R_n) = \beta(R_n) = 0$
+ \item More realistically, fix $\alpha \in (0, 1)$, then test of \emph{level} $\alpha$ has $\alpha(R_n) \leq \alpha$ 
+ \item One says $R_n$ has \emph{asymptotic level} $\alpha$ if 
+\begin{displaymath} 
+\lim_{n \rightarrow \infty} \alpha(R_n) \leq \alpha
+\end{displaymath}
 \end{itemize} 
 \end{frame}
 
@@ -100,16 +124,17 @@
  \item Consider $\sup_{\theta^* \in \Theta_0} P(\{X_1, \ldots, X_n\} \in R_{n, \alpha}) = \alpha$
   \begin{itemize}
   \item $R_{n, \alpha}$ increases as $\alpha$ increases 
-  \item There is a threshold $\alpha^*$ such that $R_{n, \alpha^*}$ contains the observations and $R_{n, \alpha}$ with $\alpha < \alpha^*$ do not 
-  \item This is the $p$-value of $R_{n, \alpha}$ 
+  \item Threshold $\alpha^*$ such that $R_{n, \alpha^*}$ contains observations and $R_{n, \alpha}$ with $\alpha < \alpha^*$ do not 
+  \item This is $p$-value of $R_{n, \alpha}$ 
   \end{itemize} 
  \item In other words, the $p$-value is smallest $\alpha^*$ for which $R_{n, \alpha^*}$ rejects null hypothesis  
 \end{itemize}
 \end{frame}
 
+
 \begin{frame}{Example: Binomial Distribution I}  
 \begin{itemize} 
- \item Observations $X_1, \ldots, X_n \sim \mathcal{B}(\theta^*)$ 
+ \item Observations $X_1, \ldots, X_n \sim \mathcal{B}(\theta^*)$ from a coin toss
  \item Null hypothesis $H_0: \theta^* = \theta_0$ and alternative $H_1: \theta^* \neq \theta_0$ with $\theta_0 = 0.1$ 
  \item To estimate $\theta^*$ we use $\bar{X} = \frac{1}{n}\sum_i X_i$ 
 \end{itemize} 
@@ -117,7 +142,7 @@
 
 \begin{frame}{Example: Binomial Distribution II} 
 \begin{itemize} 
-\item Variance of Binomial distribution: $\var(X) = \theta^*(1- \theta)$
+\item Variance of Binomial distribution: $\var(X) = \theta^*(1- \theta^*)$
 \item Using central limit theorem 
 \begin{displaymath} 
  \frac{\sqrt{n}(\bar{X} - \theta^*)}{\sqrt{\theta^*(1- \theta^*)}} \xrightarrow[n \rightarrow \infty]{\mathcal{L}} \mathcal{N}(0, 1)
@@ -141,10 +166,69 @@
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Example 2: Exponential Distribution I}  
+\begin{itemize} 
+ \item Now we consider a continuous distribution: the exponential distribution. 
+\begin{itemize} 
+\item $X_1, \ldots, X_N \sim  \mathcal{E}(1/\theta^*)$ 
+\end{itemize}
+\item Want to test $H_0: \theta^* \geq \theta_0$ against $H_1: \theta^* < \theta_0$ with $\theta_0 = 5$ 
+\item Use MLE of $\theta^*$ which is $\bar{X}$ we can show that 
+\begin{displaymath} 
+ \sqrt{n}(\bar{X} - \theta^*) \xrightarrow[n \rightarrow \infty]{\mathcal{L}} \mathcal{N}(0, \theta^*)^2
+\end{displaymath}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example 2: Exponential Distribution II} 
+\begin{itemize}
+ \item Define 
+\begin{displaymath} 
+T(\bar{X}, \theta) = \frac{\sqrt{n}(\bar{X} - \theta)}{\theta}
+\end{displaymath}
+and $R_n = \{(x_1, \ldots, x_n\} : \min_{\theta \geq \theta_0} |T(\bar{X}, \theta) | > b$ 
+\item Therefore 
+\begin{eqnarray*} 
+|T(\bar{X}, \theta) | > b &\Rightarrow& |\theta^{-1} \bar{X} - 1| > bn^{-1/2} \quad \forall \theta \geq \theta_0 \\ 
+&\Rightarrow& \bar{X} < \theta_0(1 - bn^{-1/2})  \\ 
+\end{eqnarray*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example 2: Exponential Distribution III} 
+\begin{itemize} 
+ \item We want to determine $b$ such that 
+\begin{displaymath} 
+ \lim_{n \rightarrow \infty} \sup_{\theta^* \geq \theta_0}P(\bar{X} < \theta_0(1 - bn^{-1/2})) = \alpha 
+\end{displaymath}
+\item Note that the above distribution does not depend on $\theta^*$. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example 2: Exponential Distribution IV} 
+\begin{eqnarray*} 
+ \sup_{\theta^* \geq \theta_0} P(\bar{X} < \theta_0(1 - bn^{-1/2}))  &=& \sup_{\theta^* \geq \theta_0} P\left(\bar{X}/\theta^* < \frac{\theta_0(1 - bn^{-1/2})}{\theta^*}\right)  \\ 
+&=& P\left(\bar{X}/\theta^* < \frac{(1 - bn^{-1/2})}{\theta^*}\right)  \\ 
+&=& P\left(\frac{\sqrt{n}(\bar{X} - \theta^*)}{\theta^*} < - b\right)  \\ 
+&\xrightarrow[n \rightarrow \infty]{} & P(\xi < -b) \\ 
+&=& P(\xi > b) = 1 - P(\xi \leq b),
+\end{eqnarray*}
+where $\xi \sim \mathcal{N}(0, 1)$. 
+\end{frame}
+
+\begin{frame}{Example 2: Exponential Distribution IV} 
+\begin{itemize} 
+ \item To get a confidence level $b = q^N_{1-\alpha}$ 
+\item Therefore reject null hypothesis $H_0: \theta^* \geq \theta_0$ iff $\bar{X} < \theta_0(1 - \frac{q_{1-\alpha}^N}{\sqrt{n}}) $
+\end{itemize}
+
+\end{frame}
+
+
 \begin{frame}{Exercise I} 
 We have a set of observations $X_1, \ldots, X_n$ from distribution $P_{\theta^*}$ where $\theta^* \in \mathbb{R}$ and  $P_{\theta^*}$ has the density function 
 \begin{displaymath} 
-p(\theta^*, x) = \frac{1}{2} \exp^{-1|x - \theta^*|}, \quad \forall x \in \mathbb{R} 
+p(\theta^*, x) = \frac{1}{2} \exp^{-|x - \theta^*|}, \quad \forall x \in \mathbb{R} 
 \end{displaymath}
 \begin{itemize} 
  \item Show that the above is a density function and that the median of the sample is the MLE of $\theta^*$ 
@@ -153,20 +237,8 @@ p(\theta^*, x) = \frac{1}{2} \exp^{-1|x - \theta^*|}, \quad \forall x \in \mathb
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Exercise II}  
-Let $X_1, \ldots, X_n$ be exponential random variables $\mathcal{E}(\theta^*)$ with $\theta^* > 0$. 
-\begin{itemize} 
- \item Show that the 
-\end{itemize}
-
-\end{frame}
-
 \begin{frame}{Summary}
 \begin{itemize} 
- \item Confidence interval  $P(\theta^* \in \hat{\theta}) > 1 - \alpha \quad \forall \theta^* \in \Theta $
- \begin{itemize}
- \item Computing intervals for normally distributed variables 
-  \end{itemize}
  \item Hypothesis testing - choose between null and alternative hypotheses 
   \begin{itemize}
  \item $p$-values 
