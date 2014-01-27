@@ -1,0 +1,291 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{pgf}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage[margin=1.5in]{geometry}
+
+%opening
+\title{Statistics and the Analysis of Data\\ Lab Session 3: Parametric Statistics}
+\author{Charanpal Dhanjal}
+%\institute{\'{E}cole des Ponts}
+
+\definecolor{light-gray}{gray}{0.95}
+
+\begin{document}
+\lstset{language=R, showspaces=false, showstringspaces=false, backgroundcolor=\color{light-gray}, basicstyle=\small,}  
+\date{28th January 2014}
+\maketitle
+
+\section{Introduction} 
+
+This session is about parametric estimation. It is recommended that you create a file called e.g. Lab3.R and work from this file by copying and pasting into the R interpreter. Alternatively, you can try using an IDE such as R Studio (\url{http://www.rstudio.com/}) or Eclipse (\url{http://www.walware.de/goto/statet}) to make things easier. 
+
+\section{Comparison of Estimators} 
+
+Let $X_1, \ldots, X_n$ be continuous random variables sampled i.i.d. Suppose that the density function, denoted $p$, is symmetric relative to the parameter $\theta$, 
+
+\begin{displaymath} 
+p(\theta + x) = p(\theta - x), \quad \forall x \in \mathbb{R}. 
+\end{displaymath}
+
+The aim of this exercise is to study the properties of the following estimators of $\theta$, notably the mean, median, and mid-range 
+
+\begin{displaymath}
+\hat{\theta}_1 = \frac{X_1 + \cdots + X_n}{n}, \quad \hat{\theta}_2 = med(X), \quad \hat{\theta}_3 = \frac{\min(X_i) + \max(X_i)}{2}.
+\end{displaymath}
+
+\begin{enumerate} 
+ \item Start by generating $n=1000$ independent realisation of a Gaussian random variable $\mathcal{N}(5,4)$
+\begin{lstlisting}
+n=1000;
+X=rnorm(n,mean=5,sd=2);
+\end{lstlisting} 
+
+\item Verify that the observations come from a Gaussian distribution 
+\begin{lstlisting}
+par(bg="cornsilk",lwd=2,col="darkblue")
+hist(X,breaks=20,freq=F,col="cyan")
+curve(dnorm(x,mean=5,sd=2),add=T)
+\end{lstlisting}
+What is the value of $\theta$ in this case? 
+
+\item Let's now study the behaviour of the 3 estimators when $n \rightarrow \infty$. 
+
+\begin{enumerate}
+\item Write the following function 
+\begin{lstlisting}
+location_estimator=function(U,theta)
+{
+n=length(U)
+theta1=cumsum(U)/(1:n)
+theta2=1:n
+for (i in 1:n)
+theta2[i]=median(U[1:i])
+end
+par(mfrow=c(1,2),bg="cornsilk",lwd=2,col="darkblue")
+plot(1:n,theta1,type="l",main="moyenne")
+abline(h=theta,col="darkred")
+plot(1:n,theta2,type="l",main="mediane")
+abline(h=theta,col="darkred")
+return(matrix(c(theta1,theta2),n,2))
+}
+\end{lstlisting}
+\item If $U$ is a vector then what do \texttt{theta1} and \texttt{theta2} represent? 
+\item What does the option \texttt{type=`l'} mean in \texttt{plot}? 
+
+\item Now try calling the function using the following 
+\begin{lstlisting}
+X=rnorm(n,mean=5,sd=2)
+est=location_estimator(X,5)
+\end{lstlisting}
+\item What does the matrix \texttt{est} correspond to? 
+
+\item Complete the function by adding in some code to compute $\hat{\theta}_3$. Will the estimator $\hat{\theta}_3$ converge? 
+\end{enumerate}
+
+\item Let's now try to compare the 3 estimators by generating $N$ samples of $n$ observations following the distribution $\mathcal{N}(5,4)$. For each sample we compute each estimator and this gives us $N$ values per estimator. We trace the boxplots of the estimators.  
+
+\begin{lstlisting}
+compare_estimators=function(N,n)
+{
+X=matrix(rnorm(N*n,mean=5,sd=2),N,n)
+theta1=apply(X,1,mean)
+theta2=apply(X,1,median)
+theta3=(apply(X,1,min)+apply(X,1,max))/2
+}
+par(bg="cornsilk",lwd=2,col="darkblue")
+boxplot(theta1,theta2,theta3,col="cyan")
+\end{lstlisting}
+What does the function \texttt{apply} do? 
+
+
+\item Call the function using 
+\begin{lstlisting}
+ compare_estimators(200,1000)
+\end{lstlisting}
+Which estimator do you prefer? 
+\item Now, in \texttt{compare\_estimators} replace the normal distribution with the uniform one using \texttt{runif(N*n, 0, 10)}. Which estimators do you prefer in this case?  
+\item Now let's use the Cauchy distribution instead of the uniform using \texttt{rcauchy(N*n, location=5, scale=2)}
+\begin{enumerate}
+\item Notice that the 3rd estimator is worse than the other two. Include the corresponding plots in the report. 
+\item Delete the calculation of $\hat{\theta}_3$ from the code, and rerun it using $N=200$ and $n=1000$. Which estimator is now favourable? 
+\item Summarise  the results by stating which estimator is favourable for each of the normal, Cauchy and uniform distributions. 
+\end{enumerate}
+\item If you have data from an unknown symmetric distribution which estimator would you prefer? 
+\end{enumerate}
+
+\section{Confidence Intervals} 
+
+In this case we observe a sample $x_1, \ldots, x_n$ distributed using a normal distribution with mean $\mu \in \mathbb{R}$ and $\sigma > 0$. The aim is to determine a confidence interval of level 95\% for $\mu$ and study the properties of the interval. We know that $\mu$ and $\sigma^2$ are estimated using the empirical mean and variance without bias. 
+
+\begin{enumerate}
+ \item Theory says that the following random variable $T_n = \frac{(\hat{X}-\mu)\sqrt{n}}{S_n}$ follows a student distribution with $n-1$ degrees of freedom (see Proposition 4.1 of the polycopy). We want to find some empirical confirmation of the results. To do so, we generate $N$ samples of size $n$ of the normally distributed observations. For each sample we calculate $T_n$. This gives us a series $t_n^1, \ldots, t_n^N$. 
+\begin{lstlisting}
+check_student=function(N,n,mu,sigma)
+{
+X=matrix(rnorm(N*n,mean=mu,sd=sigma),N,n)
+t=sqrt(n)*(apply(X,1,mean)-mu)/apply(X,1,sd)
+return(t)
+} 
+\end{lstlisting}
+If this series is really distributed using the student distribution then the histogram ought to be close to the real distribution. To check this, try 
+\begin{lstlisting}
+N=5000; n=30;
+t=check_student(N,n,2,3)
+par(bg="cornsilk",lwd=2,col="darkblue")
+hist(t,breaks=30,freq=F,col="cyan")
+curve(dt(x,n-1),add=T,lwd=2)
+\end{lstlisting}
+
+\item Determine the quantiles of order $2.5\%$ and $97.5\%$ for the series $t_n^1, \ldots, t_n^N$ (use the function \texttt{quantile}). 
+\item Vary the values of $\mu$ and $\sigma$. How does this influence the results? 
+\item Increase $N$ up to $40,000$. What are the values obtained using the two quantiles? 
+\item Let $a$ and $b$ be values obtained from the previous question. If $T$ is a random variable distributed using the students distribution, what is the probability $P(T \in [a, b])$? 
+\item Verify that $T_n \in [a, b]$ is equivalent to 
+\begin{equation}
+\mu \in \left[\bar{X} - \frac{S_n b}{\sqrt{n}}, \bar{X} - \frac{S_n a}{\sqrt{n}} \right] \label{eqn:student} 
+\end{equation}
+What is the percentage of samples (amongst the $N$ generated) that the above equation is satisfied? 
+\end{enumerate}
+
+\subsection{An Application}
+
+We measure the compression force of cement moulded into small cylinders by measuring the pressure $X$ in $\mbox{Kg}/\mbox{cm}^2$ at which the cylinders deform. For 10 cylinders the following pressure are observed: 
+\begin{lstlisting}
+ 19.6 19.9 20.4 19.8 20.5 21.0 18.5 19.7 18.4 19.4
+\end{lstlisting}
+and we suppose that $X$ follows a Gaussian distribution. We want to determine a confidence interval with level 95\% for the mean of $X$. 
+\begin{enumerate}
+ \item Enter the data 
+ \begin{lstlisting} 
+  X=c(19.6, 19.9, 20.4, 19.8, 20.5, 21.0, 18.5, 19.7, 18.4, 
+    19.4).
+ \end{lstlisting}
+\item Determine the value of $n$ and values of $a$ and $b$ corresponding to the value of $n$. 
+\item Then deduce the confidence interval using Equation \ref{eqn:student}. 
+\end{enumerate}
+
+\section{Maximum Likelihood Estimation} 
+
+The aim of this exercise is to learn how to use the command \texttt{mle} in order to calculate the maximum likelihood estimation of a specific parametric model. We will illustrate the use of this command using a gamma distribution. A random variable $X$ follows a gamma distribution with a parameter $a > 0$ and a scale parameter $\sigma > -$ if $X$ is continuous and has a density of 
+\begin{equation} 
+ p_X(x, a, \sigma) = \frac{x^{a-1}}{\sigma^a\Gamma(a)} e^{-x/\sigma}  \mathbbm{1}_{(0, \infty)}(x), 
+\end{equation}
+where $\Gamma(a) = \int_0^\infty t^{a-1}e^{-t} dt$ is the gamma function. 
+
+We generate 50 numbers from the gamma distribution and we try to estimate the parameters $a$ and $\sigma$. We will then try to supply a confidence interval for these parameters. 
+
+\begin{enumerate} 
+ \item Start by initialising the data 
+\begin{lstlisting}
+X=c(77.551, 45.195, 50.626, 39.878, 29.137, 57.321, 39.140, 
+66.776,48.028, 42.325, 31.200, 38.632, 42.914, 60.969, 22.076, 
+52.446,45.257, 42.626, 62.504, 22.684, 69.196, 42.383, 61.339, 
+45.803,74.707, 33.048, 72.423, 43.670, 65.279, 42.714, 59.785, 
+101.742,59.641, 44.749, 44.161, 58.488, 46.448, 25.280, 67.619, 
+66.846,80.208, 98.492, 41.149, 40.395, 22.220, 34.628, 77.768, 
+48.161,48.909, 66.267)
+\end{lstlisting}
+\item Here is a function which calculates the negative log likelihood of the gamma distribution
+
+\begin{lstlisting}
+ll=function(a=1, sigma=1)
+{
+if(a > 0 && sigma > 0)
+-sum(dgamma(X, shape=a, scale=sigma, log=TRUE))
+else
+NA
+}
+\end{lstlisting}
+\begin{enumerate}
+\item What does the command \texttt{dgamma} do with the option \texttt{log=TRUE}? 
+\item Using data present in a vector $X = [x_1, \ldots, x_n]$ and two real values $a$ and $\sigma$ what is the value returned using \texttt{ll(a, sigma)}?
+\item Do we need to maximise or minimise \texttt{ll} to get the MLE? 
+\end{enumerate}
+\item To obtain the MLE we need to use the package \texttt{stats4}: 
+\begin{lstlisting}
+library(stats4)
+fit = mle(ll)
+summary(fit)
+\end{lstlisting}
+What are the estimations for $a$ and $\sigma$? 
+\item The \texttt{mle} command not only calculates MLE but can also be used to derive confidence intervals as wells as the covariance matrices. 
+\begin{lstlisting}
+ vcov(fit)
+par(mfrow=c(2,1),bg="cornsilk",col="blue",lwd=2)
+plot(profile(fit), absVal=FALSE)
+confint(fit,level=0.95)
+\end{lstlisting}
+What is the confidence interval of level 95\% and 85\% for $a$ and $\sigma$? 
+\item We can also display the objective surface represented by the negative log likelihood. To do so we use the commands \texttt{persp}, \texttt{image} and \texttt{contour}. 
+
+\begin{lstlisting}
+# Calculate the log likelihood values 
+K=80
+x=(1:K)/4; y=(1:K)/4; z=c();
+for (i in 1:length(x))
+for (j in 1:length(y))
+z=c(z,ll(x[i],y[j]))
+# 
+z=matrix(z,length(x),length(y))
+z=log(0.001+((z-min(z))/(max(z)-min(z))))
+# The next 7 lines can be considered as a black box 
+nrz <- nrow(z)
+ncz <- ncol(z)
+jet.colors <- colorRampPalette( c("blue", "green") )
+nbcol <- 100
+color <- jet.colors(nbcol)
+zfacet <- z[-1, -1] + z[-1, -ncz] + z[-nrz, -1] + z[-nrz, -ncz]
+facetcol <- cut(zfacet, nbcol)
+# Visualisation 
+par(bg="cornsilk",lwd=1,mfrow=c(1,2))
+image(x,y,z,col = cm.colors(50))
+contour(x,y,z,add=T,col="darkred")
+persp(x, y, z,ticktype="detailed",expand=0.5,col=color[facetcol],
+  shade=0.4)
+\end{lstlisting}
+Does the surface represent the negative log-likelihood or a transformation of it? Give a formula for the transformation and justify your answer. 
+\item We want to verify that the above code really generates an estimation of the parameters $a$ and $\sigma$ under the gamma distribution. 
+\begin{enumerate}
+\item Generate $n=1000$ values of a Gamma random variable with $a=5$ and $\sigma=3$. 
+\item From this data, find the estimated $a$ and $\sigma$. 
+\item Determine the 95\% confidence interval for $a$ and $\sigma$. 
+\item Verify that the estimations are close to the true values. 
+\end{enumerate}
+\item For the definition of \texttt{ll} in question 2 we used initial values $a=1$ and $\sigma=1$. These initial values are the starting ``guess'' for the optimisation routine. The negative log-likelihood of the Gamma function is not convex, and the minimum point depends on the initial values. Study the optimisation by varying the initial values and observing the output of the MLE. 
+\item We have a set of $n=99$ real values which seem to be distributed using a Cauchy distribution with parameter $a$ and scale parameter $\sigma$. The values are 
+\begin{lstlisting}
+-7.54, 82.51, 14.27, 3.96, 189.98, 17.20, -20.07, 52.66, 93.47, 
+-33.57, 13.13, -1.26, 12.69, 53.33, 2.85, -7.25, 13.30, -5.67, 
+-38.99, 24.24, 4.17, 12.30, 21.59, -6.70, 1.24, 13.91, 30.24, 
+3.35,  6.45, -26.22, 72.65, 10.12, -1.64, 21.49, 391.11, 26.53, 
+146.60, 2.11, 5.84, 14.25, 7.17, 4.96, -9.55, 7.89, -2.31, 91.11,
+8.39, 6.23, 25.45, 9.36, 102.44, -7.28, -40.02, -8.86, 14.11, 
+6.84, -11.15, -6.67, -84.82, -241.41, -0.14, -72.95, 21.09, 
+53.47, -3.80, -10.64, 19.71, 45.89, -124.30, -2.02, -1.67, 7.81, 
+-9.76, 6.25, 16.68, 8.88, 32.14, 1.29, -10.00, -5.03, -66.77, 
+12.85, 15.32, 31.27, 6.59, 3.92, 8.61, 15.38, -1.34, 14.11, 
+10.53, 2.35, -94.19, 16.45, 2.97, 12.26, 4.15, 10.63, 5.47
+\end{lstlisting}
+\item White a function which calculates the MLE for the sample assuming they are distributed according to the Cauchy distribution $\mathcal{C}(a, s)$. 
+\item Give an estimation of the parameters $a$ and $s$ as well as the 95\% confidence interval of these parameters. 
+\item Do the obtained values depend on the initial values used in the optimisation? Explain the result. 
+\item Show the surface of the log-likelihood (transform the surface as appropriate if required to improve the visualisation). 
+\end{enumerate}
+
+
+\section{Submission Instructions}
+
+Please submit the answers to the above questions in PDF format to \texttt{charanpal@gmail.com} before midnight CET on 4/2/14 using the subject heading ``Statistics and the Analysis of Data Lab 3''. Some requirements: 
+\begin{itemize} 
+ \item Please be concise, the questions can be answered in under 3 pages. Code and plots are generally not required unless explicitly asked for, and points are awarded for clarity and concision. 
+ \item The assignment can be written in French or English. 
+ \item Reports can be done in pairs or individually.    
+\end{itemize}
+
+
+\end{document}
