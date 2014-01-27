@@ -32,7 +32,7 @@
 \begin{itemize} 
  \item Confidence interval -  $P(\theta^* \in \hat{\theta}) > 1 - \alpha \quad \forall \theta^* \in \Theta $
  \item Asymptotic Confidence
- \item Confidence in a Normal Distribution
+ \item Confidence in a Normal distribution
 \begin{itemize} 
 \item Z tables 
 \end{itemize}
@@ -63,8 +63,8 @@
 \begin{itemize} 
  \item The \emph{critical} or \emph{regret region} is subspace of $\mathbb{R}^n$ denoted $R_n$ which contains observations that support null hypothesis 
  \begin{itemize}
- \item Reject $H_0$ if $\{x_1, \ldots, x_n\} \in R_n$ 
- \item Do not reject $H_0$ if $\{x_1, \ldots, x_n\} \notin R_n$ 
+ \item Reject $H_0$ if $\{X_1, \ldots, X_n\} \in R_n$ 
+ \item Do not reject $H_0$ if $\{X_1, \ldots, X_n\} \notin R_n$ 
  \end{itemize} 
 \end{itemize}
 \end{frame}
@@ -207,8 +207,8 @@ and $R_n = \{(x_1, \ldots, x_n\} : \min_{\theta \geq \theta_0} |T(\bar{X}, \thet
 
 \begin{frame}{Example 2: Exponential Distribution IV} 
 \begin{eqnarray*} 
- \sup_{\theta^* \geq \theta_0} P(\bar{X} < \theta_0(1 - bn^{-1/2}))  &=& \sup_{\theta^* \geq \theta_0} P\left(\bar{X}/\theta^* < \frac{\theta_0(1 - bn^{-1/2})}{\theta^*}\right)  \\ 
-&=& P\left(\bar{X}/\theta^* < \frac{(1 - bn^{-1/2})}{\theta^*}\right)  \\ 
+ \sup_{\theta^* \geq \theta_0} P(\bar{X} < \theta_0(1 - bn^{-1/2}))  &=& \sup_{\theta^* \geq \theta_0} P\left(\frac{\bar{X}}{\theta^*} < \frac{\theta_0(1 - bn^{-1/2})}{\theta^*}\right)  \\ 
+&=& P\left(\frac{\bar{X}}{\theta^*} < \frac{(1 - bn^{-1/2})}{\theta^*}\right)  \\ 
 &=& P\left(\frac{\sqrt{n}(\bar{X} - \theta^*)}{\theta^*} < - b\right)  \\ 
 &\xrightarrow[n \rightarrow \infty]{} & P(\xi < -b) \\ 
 &=& P(\xi > b) = 1 - P(\xi \leq b),
