@@ -22,7 +22,7 @@
 
 \section{Introduction} 
 
-This session is about parametric estimation. It is recommended that you create a file called e.g. Lab3.R and work from this file by copying and pasting into the R interpreter. Alternatively, you can try using an IDE such as R Studio (\url{http://www.rstudio.com/}) or Eclipse (\url{http://www.walware.de/goto/statet}) to make things easier. 
+This session is about parametric estimation. It is recommended that you create a file called e.g. \texttt{Lab3.R} and work from this file by copying and pasting into the R interpreter. Alternatively, you can try using an IDE such as R Studio (\url{http://www.rstudio.com/}) or Eclipse (\url{http://www.walware.de/goto/statet}) to make things easier. 
 
 \section{Comparison of Estimators} 
 
@@ -31,7 +31,6 @@ Let $X_1, \ldots, X_n$ be continuous random variables sampled i.i.d. Suppose tha
 \begin{displaymath} 
 p(\theta + x) = p(\theta - x), \quad \forall x \in \mathbb{R}. 
 \end{displaymath}
-
 The aim of this exercise is to study the properties of the following estimators of $\theta$, notably the mean, median, and mid-range 
 
 \begin{displaymath}
@@ -84,7 +83,7 @@ est=location_estimator(X,5)
 \end{lstlisting}
 \item What does the matrix \texttt{est} correspond to? 
 
-\item Complete the function by adding in some code to compute $\hat{\theta}_3$. Will the estimator $\hat{\theta}_3$ converge? 
+\item Complete the function by adding in some code to compute $\hat{\theta}_3$ (use \texttt{cummin} and \texttt{cummax}). Will the estimator $\hat{\theta}_3$ converge? 
 \end{enumerate}
 
 \item Let's now try to compare the 3 estimators by generating $N$ samples of $n$ observations following the distribution $\mathcal{N}(5,4)$. For each sample we compute each estimator and this gives us $N$ values per estimator. We trace the boxplots of the estimators.  
