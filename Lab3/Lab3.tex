@@ -95,9 +95,9 @@ X=matrix(rnorm(N*n,mean=5,sd=2),N,n)
 theta1=apply(X,1,mean)
 theta2=apply(X,1,median)
 theta3=(apply(X,1,min)+apply(X,1,max))/2
-}
 par(bg="cornsilk",lwd=2,col="darkblue")
 boxplot(theta1,theta2,theta3,col="cyan")
+}
 \end{lstlisting}
 What does the function \texttt{apply} do? 
 
