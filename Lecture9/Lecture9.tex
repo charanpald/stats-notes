@@ -22,7 +22,7 @@
 \title{Statistics and the Analysis of Data\\ Lecture 9: Hypothesis Testing}
 \author{Charanpal Dhanjal \\ \texttt{charanpal@gmail.com}} 
 \institute{\'{E}cole des Ponts}
-\date{28th January 2014}
+\date{4th February 2014}
 
 \begin{document}
 
@@ -220,20 +220,6 @@ where $\xi \sim \mathcal{N}(0, 1)$.
 \begin{itemize} 
  \item To get a confidence level $b = q^N_{1-\alpha}$ 
 \item Therefore reject null hypothesis $H_0: \theta^* \geq \theta_0$ iff $\bar{X} < \theta_0(1 - \frac{q_{1-\alpha}^N}{\sqrt{n}}) $
-\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}{Exercise I} 
-We have a set of observations $X_1, \ldots, X_n$ from distribution $P_{\theta^*}$ where $\theta^* \in \mathbb{R}$ and  $P_{\theta^*}$ has the density function 
-\begin{displaymath} 
-p(\theta^*, x) = \frac{1}{2} \exp^{-|x - \theta^*|}, \quad \forall x \in \mathbb{R} 
-\end{displaymath}
-\begin{itemize} 
- \item Show that the above is a density function and that the median of the sample is the MLE of $\theta^*$ 
- \item Show that the empirical mean of the sample is consistent estimator and asymptotically Normal for $\theta^*$ 
- \item Suppose that $n$ is large and $X_1, \ldots, X_n$ are iid of density $p$ whose median is $\theta^*$. Given the empirical median is written $\hat{Me}$ show that $2p(\theta^*)\sqrt{n}(\hat{Me} - \theta^*) \xrightarrow[n \rightarrow \infty]{\mathcal{L}} \mathcal{N}(0, 1)$ 
 \end{itemize}
 \end{frame}
 
