@@ -1,0 +1,71 @@
+
+\documentclass{beamer}
+
+\usepackage{beamerthemesplit}
+\usepackage[utf8x]{inputenc}
+\usepackage{pgf}
+\usepackage{default}
+\usepackage{url}
+\usepackage{subfigure}
+\usepackage{algorithmic} 
+\usepackage{algorithm} 
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{mathtools}
+
+\usetheme{Singapore}
+
+\input{../include/CsdMacros}
+\graphicspath{{./Figures/}}
+
+\title{Statistics and the Analysis of Data\\ Practice Questions}
+\author{Charanpal Dhanjal \\ \texttt{charanpal@gmail.com}} 
+\institute{\'{E}cole des Ponts}
+\date{4th February 2014}
+
+\begin{document}
+
+\frame{\titlepage}
+
+
+\begin{frame}{Exercise I}
+To measure the dependence of age on cardio-vascular risk, 12 patients are observed, for which we record the age in years ($X$) and the dosage of a protein called D-dimer ($Y$). We give the following quantities: 
+\begin{eqnarray*}
+\sum x_i =596; \sum x_i^2 = 32435; \sum y_i = -5.2; \\ 
+ \sum y_i^2 = 4.3; \sum x_i y_i = -188.58  
+\end{eqnarray*}
+\begin{enumerate} 
+ \item Calculate the correlation coefficient between $X$ and $Y$. 
+ \item Calculate the equation for linear regression of $Y$ on $X$. 
+ \item What is the predicted value of $Y$ for for a person of 60 years old? 
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise II-a}
+A village by the sea wants to protect itself from flooding caused by tide, wind using a seawall. The seawall has already been submerged multiple times.  Let the current year be $0$ and let's say a random variable $X_i$ is the maximal height of water (from the base of the seawall) during year $i$, $i \geq 1$. Assume $X_i$ are indepdendent and from a distribution $X$ with a CDF of $F(x) = P(X \leq x)$. We assume that $F$ is continuous and strictly increasing in the range $[0, \infty)$ in $[0, 1)$. 
+\end{frame}
+
+\begin{frame}{Exercise II-b} 
+Denote $Z_n$ as the maximum water height in the $n$ previous years. 
+\begin{enumerate}
+ \item Express the event $P(Z_n \leq x)$ as a function of $F$. 
+ \item The village wants to increase the height of the seawall to the optimal height so that it protects against flooding without costing too much. Determine the minimum height $h_\alpha$ the seawall can be such that the probability of it being submerged once in $n$ years is $\leq \alpha$.  
+ \item Show graphically how we can obtain $h_\alpha$ from $F$. 
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Exercise III} 
+We have a set of observations $X_1, \ldots, X_n$ from distribution $P_{\theta^*}$ where $\theta^* \in \mathbb{R}$ and  $P_{\theta^*}$ has the density function 
+\begin{displaymath} 
+p(\theta^*, x) = \frac{1}{2} \exp^{-|x - \theta^*|}, \quad \forall x \in \mathbb{R} 
+\end{displaymath}
+\begin{itemize} 
+ \item Show that the above is a density function and that the median of the sample is the MLE of $\theta^*$ (assume $\min_Q \sum_i |X_i - Q| = med(X_1,\ldots,X_n)$)  
+ \item Show that the empirical mean of the sample is consistent estimator and asymptotically normal for $\theta^*$ 
+\end{itemize}
+\end{frame}
+
+
+\end{document}
