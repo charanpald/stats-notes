@@ -160,7 +160,7 @@
  \end{itemize} 
  \item Reject $H_0$ if 
  \begin{displaymath} 
- \frac{\sqrt{n}(\bar{X} - \theta)}{\sqrt{\theta(1- \theta)}} > b \Leftrightarrow |\bar{X} - 0.1| < \frac{0.3b}{\sqrt{n}} 
+ \frac{\sqrt{n}(\bar{X} - \theta)}{\sqrt{\theta(1- \theta)}} > b \Leftrightarrow |\bar{X} - 0.1| > \frac{0.3b}{\sqrt{n}} 
  \end{displaymath}
 \item We do not reject $H_0$ if the above is not satisfied 
 \end{itemize}
@@ -175,7 +175,7 @@
 \item Want to test $H_0: \theta^* \geq \theta_0$ against $H_1: \theta^* < \theta_0$ with $\theta_0 = 5$ 
 \item Use MLE of $\theta^*$ which is $\bar{X}$ we can show that 
 \begin{displaymath} 
- \sqrt{n}(\bar{X} - \theta^*) \xrightarrow[n \rightarrow \infty]{\mathcal{L}} \mathcal{N}(0, \theta^*)^2
+ \sqrt{n}(\bar{X} - \theta^*) \xrightarrow[n \rightarrow \infty]{\mathcal{L}} \mathcal{N}(0, (\theta^*)^2)
 \end{displaymath}
 \end{itemize}
 \end{frame}
@@ -186,7 +186,7 @@
 \begin{displaymath} 
 T(\bar{X}, \theta) = \frac{\sqrt{n}(\bar{X} - \theta)}{\theta}
 \end{displaymath}
-and $R_n = \{(x_1, \ldots, x_n\} : \min_{\theta \geq \theta_0} |T(\bar{X}, \theta) | > b$ 
+and $R_n = \{(x_1, \ldots, x_n\} : \min_{\theta \geq \theta_0} |T(\bar{X}, \theta) | > b\}$ 
 \item Therefore 
 \begin{eqnarray*} 
 |T(\bar{X}, \theta) | > b &\Rightarrow& |\theta^{-1} \bar{X} - 1| > bn^{-1/2} \quad \forall \theta \geq \theta_0 \\ 
