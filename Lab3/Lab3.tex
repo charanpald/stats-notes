@@ -119,10 +119,10 @@ Which estimator do you prefer?
 
 \section{Confidence Intervals} 
 
-In this case we observe a sample $x_1, \ldots, x_n$ distributed using a normal distribution with mean $\mu \in \mathbb{R}$ and $\sigma > 0$. The aim is to determine a confidence interval of level 95\% for $\mu$ and study the properties of the interval. We know that $\mu$ and $\sigma^2$ are estimated using the empirical mean and variance without bias. 
+In this case we observe a sample $x_1, \ldots, x_n$ distributed using a normal distribution with mean $\mu \in \mathbb{R}$ and $\sigma > 0$. The aim is to determine a confidence interval of level 95\% for $\mu$ and study the properties of the interval. We know that $\mu$ and $\sigma^2$ are estimated using the empirical mean $\bar{x}$ and unbiased variance $s_n^2 = \frac{1}{n-1} \sum_i (x_i - \bar{x})^2$. 
 
 \begin{enumerate}
- \item Theory says that the following random variable $T_n = \frac{(\hat{X}-\mu)\sqrt{n}}{S_n}$ follows a student distribution with $n-1$ degrees of freedom (see Proposition 4.1 of the polycopy). We want to find some empirical confirmation of the results. To do so, we generate $N$ samples of size $n$ of the normally distributed observations. For each sample we calculate $T_n$. This gives us a series $t_n^1, \ldots, t_n^N$. 
+ \item Theory says that the following random variable $T_n = \frac{(\bar{x}-\mu)\sqrt{n}}{s_n}$ follows a student distribution with $n-1$ degrees of freedom (see Proposition 4.1 of the polycopy). We want to find some empirical confirmation of the results. To do so, we generate $N$ samples of size $n$ of the normally distributed observations. For each sample we calculate $T_n$. This gives us a series $t_n^1, \ldots, t_n^N$. 
 \begin{lstlisting}
 check_student=function(N,n,mu,sigma)
 {
@@ -146,7 +146,7 @@ curve(dt(x,n-1),add=T,lwd=2)
 \item Let $a$ and $b$ be values obtained from the previous question. If $T$ is a random variable distributed using the students distribution, what is the probability $P(T \in [a, b])$? 
 \item Verify that $T_n \in [a, b]$ is equivalent to 
 \begin{equation}
-\mu \in \left[\bar{X} - \frac{S_n b}{\sqrt{n}}, \bar{X} - \frac{S_n a}{\sqrt{n}} \right] \label{eqn:student} 
+\mu \in \left[\bar{x} - \frac{s_n b}{\sqrt{n}}, \bar{x} - \frac{s_n a}{\sqrt{n}} \right] \label{eqn:student} 
 \end{equation}
 What is the percentage of samples (amongst the $N$ generated) that the above equation is satisfied? 
 \end{enumerate}
@@ -170,7 +170,7 @@ and we suppose that $X$ follows a Gaussian distribution. We want to determine a 
 
 \section{Maximum Likelihood Estimation} 
 
-The aim of this exercise is to learn how to use the command \texttt{mle} in order to calculate the maximum likelihood estimation of a specific parametric model. We will illustrate the use of this command using a gamma distribution. A random variable $X$ follows a gamma distribution with a parameter $a > 0$ and a scale parameter $\sigma > -$ if $X$ is continuous and has a density of 
+The aim of this exercise is to learn how to use the command \texttt{mle} in order to calculate the maximum likelihood estimation of a specific parametric model. We will illustrate the use of this command using a gamma distribution. A random variable $X$ follows a gamma distribution with a parameter $a > 0$ and a scale parameter $\sigma > 0$ if $X$ is continuous and has a density of 
 \begin{equation} 
  p_X(x, a, \sigma) = \frac{x^{a-1}}{\sigma^a\Gamma(a)} e^{-x/\sigma}  \mathbbm{1}_{(0, \infty)}(x), 
 \end{equation}
@@ -214,7 +214,7 @@ summary(fit)
 What are the estimations for $a$ and $\sigma$? 
 \item The \texttt{mle} command not only calculates MLE but can also be used to derive confidence intervals as wells as the covariance matrices. 
 \begin{lstlisting}
- vcov(fit)
+vcov(fit)
 par(mfrow=c(2,1),bg="cornsilk",col="blue",lwd=2)
 plot(profile(fit), absVal=FALSE)
 confint(fit,level=0.95)
